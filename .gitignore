@@ -11,4 +11,6 @@ GabeColle/GabeColle/Release/
 GabeColle/GabeColle/GabeColle.vcxproj
 GabeColle/GabeColle/GabeColle.vcxproj.filters
 GabeColle/GabeColle/GabeColle.vcxproj.user
-GabeColle/GabeColle/GabeColle_log.html
+#GabeColle/GabeColle/GabeColle_log.html
+
+*_log.html
