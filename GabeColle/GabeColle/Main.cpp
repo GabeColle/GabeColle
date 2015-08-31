@@ -1,14 +1,23 @@
 ﻿
 # include <Siv3D.hpp>
 
+#include"Source\Scene\Sample\Sample.h"
+
 void Main()
 {
-	const Font font(30);
+	SceneManager<String, GameData> manager(SceneManagerOption::None);
 
-	while (System::Update())
-	{
-		font(L"ようこそ、Siv3D の世界へ！").draw();
+	// SceneManagerOption::ShowSceneName を外せばシーン名のデバッグ表示は消える
+	//MyApp manager;
 
-		Circle(Mouse::Pos(), 50).draw({ 255, 0, 0, 127 });
+	// フェードイン・アウト時の色
+	manager.setFadeColor(Palette::White);
+
+	// シーンを設定
+	manager.add<Sample>(L"Sample");
+
+	while (System::Update()) {
+		if (!manager.updateAndDraw())
+			break;
 	}
 }
