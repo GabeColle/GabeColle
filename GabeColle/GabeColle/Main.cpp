@@ -6,7 +6,9 @@
 
 void Main()
 {
-	Window::SetVirtualFullscreen(Point(1366, 768));
+	Window::SetStyle(WindowStyle::NonFrame); 
+	Window::Resize(1280, 720);
+	Window::Centering();
 
 	SceneManager<String, GameData> manager(SceneManagerOption::None);
 
