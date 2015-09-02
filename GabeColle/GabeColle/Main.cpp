@@ -2,6 +2,7 @@
 # include <Siv3D.hpp>
 
 #include"Source\Scene\Sample\Sample.h"
+#include"Source\Utility\Button\Button.h"
 
 void Main()
 {
