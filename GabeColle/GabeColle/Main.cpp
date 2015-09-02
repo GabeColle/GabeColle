@@ -2,13 +2,15 @@
 # include <Siv3D.hpp>
 
 #include"Source\Scene\Sample\Sample.h"
+#include"Source\Scene\Start\Start.h"
 
 void Main()
 {
-	SceneManager<String, GameData> manager(SceneManagerOption::None);
+	Window::SetStyle(WindowStyle::NonFrame); 
+	Window::Resize(1280, 720);
+	Window::Centering();
 
-	// SceneManagerOption::ShowSceneName を外せばシーン名のデバッグ表示は消える
-	//MyApp manager;
+	SceneManager<String, GameData> manager(SceneManagerOption::None);
 
 	// フェードイン・アウト時の色
 	manager.setFadeColor(Palette::White);
