@@ -6,8 +6,8 @@
 
 void Main()
 {
-	//Window::SetVirtualFullscreen(Point(1366, 768));
-	Window::Maximize();
+	Window::SetVirtualFullscreen(Point(1366, 768));
+
 	SceneManager<String, GameData> manager(SceneManagerOption::None);
 
 	// フェードイン・アウト時の色
