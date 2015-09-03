@@ -4,18 +4,28 @@
 #include<HamFramework.hpp>
 
 #include"../GameData.h"
+#include"CountUpEffect.h"
 
 class Result :
 	public SceneManager<String, GameData>::Scene
 {
 private:
+	const int fontSize;
+	const double circleRadius;
 	const Font resultText;
 	const String resultSentence = L"Time\nSegmentation Fault\n処理したプロセス\n総合得点";
-	const int testTime = 500;
-	const int testError = 1000;
-	const int testProcess = 50;
-	const int testScore = 10000000;
-	const String resultValues = Format(testTime,L"\n",testError,L"\n",testProcess,L"\n",testScore);
+	Circle circle_stage_m = Circle(Window::Center(),circleRadius);
+	Circle circle_time_m = Circle(circle_stage_m.center.x/2,circle_stage_m.center.y/2, circleRadius);
+	Circle circle_error_m = Circle((Window::Width() + circle_stage_m.center.x) / 2, circle_time_m.y, circleRadius);
+	Circle circle_process_m = Circle(circle_time_m.x, (Window::Height() + circle_stage_m.center.y) / 2, circleRadius);
+	Circle circle_totalScore_m = Circle(circle_error_m.x, circle_process_m.y, circleRadius);
+	CountUpEffect* countedVariable_time;
+	CountUpEffect* countedVariable_error;
+	CountUpEffect* countedVariable_process;
+	CountUpEffect* countedVariable_totalScore;
+
+
+
 
 public:
 	Result();
