@@ -24,6 +24,7 @@ Button::~Button()
 void Button::update()
 {
 	changeState();
+
 	switch (state_m) {
 	case start::Button::PRESSED:
 		break;

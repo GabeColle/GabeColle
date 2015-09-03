@@ -3,6 +3,8 @@
 #include<Siv3D.hpp>
 #include<HamFramework.hpp>
 
+#include<map>
+
 #include"../GameData.h"
 #include"Button.h"
 
@@ -20,7 +22,10 @@ private:
 	Button_t config_m;
 	Button_t twitter_m;
 	Font const font_m;
-	std::list<Button_t> buttons_m;
+	std::map<String, Button_t> buttons_m;
+	std::map<String, GUI> guis_m;
+
+	void initButtons();
 public:
 	Start();
 	// クラスの初期化時に一度だけ呼ばれる（省略可）
