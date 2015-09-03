@@ -1,7 +1,8 @@
 ﻿
 # include <Siv3D.hpp>
 
-#include"Source\Scene\Sample\Sample.h"
+#include "Source\Scene\Sample\Sample.h"
+#include "Source\Scene\Result\Result.h"
 
 void Main()
 {
@@ -14,7 +15,7 @@ void Main()
 	manager.setFadeColor(Palette::White);
 
 	// シーンを設定
-	manager.add<Sample>(L"Sample");
+	manager.add<Result>(L"Result");
 
 	while (System::Update()) {
 		if (!manager.updateAndDraw())
