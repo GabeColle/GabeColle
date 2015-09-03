@@ -4,7 +4,7 @@
 #include<HamFramework.hpp>
 
 #include<map>
-
+#include<thread>
 #include"../GameData.h"
 #include"Button.h"
 
@@ -15,15 +15,12 @@ private:
 	typedef std::shared_ptr<start::Button> Button_t;
 
 	Texture logo_m;
-	Button_t start_m;
-	Button_t quit_m;
-	Button_t rule_m;
-	Button_t description_m;
-	Button_t config_m;
-	Button_t twitter_m;
-	Font const font_m;
+	Font const titleFont_m;
+	String title_m;
 	std::map<String, Button_t> buttons_m;
 	std::map<String, GUI> guis_m;
+
+	std::thread twitter_m;
 
 	void initButtons();
 public:

@@ -8,7 +8,7 @@ Button::Button(Rect const &rect, String text, String soundName)
 		FontAsset::Register(L"ButtonFont", 32);
 	}
 	if (!SoundAsset::IsRegistered(soundName)) {
-		SoundAsset::Register(soundName, soundName + L".mp3");
+		SoundAsset::Register(soundName, soundName);
 	}
 
 	rect_m = RoundRect(rect, 8);
@@ -62,7 +62,6 @@ void Button::changeState()
 			frame_m = 0;
 		}
 	}
-	Println(ToString(static_cast<int>(state_m)) + ToString(frame_m));
 	++frame_m;
 }
 
