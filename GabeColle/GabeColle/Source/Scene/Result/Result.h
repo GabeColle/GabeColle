@@ -12,7 +12,9 @@ class Result :
 private:
 	const int fontSize;
 	const double circleRadius;
+	const Texture backGround;
 	const Font resultText;
+	const Font stageNameText;
 	const String resultSentence = L"Time\nSegmentation Fault\n処理したプロセス\n総合得点";
 	Circle circle_stage_m = Circle(Window::Center(),circleRadius);
 	Circle circle_time_m = Circle(circle_stage_m.center.x/2,circle_stage_m.center.y/2, circleRadius);
@@ -23,6 +25,8 @@ private:
 	CountUpEffect* countedVariable_error;
 	CountUpEffect* countedVariable_process;
 	CountUpEffect* countedVariable_totalScore;
+
+	void expandCircle(Circle circle, int frame, int delayFrame, Color color)const;
 
 
 

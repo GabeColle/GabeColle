@@ -22,7 +22,7 @@ void CountUpEffect::countUp()
 
 void CountUpEffect::draw(int x,int y)const
 {
-	font(Format(counter_m)).draw(x,y,Palette::Red);
+	font(Format(counter_m)).drawCenter(Vec2(x,y),Palette::Red);
 }
 
 

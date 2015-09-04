@@ -2,6 +2,9 @@
 
 struct GameData
 {
+	// ステージ名またはステージの番号
+	// テスト用データが入っている
+	String stageName = L"Stage1";
 	// ステージクリアにかかった時間(フレーム数)
 	// テスト用データが入っている
 	int time = 1024;
@@ -11,7 +14,7 @@ struct GameData
 	// 消したオブジェクトの数
 	// テスト用データが入っている
 	int numOfDeletedObject = 2049;
-	// テスト用データが入っている
 	// 総合スコア(換算にはtimeとnumOfErrorとnumOfDeletedObjectを使う)
+	// テスト用データが入っている
 	int totalScore = 4098;
 };
