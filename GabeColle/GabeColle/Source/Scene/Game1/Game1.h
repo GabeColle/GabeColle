@@ -2,6 +2,9 @@
 
 #include <Siv3D.hpp>
 #include <HamFramework.hpp>
+#include <vector>
+#include <list>
+#include <algorithm>
 
 #include "../GameData.h"
 #include "../../GC/Memory.h"
@@ -19,5 +22,7 @@ public:
 	void update() override;
 	void draw() const override;
 private:
-	void drawMemory(gc::Memory<CircleObject> &memory);
+	void drawMemory() const;
+	std::vector<int> getExistAddress();
+	void randomLink(int allocAddress);
 };
