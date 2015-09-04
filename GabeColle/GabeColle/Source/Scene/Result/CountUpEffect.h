@@ -14,8 +14,10 @@ private:
 	int countRange_m;
 	// •`‰æ—p
 	const Font font;
+	// •`‰æˆÊ’u
+	Vec2 position_m;
 public:
-	CountUpEffect(int countedVariable, int frame);
+	CountUpEffect(int countedVariable, int frame,Vec2 position);
 	void countUp();
-	void draw(int x,int y)const;
+	void draw()const;
 };

@@ -14,10 +14,12 @@ private:
 	int frame_m;
 	// 現在のフレーム数
 	int currentFrame_m;
+	// 伸び始めるまでのフレーム数
+	int delayFrame_m;
 	// 矢印が伸びる速度
 	Vec2 extendVelocity_m;
 public:
-	ExtendArrowEffect(Line line, int frame_m);
+	ExtendArrowEffect(Line line, int frame_m,int delayFrame_m);
 	void update();
 	void draw();
 };
