@@ -1,6 +1,6 @@
 #include"CountUpEffect.h"
 
-CountUpEffect::CountUpEffect(int countedVariable, int frame, Vec2 position) : font(30)
+CountUpEffect::CountUpEffect(int countedVariable, int frame, Vec2 position) : font(60)
 {
 	countedVariable_m = countedVariable;
 	counter_m = 0;
@@ -23,7 +23,7 @@ void CountUpEffect::countUp()
 
 void CountUpEffect::draw()const
 {
-	font(Format(counter_m)).drawCenter(position_m,Palette::Red);
+	font(Format(counter_m)).drawCenter(position_m,Palette::White);
 }
 
 

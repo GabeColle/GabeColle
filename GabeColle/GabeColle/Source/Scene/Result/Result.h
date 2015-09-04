@@ -7,7 +7,7 @@
 #include"CountUpEffect.h"
 #include"ExpandCircleEffect.h"
 #include"ExtendArrowEffect.h"
-#include"FeedInAndDescendStringEffect.h"
+#include"FadeInAndDescendStringEffect.h"
 
 class Result :
 	public SceneManager<String, GameData>::Scene
@@ -31,7 +31,7 @@ private:
 	CountUpEffect* countups[4];
 	ExpandCircleEffect* circles[5];
 	ExtendArrowEffect* arrows[4];
-	FeedInAndDescendStringEffect* texts[4];
+	FadeInAndDescendStringEffect* texts[4];
 
 public:
 	Result();

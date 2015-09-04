@@ -2,7 +2,7 @@
 
 #include<Siv3D.hpp>
 
-class FeedInAndDescendStringEffect{
+class FadeInAndDescendStringEffect{
 private:
 	// 降臨させる文字
 	String descendedString_m;
@@ -10,6 +10,8 @@ private:
 	int frame_m;
 	// 現在のフレーム数
 	int currentFrame_m;
+	// エフェクトを適用するフレーム数
+	int delayFrame_m;
 	// 現在の位置
 	Vec2 currentPosition_m;
 	// 描画位置
@@ -23,7 +25,7 @@ private:
 	// 描画用フォント
 	const Font font_m;
 public:
-	FeedInAndDescendStringEffect(String str, int frame, Vec2 position);
+	FadeInAndDescendStringEffect(String str, int frame, int delayFrame, Vec2 position);
 	void update();
 	void draw();
 };

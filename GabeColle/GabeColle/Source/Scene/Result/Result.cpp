@@ -23,10 +23,10 @@ void Result::init()
 	arrows[2] = new ExtendArrowEffect(Line(circle_stage_m.center, circle_process_m.center), 30, 60);
 	arrows[3] = new ExtendArrowEffect(Line(circle_stage_m.center, circle_totalScore_m.center), 30, 70);
 
-	texts[0] = new FeedInAndDescendStringEffect(L"Time", 30, circle_time_m.center);
-	texts[1] = new FeedInAndDescendStringEffect(L"Errors", 30, circle_error_m.center);
-	texts[2] = new FeedInAndDescendStringEffect(L"DeletedProcesses", 30, circle_process_m.center);
-	texts[3] = new FeedInAndDescendStringEffect(L"Score", 30, circle_totalScore_m.center);
+	texts[0] = new FadeInAndDescendStringEffect(L"Time", 30, 40, Vec2(circle_time_m.center.x,circle_time_m.center.y+circleRadius));
+	texts[1] = new FadeInAndDescendStringEffect(L"Errors", 30, 50, Vec2(circle_error_m.center.x,circle_error_m.center.y+circleRadius));
+	texts[2] = new FadeInAndDescendStringEffect(L"Processes", 30, 60, Vec2(circle_process_m.center.x,circle_process_m.center.y+circleRadius));
+	texts[3] = new FadeInAndDescendStringEffect(L"Score", 30, 70, Vec2(circle_totalScore_m.center.x,circle_totalScore_m.center.y+circleRadius));
 
 }
 
