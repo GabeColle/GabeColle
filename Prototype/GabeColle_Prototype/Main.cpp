@@ -32,6 +32,12 @@ struct Title : MyApp::Scene
 	void update() override
 	{
 		gui.update(m);
+
+		for (int i(1); i < m.size(); ++i) {
+			if (!m.hasExpired(i) && Circle(m.access(i).center(), 40.0).leftClicked) {
+				m.free(i);
+			}
+		}
 	}
 
 	// 毎フレーム update() の次に呼ばれる
