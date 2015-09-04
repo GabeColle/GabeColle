@@ -22,9 +22,9 @@ public:
 private:
 	std::vector<DerivedObject> memory_m;
 	Relation relation_m;
-	Error error_m;
+	Error mutable error_m;
 private:
-	void check(Address_t address)
+	void check(Address_t address)const
 	{
 		if (hasExpired(address)) {
 			++error_m.segmentationFault_m;
@@ -41,9 +41,8 @@ public:
 	*コンストラクタ
 	*@param size 生成できる最大のオブジェクト数
 	*/
-	Memory(int size) : relation_m(size)
+	Memory(int size) : relation_m(size), memory_m(std::vector<DerivedObject>(size))
 	{
-		memory_m = std::move(std::vector<DerivedObject>(size));
 		memory_m[0].construct();
 	}
 
@@ -69,7 +68,7 @@ public:
 	*/
 	void free(Address_t address)
 	{
-		Marking const map = mark();
+		Marking const &&map = mark();
 		if (address != 0) {
 			for (Address_t i(0); i < size(); ++i) {
 				unlink(address, i);
@@ -78,6 +77,7 @@ public:
 				if (!map.isMarked(i)) {
 					unlink(i, address);
 				}
+				unlink(i, address);
 			}
 			memory_m[address].destruct();
 		}
@@ -127,7 +127,7 @@ public:
 	*addressのオブジェクトが破棄されているか調べる
 	*@return 破棄されている場合真
 	*/
-	bool hasExpired(Address_t address)
+	bool hasExpired(Address_t address)const
 	{
 		return !memory_m[address].exists();
 	}
@@ -138,6 +138,18 @@ public:
 	*@return オブジェクトの参照
 	*/
 	DerivedObject &access(Address_t address)
+	{
+		check(address);
+		assert(0 < address && address < size());
+		return memory_m[address];
+	}
+
+	/**
+	*addressのオブジェクトを参照する
+	*@param address
+	*@return オブジェクトの参照
+	*/
+	DerivedObject const &access(Address_t address)const
 	{
 		check(address);
 		assert(0 < address && address < size());
@@ -165,7 +177,7 @@ public:
 	*@return 今までに発生したエラー
 	*@see Error
 	*/
-	Error error()const
+	Error const &error()const
 	{
 		return error_m;
 	}
@@ -174,6 +186,14 @@ public:
 	*@return ルートオブジェクトの参照
 	*/
 	DerivedObject &root()
+	{
+		return memory_m[0];
+	}
+
+	/**
+	*@return ルートオブジェクトの参照
+	*/
+	DerivedObject const &root()const
 	{
 		return memory_m[0];
 	}
