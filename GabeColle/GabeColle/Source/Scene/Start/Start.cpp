@@ -1,7 +1,7 @@
-#include "Start.h"
+#include"Start.h"
 #include<thread>
 
-using namespace start;
+using namespace clickable;
 
 Start::Start()
 	:titleFont_m(Font(120))
@@ -36,8 +36,8 @@ void Start::update()
 // –ˆƒtƒŒ[ƒ€ update() ‚ÌŽŸ‚ÉŒÄ‚Î‚ê‚é
 void Start::draw() const
 {
-	titleFont_m(title_m).draw(80.0, 120.0, Palette::Black);
-	logo_m.scale(0.4).drawAt(Window::Width() - 250, 250);
+	//titleFont_m(title_m).draw(80.0, 120.0, Palette::Black);
+	logo_m.scale(0.4).drawAt(Window::Center().movedBy(0, -120));
 	buttons_m.at(L"Start")->draw();
 	buttons_m.at(L"Quit")->draw();
 	buttons_m.at(L"Twitter")->draw();
