@@ -5,6 +5,8 @@
 
 #include"../GameData.h"
 #include"CountUpEffect.h"
+#include"ExpandCircleEffect.h"
+#include"ExtendArrowEffect.h"
 
 class Result :
 	public SceneManager<String, GameData>::Scene
@@ -25,11 +27,8 @@ private:
 	CountUpEffect* countedVariable_error;
 	CountUpEffect* countedVariable_process;
 	CountUpEffect* countedVariable_totalScore;
-
-	void expandCircle(Circle circle, int frame, int delayFrame, Color color)const;
-
-
-
+	ExpandCircleEffect* circles[5];
+	ExtendArrowEffect* arrows[4];
 
 public:
 	Result();
