@@ -15,6 +15,7 @@ void Main()
 	manager.setFadeColor(Palette::White);
 
 	// シーンを設定
+	manager.add<Start>(L"Start");
 	manager.add<Sample>(L"Sample");
 
 	while (System::Update()) {
