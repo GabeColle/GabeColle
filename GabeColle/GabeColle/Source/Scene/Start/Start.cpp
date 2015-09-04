@@ -4,14 +4,16 @@
 using namespace clickable;
 
 Start::Start()
-	:titleFont_m(Font(120))
+	:titleFont_m(Font(120)), sakuras_m(100)
 {}
 
 // クラスの初期化時に一度だけ呼ばれる（省略可）
 void Start::init()
 {
 	Graphics::SetBackground(Palette::Whitesmoke);
+
 	logo_m = Texture(L"Asset/Image/GabeColle.png");
+	back_m = Texture(L"Asset/Image/曇り気味の青空.png");
 	title_m = L"ガベこれ";
 	initButtons();
 }
@@ -37,10 +39,13 @@ void Start::update()
 void Start::draw() const
 {
 	//titleFont_m(title_m).draw(80.0, 120.0, Palette::Black);
+	back_m.draw();
 	logo_m.scale(0.4).drawAt(Window::Center().movedBy(0, -120));
 	buttons_m.at(L"Start")->draw();
 	buttons_m.at(L"Quit")->draw();
 	buttons_m.at(L"Twitter")->draw();
+	std::for_each(sakuras_m.begin(), sakuras_m.end(),
+		[] (SakuraTexture const &s) { s.draw(); });
 }
 
 void Start::initButtons()
