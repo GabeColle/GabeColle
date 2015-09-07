@@ -22,7 +22,7 @@ Button::~Button()
 
 void Button::update()
 {
-	ClickableBase<RoundRect>::update();// changeState();
+	ClickableBase<RoundRect>::update();
 
 	switch (state_m) {
 	case clickable::Button::PRESSED:

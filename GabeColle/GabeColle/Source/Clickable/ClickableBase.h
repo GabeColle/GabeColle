@@ -64,7 +64,7 @@ public:
 	{
 		changeState();
 	}
-	virtual void draw()
+	virtual void draw()const
 	{
 		switch (state_m) {
 		case PRESSED:
