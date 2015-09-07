@@ -1,10 +1,22 @@
 #include"PluralAnimation.h"
 
-PluralAnimation::PluralAnimation(CountUpEffect* countup, ExpandCircleEffect* expand, ExtendArrowEffect* extend, FadeInAndDescendStringEffect* feedin, int delayFrame)
+PluralAnimation::PluralAnimation(int frame, int delayFrame)
 {
-	countup_m = countup;
-	expand_m = expand;
-	extend_m = extend;
-	feedin_m = feedin;
-	int delayFrame_m = delayFrame;
+	frame_m = frame;
+	delayFrame_m = delayFrame;
+}
+
+void PluralAnimation::init()
+{
+
+}
+
+void PluralAnimation::pluralPlay()
+{
+	if (delayFrame_m == 0){
+	}
+	else{
+		delayFrame_m--;
+	}
+	
 }

@@ -33,10 +33,10 @@ void Result::init()
 // 毎フレーム updateAndDraw() で呼ばれる
 void Result::update()
 {
-	//countedVariable_time->countUp();
-	//countedVariable_error->countUp();
-	//countedVariable_process->countUp();
-	//countedVariable_totalScore->countUp();
+	countedVariable_time->countUp();
+	countedVariable_error->countUp();
+	countedVariable_process->countUp();
+	countedVariable_totalScore->countUp();
 	for (int i = 0; i < 5; ++i){
 		circles[i]->update();
 	}
@@ -45,7 +45,6 @@ void Result::update()
 		countups[i]->countUp();
 		texts[i]->update();
 	}
-
 }
 
 // 毎フレーム update() の次に呼ばれる

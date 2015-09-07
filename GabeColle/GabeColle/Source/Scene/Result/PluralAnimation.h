@@ -8,13 +8,15 @@
 
 class PluralAnimation{
 private:
-	CountUpEffect* countup_m;
-	ExpandCircleEffect* expand_m;
-	ExtendArrowEffect* extend_m;
-	FadeInAndDescendStringEffect* feedin_m;
-
+	int frame_m;
 	int delayFrame_m;
+
+	CountUpEffect* countups[4];
+	ExpandCircleEffect* circles[5];
+	ExtendArrowEffect* arrows[4];
+	FadeInAndDescendStringEffect* texts[4];
 public:
-	PluralAnimation(CountUpEffect*, ExpandCircleEffect*, ExtendArrowEffect*, FadeInAndDescendStringEffect*, int delayFrame);
+	PluralAnimation(int frame, int delayFrame);
+	void init();
 	void pluralPlay();
 };

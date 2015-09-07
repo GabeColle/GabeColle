@@ -1,7 +1,8 @@
 #include"FadeInAndDescendStringEffect.h"
 
-FadeInAndDescendStringEffect::FadeInAndDescendStringEffect(String str, int frame, int delayFrame, Vec2 position) : font_m(50)
+FadeInAndDescendStringEffect::FadeInAndDescendStringEffect(String str, int frame, int delayFrame, Vec2 position)
 {
+	font_m(60);
 	descendedString_m = str;
 	frame_m = frame;
 	currentFrame_m = 0;
