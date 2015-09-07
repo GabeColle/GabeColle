@@ -4,7 +4,7 @@
 using namespace clickable;
 
 Start::Start()
-	:titleFont_m(Font(120)), sakuras_m(100)
+	:titleFont_m(Font(120)), sakuras_m(50)
 {}
 
 // クラスの初期化時に一度だけ呼ばれる（省略可）
@@ -33,20 +33,24 @@ void Start::update()
 			Twitter::OpenTweetWindow, L"ガベこれをプレイ中\nhttp://jumpaku.hatenablog.com/entry/2015/09/04/001226");
 		twitter_m.detach();
 	}
+
+	std::for_each(sakuras_m.begin(), sakuras_m.end(), [] (SakuraTexture &s)
+	{
+		s.update();
+	});
 }
 
 // 毎フレーム update() の次に呼ばれる
 void Start::draw() const
 {
-	//titleFont_m(title_m).draw(80.0, 120.0, Palette::Black);
 	back_m.draw();
+	std::for_each(sakuras_m.begin(), sakuras_m.end(),
+		[] (SakuraTexture const &s) { s.draw(); });
 	logo_m.scale(0.4).drawAt(Window::Center().movedBy(0, -120));
 	buttons_m.at(L"Start")->draw();
 	buttons_m.at(L"Quit")->draw();
 	buttons_m.at(L"Twitter")->draw();
-	std::for_each(sakuras_m.begin(), sakuras_m.end(),
-		[] (SakuraTexture const &s) { s.draw(); });
-}
+	}
 
 void Start::initButtons()
 {
