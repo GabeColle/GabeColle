@@ -6,7 +6,7 @@
 namespace clickable{
 
 class CircleObject :
-	public ClickableBase<Circle>, gc::Object
+	public ClickableBase<Circle>, public gc::Object
 {
 	enum ObjectState
 	{
@@ -17,7 +17,7 @@ class CircleObject :
 	};
 	ObjectState objectState_m = EXPAIRED;
 	int objectFrame_m = 0;
-	void changeOobjectState();
+	void changeObjectState();
 
 	static String const FONT_ASSET_NAME;
 	
@@ -27,10 +27,12 @@ class CircleObject :
 	void drawOver(Circle shape, String const &text, int frame)const override;
 	void drawLeft(Circle shape, String const &text, int frame)const override;
 	void drawClicked(Circle shape, String const &text, int frame)const override;
+	bool isClicked()const override;
 public:
-	void draw()const;
-	void update();
+	void draw()const override;
+	void update() override;
 	void alloc(int address);
+	Vec2 center()const;
 	void free();
 	CircleObject();
 	~CircleObject() = default;

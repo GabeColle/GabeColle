@@ -11,8 +11,8 @@ CircleObject::CircleObject()
 
 void CircleObject::alloc(int address)
 {
-	shape_m = address == 0 ? Circle(Window::Center(), 30.0) :
-		Circle(RandomVec2(1280, 720), 20.0);
+	shape_m = address == 0 ? 
+		Circle(Window::Center(), 40.0) : Circle(RandomVec2({ 0, 1280 }, { 0, 720 }), 30.0);
 	text_m = ToString(address);
 	objectState_m = ALLOCED;
 	objectFrame_m = 0;
@@ -24,7 +24,11 @@ void CircleObject::free()
 	objectFrame_m = 0;
 }
 
-void CircleObject::changeOobjectState()
+Vec2 CircleObject::center()const
+{
+	return shape_m.center;
+}
+void CircleObject::changeObjectState()
 {
 	++objectFrame_m;
 	if (objectState_m == EXPAIRED) {}
@@ -32,17 +36,23 @@ void CircleObject::changeOobjectState()
 		objectState_m = EXISTS;
 		objectFrame_m = 0;
 	}
-	else if(objectState_m == EXISTS){}
+	else if(objectState_m == EXISTS && state_m == CLICKED){
+	}
 	else if (objectState_m == FREED && objectFrame_m > 30) {
 		objectState_m = EXPAIRED;
 		objectFrame_m = 0;
 	}
 }
 
+bool CircleObject::isClicked()const
+{
+	return state_m == CLICKED && frame_m == 1;
+}
+
 void CircleObject::update()
 {
 	ClickableBase<Circle>::update();
-	changeOobjectState();
+	changeObjectState();
 }
 
 void CircleObject::draw()const
