@@ -1,25 +1,14 @@
 ﻿
 # include <Siv3D.hpp>
 
-#include "Source\Scene\Sample\Sample.h"
-#include "Source\Scene\Result\Result.h"
-
 void Main()
 {
-	Window::SetStyle(WindowStyle::NonFrame); 
-	Window::Resize(1280, 720);
-	Window::Centering();
+	const Font font(30);
 
-	SceneManager<String, GameData> manager(SceneManagerOption::None);
+	while (System::Update())
+	{
+		font(L"ようこそ、Siv3D の世界へ！").draw();
 
-	// フェードイン・アウト時の色
-	manager.setFadeColor(Palette::White);
-
-	// シーンを設定
-	manager.add<Result>(L"Result");
-
-	while (System::Update()) {
-		if (!manager.updateAndDraw())
-			break;
+		Circle(Mouse::Pos(), 50).draw({ 255, 0, 0, 127 });
 	}
 }
