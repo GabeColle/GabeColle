@@ -13,7 +13,7 @@ private:
 	// カウンターの上がり幅
 	int countRange_m;
 	// 描画用
-	const Font font;
+	const Font font_m;
 	// 描画位置
 	Vec2 position_m;
 public:

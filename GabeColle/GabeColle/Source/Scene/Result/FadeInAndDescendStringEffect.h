@@ -23,7 +23,7 @@ private:
 	// 不透明度の上げ幅
 	int increaseTransparencyRange_m;
 	// 描画用フォント
-	const Font font_m;
+	Font font_m;
 public:
 	FadeInAndDescendStringEffect(String str, int frame, int delayFrame, Vec2 position);
 	void update();
