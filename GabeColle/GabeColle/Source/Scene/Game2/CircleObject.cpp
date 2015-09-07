@@ -1,5 +1,6 @@
 #include "CircleObject.h"
 
+using namespace game2;
 
 Vec2 CircleObject::center()const
 {

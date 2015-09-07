@@ -2,6 +2,8 @@
 #include "../../GC\Object.h"
 #include <Siv3D.hpp>
 
+namespace game2{
+
 class CircleObject : public gc::Object
 {
 	double x_m;
@@ -12,3 +14,5 @@ public:
 	void x(double x);
 	void y(double y);
 };
+
+}

@@ -2,6 +2,8 @@
 #include"../../GC\Memory.h"
 #include"CircleObject.h"
 
+using namespace game2;
+
 Controller::Controller() :gui_m(GUIStyle::Default)
 {
 	gui_m.setCenter(Window::Center());

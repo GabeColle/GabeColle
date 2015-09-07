@@ -3,6 +3,8 @@
 #include <Siv3D.hpp>
 #include"../../GC\Memory.h"
 
+namespace game2{
+
 template<class DerivedObject>
 class Memory;
 class CircleObject;
@@ -14,3 +16,5 @@ public:
 	Controller();
 	void update(gc::Memory<CircleObject> &memory);
 };
+
+}

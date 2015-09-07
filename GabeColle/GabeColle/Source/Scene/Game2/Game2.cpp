@@ -1,16 +1,90 @@
 #include "Game2.h"
 
+using namespace game2;
+
+void drawMemory(gc::Memory<CircleObject> const &memory);
+
 // クラスの初期化時に一度だけ呼ばれる（省略可）
 void Game2::init()
 {
-	memory_m.root().center({ 150.0, Window::Height() / 2.0 });
+	// ルートを画面中央に
+	memory_m.root().center(rootPos);
+
+	time_m = 0;
+	count_m = 0;
+	radius_m = 250;
+
+	garbage_m = 0;
+
+	lap_m = 0;
+	type = Type::type1;
+	state = State::draw;
 }
 
 // 毎フレーム updateAndDraw() で呼ばれる
 void Game2::update()
 {
-	gui.update(memory_m);
+	time_m++; 
 
+	if (button_m.leftClicked()){
+		garbage_m = Game2GabeColle<game2::CircleObject>::gc(memory_m);
+		//gc::GarbageCollection<CircleObject>::gc(memory_m);
+		//Game2GabeColle<CircleObject>::gc(memory_m);
+		//gc::GarbageCollection<CircleObject>::gc(memory_m);
+	}
+	gui.update(memory_m);
+	
+	if (time_m % (8 ) == 0){
+		
+		bool isOutOfMemory = false;
+		double rad = count_m * 20 * Pi / 180;
+
+		switch (state)
+		{
+		case State::draw:
+			radius_m = Random(200, 300);
+			isOutOfMemory = !allocAndReferenceFromRoot({ rootPos.x + radius_m * cos(rad), rootPos.y + radius_m * sin(rad) });
+
+			break;
+		case State::MtoM:
+			memory_m.link(count_m, Random(18));
+
+			break;
+		case State::erase:
+			if (Random(4)){
+				memory_m.unlink(0, count_m);
+			}
+			break;
+		default:
+			break;
+		}
+
+		if (!isOutOfMemory){
+			count_m++;
+		}
+
+		if (count_m % 18 == 0){
+			lap_m++;
+			//radius_m += 50;
+			count_m = 0;
+			switch (state)
+			{
+			case State::draw:
+				state = State::MtoM;
+				break;
+			case State::MtoM:
+				state = State::erase;
+				break;
+			case State::erase:
+				state = State::tmp;
+				break;
+			default:
+				break;
+			}
+		}		
+	}
+
+	//クリックでメモリ解放
 	for (int i(1); i < memory_m.size(); ++i) {
 		if (!memory_m.hasExpired(i) && Circle(memory_m.access(i).center(), 40.0).leftClicked) {
 			memory_m.free(i);
@@ -18,13 +92,17 @@ void Game2::update()
 	}
 }
 
-
-void drawMemory(gc::Memory<CircleObject> const &memory);
-
 // 毎フレーム update() の次に呼ばれる
 void Game2::draw() const
 {
+	ClearPrint();
+	Println(Format(L"TIME ",time_m));
+	Println(Format(L"COUNT ", count_m));
+	Println(Format(L"LAP", lap_m));
+	Println(Format(L"Garbage", garbage_m));
+
 	drawMemory(memory_m);
+	button_m.draw();
 }
 
 void drawMemory(gc::Memory<CircleObject> const &memory)
@@ -87,9 +165,23 @@ void drawMemory(gc::Memory<CircleObject> const &memory)
 	}
 }
 
-void Game2::alloc(){
+int Game2::alloc(Vec2 pos){
 	int p = memory_m.alloc();
 	if (p != 0) {
-		memory_m.access(p).center(RandomVec2({ 200, 600 }, { 50, Window::Height() - 50 }));
+		memory_m.access(p).center(pos);
 	}
+	return p;
+}
+
+bool Game2::allocAndReferenceFromRoot(Vec2 pos){
+	return allocAndRefetenceMemoryToMemory(0, pos);
+}
+
+bool Game2::allocAndRefetenceMemoryToMemory(int address_t, Vec2 pos){
+	int m = alloc(pos);
+	if (m){
+		memory_m.link(address_t, m);
+		return true;
+	}
+	return false;
 }
