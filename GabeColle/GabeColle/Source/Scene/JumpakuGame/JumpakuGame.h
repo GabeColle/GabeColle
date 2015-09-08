@@ -39,11 +39,13 @@ class JumpakuGame :
 	int rootLinkInterval_m = 60;
 	int unlinkInterval_m = 1;
 
+	int deletes_m = 0;
 	void initButtons();
 
 	void updateError();
 	void updateObjects();
 	void checkState();
+	void saveScore();
 public:
 	// クラスの初期化時に一度だけ呼ばれる（省略可）
 	void init() override;

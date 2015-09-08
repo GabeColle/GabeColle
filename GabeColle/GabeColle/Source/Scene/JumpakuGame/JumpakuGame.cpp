@@ -68,6 +68,7 @@ void JumpakuGame::updateObjects()
 		if (!memory_m.hasExpired(i) && memory_m.access(i).isClicked()) {
 			memory_m.access(i).finalize();
 			memory_m.free(i);
+			++deletes_m;
 		}
 	}
 	//link,unlink	
@@ -157,13 +158,10 @@ void JumpakuGame::drawMemory()const
 void JumpakuGame::checkState()
 {
 	auto e = memory_m.error();
-	if (e.outOfMemory_m > 0) {
-		state_m = OUT_OF_MEMORY;
+	if (e.outOfMemory_m > 0 || e.segmentationFault_m > 0) {
+		state_m = e.outOfMemory_m > 0 ? OUT_OF_MEMORY : SEGMENTATION_FAULT;
 		initButtons();
-	}
-	else if (e.segmentationFault_m > 0) {
-		state_m = SEGMENTATION_FAULT;
-		initButtons();
+		saveScore();
 	}
 }
 
@@ -191,4 +189,14 @@ void JumpakuGame::initButtons()
 	};
 	addButton(Window::Center().movedBy(0, 140), L"Garbage Collection", L"Asset/SoundEffect/Decision.mp3");
 	addButton(Window::Center().movedBy(0, 230), L"Result", L"Asset/SoundEffect/Decision.mp3");
+}
+
+void JumpakuGame::saveScore()
+{
+	auto const &e = memory_m.error();
+	m_data->numOfError = e.addressOutOfBounds_m + e.nullptrAccess_m + e.outOfMemory_m + e.segmentationFault_m;
+	m_data->stageName = L"Stage0";
+	m_data->numOfDeletedObject = deletes_m;
+	m_data->time = frame_m;
+	m_data->totalScore = e.outOfMemory_m * -3000 + e.segmentationFault_m * -4000 + deletes_m*50 + frame_m * 5;
 }
