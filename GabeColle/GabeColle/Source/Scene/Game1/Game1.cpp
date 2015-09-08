@@ -3,19 +3,14 @@
 
 const double Game1::MEMORY_RADIUS = 40.0;
 const double Game1::ROOT_RADIUS = 50.0;
-const int Game1::POSITION_NUM_X = 11;
-const int Game1::POSITION_NUM_Y = 5;
-const int Game1::POSITION_MARGIN_X = 24;
-const int Game1::POSITION_MARGIN_Y = 40;
 
-Game1::Game1() : memory_m(100  + 1), positionList_m(0)
-{
-	initializePositionList();  
+Game1::Game1() : memory_m(100 + 1), positionList_m()
+{  
 }
 
 void Game1::init()
 {
-	memory_m.root().setCenter(Window::Center());
+	memory_m.root().setCenter(positionList_m.getRootPos());
 }
 
 void Game1::update()
@@ -23,16 +18,13 @@ void Game1::update()
 	static int count = 0;
 	static const Font font(20);
 
-	font(L"SegmentationFault : " + ToString(memory_m.error().segmentationFault_m)).draw(0, 0);
+	font(L"Segmentation Fault	: " + ToString(memory_m.error().segmentationFault_m)).draw(10, 0);
+	font(L"Out of Memory		: " + ToString(memory_m.error().outOfMemory_m)).draw(10, 30);
 
-	if(count > -1) {
+	if(count > 30) {
 		int address = memory_m.alloc();
 		if(address != 0) {
-			int randomIndex = Random(positionList_m.size() - 1);
-			auto itr = positionList_m.begin();
-			for(int i(0); i < randomIndex; ++i, ++itr);
-			memory_m.access(address).setCenter(*itr);
-			positionList_m.erase(itr);
+			memory_m.access(address).setCenter(positionList_m.getRandomPos());
 			randomLink(address);
 		}
 		count = 0;
@@ -40,8 +32,8 @@ void Game1::update()
 	++count;
 	for(int i(1); i < memory_m.size(); ++i) {
 		if(!memory_m.hasExpired(i) && Circle(memory_m.access(i).getCenter(), 40.0).leftClicked) {
-			positionList_m.push_back(memory_m.access(i).getCenter());
-			memory_m.free(i); 
+			positionList_m.restoreRandomPos(memory_m.access(i).getCenter());
+			memory_m.free(i);
 		}
 	}
 }
@@ -136,14 +128,4 @@ std::vector<int> Game1::getExistAddress()
 	}
 	std::vector<int> numVector(numList.begin(), numList.end());
 	return numVector;
-}
-
-void Game1::initializePositionList()
-{
-	for(int i(0); i < POSITION_NUM_X; ++i) {
-		for(int j(0); j < POSITION_NUM_Y; ++j) {
-			if(i == POSITION_NUM_X / 2 && j == POSITION_NUM_Y / 2)  continue;
-			positionList_m.push_back(Vec2(40 + (i + 1) * 2 * MEMORY_RADIUS + i * POSITION_MARGIN_X, 40 + (j + 1) * 2 * MEMORY_RADIUS + j * POSITION_MARGIN_Y));
-		}
-	}
 }
