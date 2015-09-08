@@ -17,7 +17,10 @@ void Main()
 	manager.setFadeColor(Palette::White);
 
 	// シーンを設定
-	manager.add<game2::Game2>(L"Game2");
+	
+	manager.add<Game2>(L"Game2");
+	manager.add<Game2Hard>(L"Game2Hard");
+	manager.add<Game2Easy>(L"Game2Easy");
 	manager.add<Start>(L"Start");
 	manager.add<Sample>(L"Sample");
 	

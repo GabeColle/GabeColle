@@ -6,20 +6,17 @@
 #include"../GameData.h"
 
 #include"../../GC/Memory.h"
-//#include"Game2Memory.h"
 #include"CircleObject.h"
 #include"../../Utility/Button/Button.h"
-
-namespace game2{
 
 class Game2 :
 	public SceneManager<String, GameData>::Scene
 {
-private:
-	gc::Memory<CircleObject> memory_m;
+protected:
+	gc::Memory<game2::CircleObject> memory_m;
 	Button button_m;
 
-	const int NUM_OF_MEMORY = 18;
+	int NUM_OF_MEMORY = 12; 
 
 	unsigned int time_m;
 	unsigned int count_m;
@@ -59,4 +56,6 @@ private:
 	void seekSegmentFault();
 };
 
-}
+
+#include"Game2Easy.h"
+#include"Game2Hard.h"

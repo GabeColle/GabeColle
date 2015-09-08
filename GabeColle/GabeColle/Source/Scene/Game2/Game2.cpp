@@ -1,7 +1,7 @@
 #include "Game2.h"
 #include"Game2GabeColle.h"
 
-namespace game2{
+using namespace game2;
 
 void drawMemory(gc::Memory<CircleObject> const &memory);
 
@@ -26,7 +26,7 @@ void Game2::update()
 		if (System::FrameCount() % 6 == 0)
 		{
 			bool isOutOfMemory = false;
-			double rad = count_m * 20 * Pi / 180;
+			double rad = count_m * 360.0/ NUM_OF_MEMORY *Pi /180 ;
 			int radius = Random(200, 300);
 
 			switch (state)
@@ -38,7 +38,7 @@ void Game2::update()
 				memory_m.link(count_m, Random(NUM_OF_MEMORY));
 
 			break; case State::erase:
-				if (Random(4)){
+				if (Random(NUM_OF_MEMORY/3)){
 					memory_m.unlink(0, count_m);
 				}
 			break;
@@ -80,7 +80,7 @@ void Game2::draw() const
 
 //クリックでメモリ解放
 void Game2::freeByInput(){
-	for (int i(1); i < memory_m.size(); ++i) {
+	for (int i(1); i <= NUM_OF_MEMORY; ++i) {
 		if (!memory_m.hasExpired(i) && Circle(memory_m.access(i).center(), 40.0).leftClicked) {
 			memory_m.free(i);
 		}
@@ -90,9 +90,9 @@ void Game2::freeByInput(){
 //セグメントフォルトをカウントし、参照を消す
 void Game2::seekSegmentFault(){
 
-	for (int i = 1; i < memory_m.size(); ++i) {
+	for (int i = 1; i <= NUM_OF_MEMORY; ++i) {
 		if (memory_m.hasExpired(i)) {
-			for (int j = 0; j < memory_m.size(); ++j) {
+			for (int j = 0; j <= NUM_OF_MEMORY; ++j) {
 				if (memory_m.getRelation().areLinked(j, i)){
 					segmentFault_m++;
 					memory_m.unlink(j, i);
@@ -195,4 +195,3 @@ bool Game2::allocAndRefetenceMemoryToMemory(int address_t, Vec2 pos){
 	return false;
 }
 
-}
