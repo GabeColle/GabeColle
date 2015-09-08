@@ -6,15 +6,18 @@
 #include<map>
 #include<thread>
 #include"../GameData.h"
-#include"Button.h"
+#include"../../Clickable/Button.h"
+#include"SakuraTexture.h"
 
 class Start :
 	public SceneManager<String, GameData>::Scene
 {
 private:
-	typedef std::shared_ptr<start::Button> Button_t;
+	typedef std::shared_ptr<clickable::Button> Button_t;
 
 	Texture logo_m;
+	Texture back_m;
+	std::list<SakuraTexture> sakuras_m;
 	Font const titleFont_m;
 	String title_m;
 	std::map<String, Button_t> buttons_m;

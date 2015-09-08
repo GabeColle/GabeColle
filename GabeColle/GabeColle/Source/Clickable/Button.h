@@ -4,7 +4,7 @@
 
 #include "ClickableBase.h"
 
-namespace start {
+namespace clickable {
 
 class Button :
 	public ClickableBase<RoundRect>

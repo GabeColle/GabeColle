@@ -1,13 +1,13 @@
 
 #include "Button.h"
 
-using namespace start;
+using namespace clickable;
 
 Button::Button(Rect const &rect, String text, String soundName)
 	:ClickableBase(RoundRect(rect, 8), text)
 {
-	if (!FontAsset::IsRegistered(L"ButtonFont")) {
-		FontAsset::Register(L"ButtonFont", 32);
+	if (!FontAsset::IsRegistered(FONT_ASSET_NAME)) {
+		FontAsset::Register(FONT_ASSET_NAME, 32);
 	}
 	if (!SoundAsset::IsRegistered(soundName)) {
 		SoundAsset::Register(soundName, soundName);
@@ -20,19 +20,18 @@ Button::Button(Rect const &rect, String text, String soundName)
 Button::~Button()
 {}
 
-
 void Button::update()
 {
-	ClickableBase<RoundRect>::update();// changeState();
+	ClickableBase<RoundRect>::update();
 
 	switch (state_m) {
-	case start::Button::PRESSED:
+	case clickable::Button::PRESSED:
 		break;
-	case start::Button::OVER:
+	case clickable::Button::OVER:
 		break;
-	case start::Button::LEFT:
+	case clickable::Button::LEFT:
 		break;
-	case start::Button::CLICKED:
+	case clickable::Button::CLICKED:
 		if (frame_m == 2) {
 			SoundAsset(soundName_m).play();
 		}

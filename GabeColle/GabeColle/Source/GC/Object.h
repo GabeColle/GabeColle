@@ -11,7 +11,7 @@ class Object
 	template<class DerivedObject>
 	friend class Memory;
 
-	bool exists_m;
+	bool exists_m = false;
 private:
 	bool exists()const;
 	void construct();
