@@ -25,6 +25,7 @@ void CircleObject::initialize(int address)
 	objectFrame_m = 0;
 	clickedInterval_m = 10;
 }
+
 void CircleObject::finalize()
 {
 	frame_m = clickedInterval_m + 1;
@@ -63,18 +64,22 @@ void CircleObject::update()
 
 void CircleObject::draw()const
 {
-	double v = 1.0;// (std::min)(
-	//	1.0, static_cast<double>(objectFrame_m*5) / static_cast<double>(clickedInterval_m));
+	static double const A = 1.0;
+	static double const B = 0.3;
+	double x = 
+		static_cast<double>(objectFrame_m) / static_cast<double>(clickedInterval_m);
+	double v = (std::max)(0.0, (std::min)(1.0, (std::min)(A*x + B, -1.0 * A *x + A + B)));
+	
 	switch (objectState_m) {
 	case CircleObject::ALLOCED:
 		ClickableBase<Circle>::draw();
 		FontAsset(FONT_ASSET_NAME).drawCenter(
-			L"NEW", shape_m.center.movedBy(0.0, -40.0), HSV(240, 0.5, v));
+			L"NEW", shape_m.center.movedBy(0.0, -40.0), HSV(240, 0.7, v));
 		break;
 	case CircleObject::FREED:
 		ClickableBase<Circle>::draw();
 		FontAsset(FONT_ASSET_NAME).drawCenter(
-			L"DELETE", shape_m.center.movedBy(0.0, 20.0), HSV(300, 0.5, v));
+			L"DELETE", shape_m.center.movedBy(0.0, 45.0), HSV(300, 0.7, v));
 		break;
 	case CircleObject::EXISTS:
 		ClickableBase<Circle>::draw();
@@ -89,25 +94,25 @@ void CircleObject::draw()const
 
 void CircleObject::drawPressed(Circle shape, String const &text, int frame)const
 {
-	shape.draw(HSV(0, 0.5, 1.0));
+	shape.draw(HSV(0, 0.7, 1.0)).drawFrame(1.0, 0.0, HSV(0, 1.0, 1.0));
 	FontAsset(FONT_ASSET_NAME).drawCenter(text, shape.center);
 }
 
 void CircleObject::drawOver(Circle shape, String const &text, int frame)const
 {
-	shape.draw(HSV(0, 0.5, 0.9));
+	shape.draw(HSV(0, 0.7, 0.9)).drawFrame(1.0, 0.0, HSV(0, 1.0, 0.9));
 	FontAsset(FONT_ASSET_NAME).drawCenter(text, shape.center);
 }
 
 void CircleObject::drawLeft(Circle shape, String const &text, int frame)const
 {
-	shape.draw(HSV(0, 0.5, 0.8));
+	shape.draw(HSV(0, 0.7, 0.8)).drawFrame(1.0, 0.0, HSV(0, 1.0, 0.8));
 	FontAsset(FONT_ASSET_NAME).drawCenter(text, shape.center);
 }
 
 void CircleObject::drawClicked(Circle shape, String const &text, int frame)const
 {
-	shape.draw(HSV(0, 0.5, 0.5));
+	shape.draw(HSV(0, 0.7, 0.5)).drawFrame(1.0, 0.0, HSV(0, 1.0, 0.5));
 	FontAsset(FONT_ASSET_NAME).drawCenter(text, shape.center);
 }
 

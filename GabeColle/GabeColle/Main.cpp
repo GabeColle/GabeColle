@@ -10,7 +10,7 @@ void Main()
 	Window::SetStyle(WindowStyle::NonFrame); 
 	Window::Resize(1280, 720);
 	Window::Centering();
-
+	
 	SceneManager<String, GameData> manager(SceneManagerOption::None);
 
 	// フェードイン・アウト時の色
