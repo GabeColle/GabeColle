@@ -4,8 +4,8 @@ using namespace clickable;
 
 CircleObject::CircleObject()
 {
-	if (!FontAsset::IsRegistered(L"CircleFont")) {
-		FontAsset::Register(L"CircleFont", 32);
+	if (!FontAsset::IsRegistered(FONT_ASSET_NAME)) {
+		FontAsset::Register(FONT_ASSET_NAME, 24);
 	}
 }
 
@@ -123,4 +123,4 @@ bool CircleObject::isFreed()const
 	return objectState_m == FREED;
 }
 
-String const CircleObject::FONT_ASSET_NAME(L"ButtonFont");
+String const CircleObject::FONT_ASSET_NAME(L"CircleObjectFont");

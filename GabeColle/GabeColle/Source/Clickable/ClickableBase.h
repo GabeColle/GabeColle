@@ -4,12 +4,13 @@
 #include<Siv3D.hpp>
 
 #include"Clickable.h"
+#include"../Utility/Visibility.h"
 
 namespace clickable {
 
 template<class Shape>
 class ClickableBase :
-	public clickable::Clickable
+	public clickable::Clickable, public Visibility
 {
 protected:
 	enum State
@@ -25,8 +26,6 @@ protected:
 	State state_m = LEFT;
 	Shape shape_m;
 	String text_m;
-
-	bool isVisible_m = false;
 
 	virtual void changeState()
 	{
@@ -63,18 +62,6 @@ public:
 	}
 	virtual ~ClickableBase() = default;
 
-	virtual void show()
-	{
-		isVisible_m = true;
-	}
-	virtual void hide()
-	{
-		isVisible_m = false;
-	}
-	virtual bool isVisible()const
-	{
-		return isVisible_m;
-	}
 	virtual void update()
 	{
 		changeState();

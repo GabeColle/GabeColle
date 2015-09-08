@@ -6,8 +6,8 @@ using namespace clickable;
 Button::Button(Rect const &rect, String text, String soundName)
 	:ClickableBase(RoundRect(rect, 8), text)
 {
-	if (!FontAsset::IsRegistered(L"ButtonFont")) {
-		FontAsset::Register(L"ButtonFont", 32);
+	if (!FontAsset::IsRegistered(FONT_ASSET_NAME)) {
+		FontAsset::Register(FONT_ASSET_NAME, 32);
 	}
 	if (!SoundAsset::IsRegistered(soundName)) {
 		SoundAsset::Register(soundName, soundName);

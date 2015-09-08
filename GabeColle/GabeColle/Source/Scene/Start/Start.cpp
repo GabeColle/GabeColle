@@ -50,7 +50,7 @@ void Start::draw() const
 	buttons_m.at(L"Start")->draw();
 	buttons_m.at(L"Quit")->draw();
 	buttons_m.at(L"Twitter")->draw();
-	}
+}
 
 void Start::initButtons()
 {
