@@ -1,8 +1,9 @@
 #pragma once
 
-#include<Siv3D.hpp>
+#include <Siv3D.hpp>
+#include "NodeEffect.h"
 
-class ExtendArrowEffect{
+class ExtendArrowEffect : public NodeEffect{
 private:
 	// 出発点
 	Vec2 originalPoint_m;
@@ -10,16 +11,10 @@ private:
 	Vec2 arrivalPoint_m;
 	// 現在のポイント
 	Vec2 currentPoint_m;
-	// 到着に要するフレーム数
-	int frame_m;
-	// 現在のフレーム数
-	int currentFrame_m;
-	// 伸び始めるまでのフレーム数
-	int delayFrame_m;
 	// 矢印が伸びる速度
 	Vec2 extendVelocity_m;
 public:
 	ExtendArrowEffect(Line line, int frame_m,int delayFrame_m);
 	void update();
-	void draw();
+	void draw()const;
 };

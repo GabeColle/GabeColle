@@ -7,10 +7,10 @@ Result::Result() : fontSize(30), resultText(fontSize), circleRadius(100), stageN
 void Result::init()
 {
 	Graphics::SetBackground(Palette::Silver);
-	countups[0] = new CountUpEffect(this->m_data->time, 60,circle_time_m.center);
-	countups[1] = new CountUpEffect(this->m_data->numOfError, 60,circle_error_m.center);
-	countups[2] = new CountUpEffect(this->m_data->numOfDeletedObject, 60,circle_process_m.center);
-	countups[3] = new CountUpEffect(this->m_data->totalScore, 60,circle_totalScore_m.center);
+	countups[0] = new CountUpEffect(this->m_data->time, 60,10,circle_time_m.center);
+	countups[1] = new CountUpEffect(this->m_data->numOfError, 60,20,circle_error_m.center);
+	countups[2] = new CountUpEffect(this->m_data->numOfDeletedObject, 60,30,circle_process_m.center);
+	countups[3] = new CountUpEffect(this->m_data->totalScore, 60,40,circle_totalScore_m.center);
 
 	circles[0] = new ExpandCircleEffect(circle_stage_m, 30, 0, Palette::Aqua);
 	circles[1] = new ExpandCircleEffect(circle_time_m, 30, 10, Palette::Darkred);
@@ -42,7 +42,7 @@ void Result::update()
 	}
 	for (int i = 0; i < 4; ++i){
 		arrows[i]->update();
-		countups[i]->countUp();
+		countups[i]->update();
 		texts[i]->update();
 	}
 
@@ -55,8 +55,13 @@ void Result::draw() const
 
 	stageNameText(this->m_data->stageName).drawCenter(circle_stage_m.center, Palette::Azure);
 
+	for (int i = 0; i < 5; ++i){
+		circles[i]->draw();
+	}
 	for (int i = 0; i < 4; ++i){
+		arrows[i]->draw();
 		countups[i]->draw();
+		texts[i]->draw();
 	}
 	//countedVariable_time->draw(circle_time_m.center.x, circle_time_m.center.y);
 	//countedVariable_error->draw(circle_error_m.center.x, circle_error_m.center.y);
