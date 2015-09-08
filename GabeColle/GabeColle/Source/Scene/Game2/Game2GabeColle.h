@@ -22,8 +22,10 @@ public:
 		auto map = super::mark(memory);
 		for (super::Address_t address(1); address < memory.size(); ++address) {
 			if (!map.isMarked(address)) {
-				garbage++;
-				memory.free(address);
+				if (!memory.hasExpired(address)){
+					garbage++;
+					memory.free(address);
+				}
 			}
 		}
 		return garbage;

@@ -6,13 +6,9 @@
 #include"../GameData.h"
 
 #include"../../GC/Memory.h"
-#include"../../GC/GarbageCollection.h"
-
+//#include"Game2Memory.h"
 #include"CircleObject.h"
-#include"Controller.h"
-
 #include"../../Utility/Button/Button.h"
-#include"Game2GabeColle.h"
 
 namespace game2{
 
@@ -21,26 +17,27 @@ class Game2 :
 {
 private:
 	gc::Memory<CircleObject> memory_m;
-	Controller gui;
 	Button button_m;
+
+	const int NUM_OF_MEMORY = 18;
 
 	unsigned int time_m;
 	unsigned int count_m;
-	unsigned int lap_m;
-	int radius_m;
-	const Vec2 rootPos = { Window::Width() / 2.0, Window::Height() / 2.0 };
-
 	int garbage_m;
-	
-	enum class Type{
-		type1,type2,type3,
-	}type;
+	int segmentFault_m;
+
+	const Vec2 rootPos = { Window::Width() / 2.0, Window::Height() / 2.0 };	
+
 	enum class State{
-		draw, MtoM ,erase, tmp
+		draw = 0, MtoM ,erase, input, result,
 	}state;
+
 public:
+	//コンストラクタ
 	Game2() : memory_m(19),
 		      button_m(30,L"OK",100,100){};
+
+	//デストラクタ
 	~Game2(){};
 
 	// クラスの初期化時に一度だけ呼ばれる（省略可）
@@ -56,6 +53,10 @@ private:
 	int alloc(Vec2 pos);
 	bool allocAndReferenceFromRoot(Vec2 pos);
 	bool allocAndRefetenceMemoryToMemory(int address_t,Vec2 pos);
+
+	void freeByInput();
+	void countAndChangeState(bool isOutOfMemory);
+	void seekSegmentFault();
 };
 
 }

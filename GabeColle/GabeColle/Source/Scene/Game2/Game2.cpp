@@ -1,6 +1,7 @@
 #include "Game2.h"
+#include"Game2GabeColle.h"
 
-using namespace game2;
+namespace game2{
 
 void drawMemory(gc::Memory<CircleObject> const &memory);
 
@@ -12,82 +13,53 @@ void Game2::init()
 
 	time_m = 0;
 	count_m = 0;
-	radius_m = 250;
-
 	garbage_m = 0;
-
-	lap_m = 0;
-	type = Type::type1;
+	segmentFault_m = 0;
 	state = State::draw;
 }
 
 // 毎フレーム updateAndDraw() で呼ばれる
 void Game2::update()
 {
-	time_m++; 
-
-	if (button_m.leftClicked()){
-		garbage_m = Game2GabeColle<game2::CircleObject>::gc(memory_m);
-		//gc::GarbageCollection<CircleObject>::gc(memory_m);
-		//Game2GabeColle<CircleObject>::gc(memory_m);
-		//gc::GarbageCollection<CircleObject>::gc(memory_m);
-	}
-	gui.update(memory_m);
-	
-	if (time_m % (8 ) == 0){
-		
-		bool isOutOfMemory = false;
-		double rad = count_m * 20 * Pi / 180;
-
-		switch (state)
+	if (static_cast<int> (state) < 3 )
+	{
+		if (System::FrameCount() % 6 == 0)
 		{
-		case State::draw:
-			radius_m = Random(200, 300);
-			isOutOfMemory = !allocAndReferenceFromRoot({ rootPos.x + radius_m * cos(rad), rootPos.y + radius_m * sin(rad) });
+			bool isOutOfMemory = false;
+			double rad = count_m * 20 * Pi / 180;
+			int radius = Random(200, 300);
 
-			break;
-		case State::MtoM:
-			memory_m.link(count_m, Random(18));
-
-			break;
-		case State::erase:
-			if (Random(4)){
-				memory_m.unlink(0, count_m);
-			}
-			break;
-		default:
-			break;
-		}
-
-		if (!isOutOfMemory){
-			count_m++;
-		}
-
-		if (count_m % 18 == 0){
-			lap_m++;
-			//radius_m += 50;
-			count_m = 0;
 			switch (state)
 			{
-			case State::draw:
-				state = State::MtoM;
-				break;
-			case State::MtoM:
-				state = State::erase;
-				break;
-			case State::erase:
-				state = State::tmp;
-				break;
-			default:
-				break;
-			}
-		}		
-	}
+			break; case State::draw:
+				isOutOfMemory = !allocAndReferenceFromRoot({ rootPos.x + radius * cos(rad), rootPos.y + radius * sin(rad) });				
+				
+			break; case State::MtoM:
+				memory_m.link(count_m, Random(NUM_OF_MEMORY));
 
-	//クリックでメモリ解放
-	for (int i(1); i < memory_m.size(); ++i) {
-		if (!memory_m.hasExpired(i) && Circle(memory_m.access(i).center(), 40.0).leftClicked) {
-			memory_m.free(i);
+			break; case State::erase:
+				if (Random(4)){
+					memory_m.unlink(0, count_m);
+				}
+			break;
+			}
+			countAndChangeState(isOutOfMemory);
+		}
+	}
+	else if (state == State::input )
+	{
+		time_m++;
+		freeByInput();
+		seekSegmentFault();
+		if (button_m.leftClicked()){
+			garbage_m = Game2GabeColle<game2::CircleObject>::gc(memory_m);
+			state = State::result;
+		}
+	}
+	else if (state == State::result)
+	{
+		if (Input::MouseL.clicked){
+			changeScene(L"Start", 2000);
 		}
 	}
 }
@@ -98,11 +70,48 @@ void Game2::draw() const
 	ClearPrint();
 	Println(Format(L"TIME ",time_m));
 	Println(Format(L"COUNT ", count_m));
-	Println(Format(L"LAP", lap_m));
 	Println(Format(L"Garbage", garbage_m));
+	Println(Format(L"SegmentFault", segmentFault_m));
+	Println(Format(L"State", static_cast<int>( state )));
 
 	drawMemory(memory_m);
 	button_m.draw();
+}
+
+//クリックでメモリ解放
+void Game2::freeByInput(){
+	for (int i(1); i < memory_m.size(); ++i) {
+		if (!memory_m.hasExpired(i) && Circle(memory_m.access(i).center(), 40.0).leftClicked) {
+			memory_m.free(i);
+		}
+	}
+}
+
+//セグメントフォルトをカウントし、参照を消す
+void Game2::seekSegmentFault(){
+
+	for (int i = 1; i < memory_m.size(); ++i) {
+		if (memory_m.hasExpired(i)) {
+			for (int j = 0; j < memory_m.size(); ++j) {
+				if (memory_m.getRelation().areLinked(j, i)){
+					segmentFault_m++;
+					memory_m.unlink(j, i);
+				}
+			}
+		}
+	}
+}
+
+void Game2::countAndChangeState(bool isOutOfMemory){
+
+	if (!isOutOfMemory){
+	count_m++;
+	}
+
+	if (count_m % NUM_OF_MEMORY == 0){
+		count_m = 0;
+		state = static_cast<State> (static_cast<int>(state)+1);
+	}
 }
 
 void drawMemory(gc::Memory<CircleObject> const &memory)
@@ -184,4 +193,6 @@ bool Game2::allocAndRefetenceMemoryToMemory(int address_t, Vec2 pos){
 		return true;
 	}
 	return false;
+}
+
 }
