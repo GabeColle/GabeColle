@@ -2,27 +2,41 @@
 
 #include <Siv3D.hpp>
 #include <algorithm>
+#include "../../Utility/Button/Button.h"
 
 class RankingWindow{
 private:
-	const int windowWidth = 500;
-	const int windowHeight = 600;
-	const int barWidth = 500;
-	const int barHeight = 50;
+	static const int WINDOW_WITDTH = 500;
+	static const int WINDOW_HEIGHT = 600;
+	static const int BAR_WIDTH = 500;
+	static const int BAR_HEIGHT = 50;
+	static const int LOWEST = 10;
+	static const int BETWEEN_LINE = (WINDOW_HEIGHT - BAR_HEIGHT) / LOWEST;
+
+	static int rankingData_m[4][10];
+	static String titles_m[4];
+
 	String title_m;
 	RoundRect* window;
 	Rect* bar;
-	Line* divideLine[11];
-	const CSVReader reader;
-	const Font font_m[10];
+	Line* divideLine[LOWEST+1];
+	
+	const Font font_m[LOWEST];
 	const Font titleFont;
 	Vec2 titlePosition;
-	Vec2 scorePosition[10];
+	Vec2 scorePosition[LOWEST];
 	Array<int> ranking;
-	int value_m;
 	Rect* ownFilter;
+
+	Button* closeButton_m;
+
+	static void readFromCSV();
+	void constructRankingWindow();
+	void createRanking(int id,int value);
+	int searchPosition(int value);
+	void writeRecord(int id);
 public:
 	RankingWindow(int id,int value);
-	void update();
 	void draw()const;
+	bool pushButton();
 };

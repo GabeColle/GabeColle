@@ -47,5 +47,8 @@ void ResultNode::pushButton()
 	if (node_m->leftPressed){
 		switchRanking = true;
 	}
+	if (ranking->pushButton()){
+		switchRanking = false;
+	}
 
 }

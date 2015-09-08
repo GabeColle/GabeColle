@@ -8,6 +8,7 @@
 #include "FadeInAndDescendStringEffect.h"
 #include "RankingWindow.h"
 
+
 class ResultNode{
 private:
 	static const int circleRadius_m = 100;
