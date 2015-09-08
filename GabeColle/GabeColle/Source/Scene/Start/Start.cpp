@@ -23,6 +23,9 @@ void Start::update()
 	buttons_m.at(L"Quit")->update();
 	buttons_m.at(L"Twitter")->update();
 
+	if (buttons_m.at(L"Start")->isClicked()){
+		changeScene(L"Game2Hard", 200);
+	}
 	if (buttons_m.at(L"Quit")->isClicked()) {
 		System::Exit();
 	}

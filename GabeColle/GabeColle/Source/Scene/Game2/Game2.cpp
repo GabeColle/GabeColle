@@ -3,11 +3,14 @@
 
 using namespace game2;
 
-void drawMemory(gc::Memory<CircleObject> const &memory);
+void drawMemory(gc::Memory<CircleObject> const &memory, int num);
 
 // クラスの初期化時に一度だけ呼ばれる（省略可）
 void Game2::init()
 {
+	SoundAsset(L"Game2_BGM").play();
+	SoundAsset(L"Game2_BGM").setPosSec(1.8);
+	Graphics::SetBackground(Palette::Darkcyan);
 	// ルートを画面中央に
 	memory_m.root().center(rootPos);
 
@@ -22,9 +25,10 @@ void Game2::init()
 // 毎フレーム updateAndDraw() で呼ばれる
 void Game2::update()
 {
+	SoundAsset(L"Game2_BGM").play();
 	if (static_cast<int> (state) < 3 )
 	{
-		if (System::FrameCount() % 6 == 0)
+		if (System::FrameCount() % (108/NUM_OF_MEMORY) == 0)
 		{
 			bool isOutOfMemory = false;
 			double rad = count_m * 360.0/ NUM_OF_MEMORY *Pi /180 ;
@@ -57,14 +61,15 @@ void Game2::update()
 			m_data->error = garbage_m + segmentFault_m;
 			m_data->time = time_m;
 			m_data->process = process_m;
-			m_data->score = 100000 - time_m *2 - garbage_m * 1000 - segmentFault_m * 2000 + process_m * 200;
+			m_data->score = 100000 - time_m *2 - garbage_m * 1000 - segmentFault_m * 5000 + process_m * 100;
 			state = State::result;
 		}
 	}
 	else if (state == State::result)
 	{
 		if (Input::MouseL.clicked){
-			changeScene(L"Start", 2000);
+			SoundAsset(L"Game2_BGM").pause(500);
+			changeScene(L"Start", 500);
 		}
 	}
 }
@@ -86,8 +91,29 @@ void Game2::draw() const
 	Println(Format(L"Score ", m_data->score));
 
 
+	double rad = (double)System::FrameCount() / 80;
+	Color c(Palette::Darkturquoise);//(HSV(180, 0.5, 0.5));
+	Circle(rootPos, 150).drawArc(0.0 + rad*2.3, HalfPi + 0.6, 50, 0, c);
+	Circle(rootPos, 211).drawArc(Pi - rad*2.0, HalfPi + 0.1, 60, 0, c);
+	Circle(rootPos, 211).drawArc(0.0 - rad*2.0, HalfPi + 0.3, 60, 0, c);
+	Circle(rootPos, 282).drawArc(HalfPi + rad*1.7, HalfPi + 0.6, 70, 0, c);
+	Circle(rootPos, 363).drawArc(0.0 - rad*1.4, HalfPi + 0.6, 80, 0, c);
+	Circle(rootPos, 363).drawArc(Pi - rad*1.4, HalfPi + 0.7, 80, 0, c);
+	Circle(rootPos, 454).drawArc(HalfPi + rad*1.1, HalfPi + 0.8, 90, 0, c);
+	Circle(rootPos, 555).drawArc(Pi - rad*0.8, HalfPi + 0.6, 100, 0, c);
+	Circle(rootPos, 555).drawArc(0.0 - rad*0.8, HalfPi + 0.6, 100, 0, c);
+	Circle(rootPos, 666).drawArc(0.0 + rad*0.5, HalfPi*3 + 0.3, 110, 0, c);
 
-	drawMemory(memory_m);
+	const auto fft = FFT::Analyze(SoundAsset(L"Game2_BGM"));
+
+	for (int i = 0; i < Window::Height() / 30 ; ++i)
+	{
+		const double size = Pow(fft.buffer[i*30], 0.6f) * 2000;
+		RectF(0, i * 30 ,size , 29).draw(HSV(240 - i));
+		RectF(Window::Width() - size , i * 30, size, 29).draw(HSV(240 - i));
+	}
+
+	drawMemory(memory_m,NUM_OF_MEMORY);
 	button_m.draw();
 }
 
@@ -119,7 +145,7 @@ void Game2::seekSegmentFault(){
 void Game2::countAndChangeState(bool isOutOfMemory){
 
 	if (!isOutOfMemory){
-	count_m++;
+		count_m++;
 	}
 
 	if (count_m % NUM_OF_MEMORY == 0){
@@ -128,10 +154,10 @@ void Game2::countAndChangeState(bool isOutOfMemory){
 	}
 }
 
-void drawMemory(gc::Memory<CircleObject> const &memory)
+void drawMemory(gc::Memory<CircleObject> const &memory,int num)
 {
 	static Font font;
-	font.drawCenter(L"Root", Circle(memory.root().center(), 50.0).draw(Palette::Aqua).center);
+	font.drawCenter(L"Root", Circle(memory.root().center(), 50.0).draw(HSV(System::FrameCount(),1.0,0.8)/*Palette::Aqua*/).center);
 
 	//オブジェクトを描く
 	auto drawCircle = [&memory](int address)
@@ -140,10 +166,10 @@ void drawMemory(gc::Memory<CircleObject> const &memory)
 		if (!memory.hasExpired(address)) {
 			Circle c = Circle(memory.access(address).center(), r);
 			if (c.mouseOver) {
-				c.draw(Color(Palette::Pink, 128)).drawFrame(0.0, 3.0, Palette::Red);
+				c.draw(Color(Palette::Pink, 245)).drawFrame(0.0, 3.0, Palette::Red);
 			}
 			else {
-				c.draw(Color(Palette::Red, 128)).drawFrame(0.0, 3.0, Palette::Darkred);
+				c.draw(Color(Palette::Red, 245)).drawFrame(0.0, 3.0, Palette::Darkred);
 			}
 			font.drawCenter(ToString(address), c.center);
 		}
@@ -156,34 +182,34 @@ void drawMemory(gc::Memory<CircleObject> const &memory)
 	auto rm = memory.getRelation();
 	for (int j(1); j < memory.size(); ++j) {
 		if (rm.areLinked(0, j)) {
-			Line(memory.root().center(), memory.access(j).center()).drawArrow(4, { 20, 50 }, Color(Palette::Yellow, 128));
+			Line(memory.root().center(), memory.access(j).center()).drawArrow(4, { 20, 50 }, Color(HSV(47 * j )/*Palette::Yellow*/, 128));
 		}
 		else if (rm.areLinked(j, 0))		{
-			Line(memory.access(j).center(), memory.root().center()).drawArrow(4, { 20, 50 }, Color(Palette::Yellow, 128));
+			Line(memory.access(j).center(), memory.root().center()).drawArrow(4, { 20, 50 }, Color(HSV(47 * -j), 128));
 		}
 	}
 
 	//オブジェクト同士の参照を描く
-	auto drawArrow = [&memory](int i, int j)
+	auto drawArrow = [&memory](int i, int j,Color color)
 	{
 		auto const &relation = memory.getRelation();
 		if (relation.areLinked(i, j)) {
 			Vec2 const &iCenter = memory.access(i).center();
 			Vec2 const &jCenter = memory.access(j).center();
-			static Color const clr = Color(Palette::Yellow, 128);
+			//static Color const clr = Color(color , 128);
 			if (i == j) {
-				Circle(Vec2(40.0, -40.0).movedBy(iCenter), 40.0).drawArc(-Math::Pi / 2.0, 3.0 / 2.0 * Math::Pi, 2.0, 2.0, clr);
-				Line(Vec2(0.0, -40.0).movedBy(iCenter), iCenter).drawArrow(4, { 20, 50 }, clr);
-				Line(Vec2(40.0, 0.0).movedBy(iCenter), iCenter).draw(4, clr);
+				Circle(Vec2(40.0, -40.0).movedBy(iCenter), 40.0).drawArc(-Math::Pi / 2.0, 3.0 / 2.0 * Math::Pi, 2.0, 2.0, color);
+				Line(Vec2(0.0, -40.0).movedBy(iCenter), iCenter).drawArrow(4, { 20, 50 }, color);
+				Line(Vec2(40.0, 0.0).movedBy(iCenter), iCenter).draw(4, color);
 			}
 			else {
-				Line(iCenter, jCenter).drawArrow(4, { 20, 50 }, clr);
+				Line(iCenter, jCenter).drawArrow(4, { 20, 50 }, color);
 			}
 		}
 	};
 	for (int i(1); i < memory.size(); ++i) {
 		for (int j(1); j < memory.size(); ++j) {
-			drawArrow(i, j);
+			drawArrow(i, j, Color(HSV(47 * -i ,1.0,1.0),192));
 		}
 	}
 }

@@ -55,6 +55,7 @@ private:
 	void freeByInput();
 	void countAndChangeState(bool isOutOfMemory);
 	void seekSegmentFault();
+
 };
 
 
