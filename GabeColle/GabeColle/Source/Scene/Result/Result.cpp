@@ -7,43 +7,20 @@ Result::Result() : fontSize(30), resultText(fontSize), circleRadius(100), stageN
 void Result::init()
 {
 	Graphics::SetBackground(Palette::Silver);
-	countups[0] = new CountUpEffect(this->m_data->time, 60,10,circle_time_m.center);
-	countups[1] = new CountUpEffect(this->m_data->numOfError, 60,20,circle_error_m.center);
-	countups[2] = new CountUpEffect(this->m_data->numOfDeletedObject, 60,30,circle_process_m.center);
-	countups[3] = new CountUpEffect(this->m_data->totalScore, 60,40,circle_totalScore_m.center);
+	results_m[0] = new ResultNode(this->m_data->time, L"Time", 10, circle_time_m.center);
+	results_m[1] = new ResultNode(this->m_data->numOfError, L"Errors", 20, circle_error_m.center);
+	results_m[2] = new ResultNode(this->m_data->numOfDeletedObject, L"Processes", 30, circle_process_m.center);
+	results_m[3] = new ResultNode(this->m_data->totalScore, L"Score", 40, circle_totalScore_m.center);
 
-	circles[0] = new ExpandCircleEffect(circle_stage_m, 30, 0, Palette::Aqua);
-	circles[1] = new ExpandCircleEffect(circle_time_m, 30, 10, Palette::Darkred);
-	circles[2] = new ExpandCircleEffect(circle_error_m, 30, 20, Palette::Darkred);
-	circles[3] = new ExpandCircleEffect(circle_process_m, 30, 30, Palette::Darkred);
-	circles[4] = new ExpandCircleEffect(circle_totalScore_m, 30, 40, Palette::Darkred);
-
-	arrows[0] = new ExtendArrowEffect(Line(circle_stage_m.center, circle_time_m.center), 30, 40);
-	arrows[1] = new ExtendArrowEffect(Line(circle_stage_m.center, circle_error_m.center), 30, 50);
-	arrows[2] = new ExtendArrowEffect(Line(circle_stage_m.center, circle_process_m.center), 30, 60);
-	arrows[3] = new ExtendArrowEffect(Line(circle_stage_m.center, circle_totalScore_m.center), 30, 70);
-
-	texts[0] = new FadeInAndDescendStringEffect(L"Time", 30, 40, Vec2(circle_time_m.center.x,circle_time_m.center.y+circleRadius));
-	texts[1] = new FadeInAndDescendStringEffect(L"Errors", 30, 50, Vec2(circle_error_m.center.x,circle_error_m.center.y+circleRadius));
-	texts[2] = new FadeInAndDescendStringEffect(L"Processes", 30, 60, Vec2(circle_process_m.center.x,circle_process_m.center.y+circleRadius));
-	texts[3] = new FadeInAndDescendStringEffect(L"Score", 30, 70, Vec2(circle_totalScore_m.center.x,circle_totalScore_m.center.y+circleRadius));
-
+	stageNode_m = new StageNameNode(this->m_data->stageName, 0, Window::Center());
 }
 
 // –ˆƒtƒŒ[ƒ€ updateAndDraw() ‚ÅŒÄ‚Î‚ê‚é
 void Result::update()
 {
-	//countedVariable_time->countUp();
-	//countedVariable_error->countUp();
-	//countedVariable_process->countUp();
-	//countedVariable_totalScore->countUp();
-	for (int i = 0; i < 5; ++i){
-		circles[i]->update();
-	}
+	stageNode_m->update();
 	for (int i = 0; i < 4; ++i){
-		arrows[i]->update();
-		countups[i]->update();
-		texts[i]->update();
+		results_m[i]->update();
 	}
 
 }
@@ -52,20 +29,8 @@ void Result::update()
 void Result::draw() const
 {
 	backGround.draw(Window::GetPos(), Alpha(180));
-
-	stageNameText(this->m_data->stageName).drawCenter(circle_stage_m.center, Palette::Azure);
-
-	for (int i = 0; i < 5; ++i){
-		circles[i]->draw();
+	stageNode_m->draw();
+		for (int i = 0; i < 4; ++i){
+		results_m[i]->draw();
 	}
-	for (int i = 0; i < 4; ++i){
-		arrows[i]->draw();
-		countups[i]->draw();
-		texts[i]->draw();
-	}
-	//countedVariable_time->draw(circle_time_m.center.x, circle_time_m.center.y);
-	//countedVariable_error->draw(circle_error_m.center.x, circle_error_m.center.y);
-	//countedVariable_process->draw(circle_process_m.center.x, circle_process_m.center.y);
-	//countedVariable_totalScore->draw(circle_totalScore_m.center.x, circle_totalScore_m.center.y);
-
 }
