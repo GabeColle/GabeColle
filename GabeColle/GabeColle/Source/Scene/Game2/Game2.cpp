@@ -15,6 +15,7 @@ void Game2::init()
 	count_m = 0;
 	garbage_m = 0;
 	segmentFault_m = 0;
+	process_m = 0;
 	state = State::draw;
 }
 
@@ -53,6 +54,10 @@ void Game2::update()
 		seekSegmentFault();
 		if (button_m.leftClicked()){
 			garbage_m = Game2GabeColle<game2::CircleObject>::gc(memory_m);
+			m_data->error = garbage_m + segmentFault_m;
+			m_data->time = time_m;
+			m_data->process = process_m;
+			m_data->score = 100000 - time_m *2 - garbage_m * 1000 - segmentFault_m * 2000 + process_m * 200;
 			state = State::result;
 		}
 	}
@@ -74,6 +79,14 @@ void Game2::draw() const
 	Println(Format(L"SegmentFault", segmentFault_m));
 	Println(Format(L"State", static_cast<int>( state )));
 
+	Println(L"----------------------");
+	Println(Format(L"TIME ", m_data->time));
+	Println(Format(L"Process ", m_data->process));
+	Println(Format(L"Error ", m_data->error));
+	Println(Format(L"Score ", m_data->score));
+
+
+
 	drawMemory(memory_m);
 	button_m.draw();
 }
@@ -83,6 +96,7 @@ void Game2::freeByInput(){
 	for (int i(1); i <= NUM_OF_MEMORY; ++i) {
 		if (!memory_m.hasExpired(i) && Circle(memory_m.access(i).center(), 40.0).leftClicked) {
 			memory_m.free(i);
+			process_m++;
 		}
 	}
 }

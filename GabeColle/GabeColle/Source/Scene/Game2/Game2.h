@@ -22,6 +22,7 @@ protected:
 	unsigned int count_m;
 	int garbage_m;
 	int segmentFault_m;
+	int process_m;
 
 	const Vec2 rootPos = { Window::Width() / 2.0, Window::Height() / 2.0 };	
 
