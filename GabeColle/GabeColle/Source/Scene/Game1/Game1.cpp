@@ -1,30 +1,47 @@
 #include "Game1.h"
 
 
-Game1::Game1() : memory_m(100 + 1)
+const double Game1::MEMORY_RADIUS = 40.0;
+const double Game1::ROOT_RADIUS = 50.0;
+const int Game1::POSITION_NUM_X = 11;
+const int Game1::POSITION_NUM_Y = 5;
+const int Game1::POSITION_MARGIN_X = 24;
+const int Game1::POSITION_MARGIN_Y = 40;
+
+Game1::Game1() : memory_m(100  + 1), positionList_m(0)
 {
+	initializePositionList();  
 }
 
 void Game1::init()
 {
-	
+	memory_m.root().setCenter(Window::Center());
 }
 
 void Game1::update()
 {
-	if(Input::KeySpace.clicked) {
+	static int count = 0;
+	static const Font font(20);
+
+	font(L"SegmentationFault : " + ToString(memory_m.error().segmentationFault_m)).draw(0, 0);
+
+	if(count > -1) {
 		int address = memory_m.alloc();
 		if(address != 0) {
-			memory_m.access(address).setCenter(RandomVec2({200, 1000}, {50, Window::Height() - 50}));
+			int randomIndex = Random(positionList_m.size() - 1);
+			auto itr = positionList_m.begin();
+			for(int i(0); i < randomIndex; ++i, ++itr);
+			memory_m.access(address).setCenter(*itr);
+			positionList_m.erase(itr);
 			randomLink(address);
 		}
+		count = 0;
 	}
-	if(Input::KeyG.clicked) {
-		memory_m.gc();
-	}
+	++count;
 	for(int i(1); i < memory_m.size(); ++i) {
 		if(!memory_m.hasExpired(i) && Circle(memory_m.access(i).getCenter(), 40.0).leftClicked) {
-			memory_m.free(i);
+			positionList_m.push_back(memory_m.access(i).getCenter());
+			memory_m.free(i); 
 		}
 	}
 }
@@ -37,13 +54,12 @@ void Game1::draw() const
 void Game1::drawMemory() const
 {
 	static Font font;
-	font.drawCenter(L"Root", Circle(memory_m.root().getCenter(), 50.0).draw(Palette::Aqua).center);
+	font.drawCenter(L"Root", Circle(memory_m.root().getCenter(), ROOT_RADIUS).draw(Palette::Aqua).center);
 
 	//オブジェクトを描く
 	auto drawCircle = [this](int address) {
-		double const r = 40.0;
 		if(!memory_m.hasExpired(address)) {
-			Circle c = Circle(memory_m.access(address).getCenter(), r);
+			Circle c = Circle(memory_m.access(address).getCenter(), MEMORY_RADIUS);
 			if(c.mouseOver) {
 				c.draw(Color(Palette::Pink, 128)).drawFrame(0.0, 3.0, Palette::Red);
 			} else {
@@ -93,7 +109,7 @@ void Game1::randomLink(int allocAddress)
 {
 	int from = -1;	// 出発地
 	int to = -1;	// 目的地
-	if(RandomBool(0.9)) {
+	if(RandomBool(0.8)) {
 		std::vector<int> numList = getExistAddress();
 		std::random_shuffle(numList.begin(), numList.end());
 		if(RandomBool(0.5)) {
@@ -120,4 +136,14 @@ std::vector<int> Game1::getExistAddress()
 	}
 	std::vector<int> numVector(numList.begin(), numList.end());
 	return numVector;
+}
+
+void Game1::initializePositionList()
+{
+	for(int i(0); i < POSITION_NUM_X; ++i) {
+		for(int j(0); j < POSITION_NUM_Y; ++j) {
+			if(i == POSITION_NUM_X / 2 && j == POSITION_NUM_Y / 2)  continue;
+			positionList_m.push_back(Vec2(40 + (i + 1) * 2 * MEMORY_RADIUS + i * POSITION_MARGIN_X, 40 + (j + 1) * 2 * MEMORY_RADIUS + j * POSITION_MARGIN_Y));
+		}
+	}
 }
