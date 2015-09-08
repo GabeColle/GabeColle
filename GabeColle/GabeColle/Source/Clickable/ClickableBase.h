@@ -26,6 +26,8 @@ protected:
 	Shape shape_m;
 	String text_m;
 
+	bool isVisible_m = false;
+
 	virtual void changeState()
 	{
 		if ((state_m == CLICKED && frame_m > clickedInterval_m) || state_m != CLICKED) {
@@ -60,31 +62,46 @@ public:
 		text_m = text;
 	}
 	virtual ~ClickableBase() = default;
+
+	virtual void show()
+	{
+		isVisible_m = true;
+	}
+	virtual void hide()
+	{
+		isVisible_m = false;
+	}
+	virtual bool isVisible()const
+	{
+		return isVisible_m;
+	}
 	virtual void update()
 	{
 		changeState();
 	}
 	virtual void draw()const
 	{
-		switch (state_m) {
-		case PRESSED:
-			drawPressed(shape_m, text_m, frame_m);
-			break;
-		case OVER:
-			drawOver(shape_m, text_m, frame_m);
-			break;
-		case LEFT:
-			drawLeft(shape_m, text_m, frame_m);
-			break;
-		case CLICKED:
-			drawClicked(shape_m, text_m, frame_m);
-		default:
-			break;
+		if (isVisible()) {
+			switch (state_m) {
+			case PRESSED:
+				drawPressed(shape_m, text_m, frame_m);
+				break;
+			case OVER:
+				drawOver(shape_m, text_m, frame_m);
+				break;
+			case LEFT:
+				drawLeft(shape_m, text_m, frame_m);
+				break;
+			case CLICKED:
+				drawClicked(shape_m, text_m, frame_m);
+			default:
+				break;
+			}
 		}
 	}
 	virtual bool isClicked()const
 	{
-		return state_m == CLICKED && frame_m == clickedInterval_m;
+		return state_m == CLICKED && frame_m == clickedInterval_m && isVisible();
 	}
 };
 

@@ -32,6 +32,7 @@ public:
 	void update() override;
 	void initialize(int address);
 	Vec2 center()const;
+	bool isFreed()const;
 	void finalize();
 	CircleObject();
 	~CircleObject() = default;

@@ -15,7 +15,6 @@ void CircleObject::initialize(int address)
 		shape_m = Circle(Window::Center(), 50.0);
 		text_m = L"ROOT";
 		objectState_m = EXISTS;
-
 	}
 	else {
 		shape_m = Circle(RandomVec2({ 0, 1280 }, { 0, 720 }), 30.0);
@@ -23,12 +22,15 @@ void CircleObject::initialize(int address)
 		objectState_m = ALLOCED;
 	}
 	objectFrame_m = 0;
+	show();
+
 	clickedInterval_m = 10;
 }
 
 void CircleObject::finalize()
 {
 	frame_m = clickedInterval_m + 1;
+	hide();
 	changeState();
 }
 
@@ -114,6 +116,11 @@ void CircleObject::drawClicked(Circle shape, String const &text, int frame)const
 {
 	shape.draw(HSV(0, 0.7, 0.5)).drawFrame(1.0, 0.0, HSV(0, 1.0, 0.5));
 	FontAsset(FONT_ASSET_NAME).drawCenter(text, shape.center);
+}
+
+bool CircleObject::isFreed()const
+{
+	return objectState_m == FREED;
 }
 
 String const CircleObject::FONT_ASSET_NAME(L"ButtonFont");
