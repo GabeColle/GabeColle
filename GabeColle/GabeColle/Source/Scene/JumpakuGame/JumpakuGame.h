@@ -31,7 +31,7 @@ class JumpakuGame :
 	LinkTable_t linkArrowTable_m;
 
 	Font font100_m;
-	Font font20_m;
+	Font font30_m;
 	std::map<String, std::shared_ptr<clickable::Button>> buttons_m;
 
 	int allocInterval_m = 30;

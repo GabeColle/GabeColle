@@ -13,8 +13,8 @@ void JumpakuGame::init()
 	font100_m = Font(100, Typeface::Black, FontStyle::Outline);
 	font100_m.changeOutlineStyle(TextOutlineStyle(Palette::Black, Color(Palette::Red).setAlpha(167), 3.0));
 
-	font20_m = Font(20, Typeface::Black, FontStyle::Outline);
-	font20_m.changeOutlineStyle(TextOutlineStyle(Palette::Black, Color(Palette::Red), 1.0));
+	font30_m = Font(30, Typeface::Medium, FontStyle::Outline);
+	font30_m.changeOutlineStyle(TextOutlineStyle(Palette::Black, Palette::Red, 1.0));
 	memory_m.root().initialize(0);
 	for (int i(0); i < 10; ++i) {
 		auto p = memory_m.alloc();
@@ -173,7 +173,7 @@ void JumpakuGame::drawError()const
 		L"";
 	Rect(Window::ClientRect()).draw(HSV(180.0, 0.9, 0.9).toColor(127));
 	font100_m(L"GAME OVER").drawCenter(Window::Center().movedBy(0, -100));
-	font20_m(text).drawCenter(Window::Center().movedBy(0, 60));
+	font30_m(text).drawCenter(Window::Center().movedBy(0, 60));
 	buttons_m.at(L"Garbage Collection")->draw();
 	buttons_m.at(L"Result")->draw();
 
