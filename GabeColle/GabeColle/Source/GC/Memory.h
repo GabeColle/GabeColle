@@ -111,7 +111,7 @@ public:
 	*/
 	Marking mark()const
 	{
-		return GarbageCollection<CircleObject>::mark(*this);
+		return GarbageCollection<DerivedObject>::mark(*this);
 	}
 
 	/**
@@ -119,7 +119,7 @@ public:
 	*/
 	void gc()
 	{
-		GarbageCollection<CircleObject>::gc(*this);
+		GarbageCollection<DerivedObject>::gc(*this);
 	}
 
 	/**

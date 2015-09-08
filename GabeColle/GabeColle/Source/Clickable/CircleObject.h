@@ -27,13 +27,12 @@ class CircleObject :
 	void drawOver(Circle shape, String const &text, int frame)const override;
 	void drawLeft(Circle shape, String const &text, int frame)const override;
 	void drawClicked(Circle shape, String const &text, int frame)const override;
-	bool isClicked()const override;
 public:
 	void draw()const override;
 	void update() override;
-	void alloc(int address);
+	void initialize(int address);
 	Vec2 center()const;
-	void free();
+	void finalize();
 	CircleObject();
 	~CircleObject() = default;
 };

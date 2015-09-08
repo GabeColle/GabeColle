@@ -5,6 +5,41 @@ JumpakuGame::JumpakuGame()
 	: memory_m(100 + 1)
 {}
 
+// クラスの初期化時に一度だけ呼ばれる（省略可）
+void JumpakuGame::init()
+{
+	memory_m.root().initialize(0);
+}
+
+// 毎フレーム updateAndDraw() で呼ばれる
+void JumpakuGame::update()
+{
+	memory_m.root().update();
+	++frame_m;
+	if (Input::KeySpace.clicked) {
+		auto p = memory_m.alloc();
+		if (p != 0) {
+			memory_m.access(p).initialize(p);
+		}
+	}
+	for (int i(1); i < memory_m.size(); ++i) {
+		if (!memory_m.hasExpired(i) && memory_m.access(i).isClicked()) {
+			memory_m.access(i).finalize();
+			memory_m.free(i);
+		}
+	}
+	for (int i(1); i < memory_m.size(); ++i) {
+		if (!memory_m.hasExpired(i)) {
+			memory_m.access(i).update();
+		}
+	}
+}
+
+// 毎フレーム update() の次に呼ばれる
+void JumpakuGame::draw() const
+{
+	drawMemory(memory_m);
+}
 
 void JumpakuGame::drawMemory(gc::Memory<clickable::CircleObject> const &memory)const
 {

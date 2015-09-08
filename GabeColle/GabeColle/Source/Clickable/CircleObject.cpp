@@ -9,19 +9,26 @@ CircleObject::CircleObject()
 	}
 }
 
-void CircleObject::alloc(int address)
+void CircleObject::initialize(int address)
 {
-	shape_m = address == 0 ? 
-		Circle(Window::Center(), 40.0) : Circle(RandomVec2({ 0, 1280 }, { 0, 720 }), 30.0);
-	text_m = ToString(address);
-	objectState_m = ALLOCED;
-	objectFrame_m = 0;
-}
+	if (address == 0) {
+		shape_m = Circle(Window::Center(), 50.0);
+		text_m = L"ROOT";
+		objectState_m = EXISTS;
 
-void CircleObject::free()
-{
-	objectState_m = FREED;
+	}
+	else {
+		shape_m = Circle(RandomVec2({ 0, 1280 }, { 0, 720 }), 30.0);
+		text_m = ToString(address);
+		objectState_m = ALLOCED;
+	}
 	objectFrame_m = 0;
+	clickedInterval_m = 10;
+}
+void CircleObject::finalize()
+{
+	frame_m = clickedInterval_m + 1;
+	changeState();
 }
 
 Vec2 CircleObject::center()const
@@ -32,41 +39,42 @@ void CircleObject::changeObjectState()
 {
 	++objectFrame_m;
 	if (objectState_m == EXPAIRED) {}
-	else if (objectState_m == ALLOCED && objectFrame_m > 30) {
+	else if (objectState_m == ALLOCED && objectFrame_m > clickedInterval_m) {
 		objectState_m = EXISTS;
 		objectFrame_m = 0;
 	}
 	else if(objectState_m == EXISTS && state_m == CLICKED){
+		objectState_m = FREED;
+		objectFrame_m = 0;
 	}
-	else if (objectState_m == FREED && objectFrame_m > 30) {
+	else if (objectState_m == FREED && objectFrame_m > clickedInterval_m) {
 		objectState_m = EXPAIRED;
 		objectFrame_m = 0;
 	}
 }
 
-bool CircleObject::isClicked()const
-{
-	return state_m == CLICKED && frame_m == 1;
-}
-
 void CircleObject::update()
 {
-	ClickableBase<Circle>::update();
-	changeObjectState();
+	if (text_m != L"ROOT") {
+		ClickableBase<Circle>::update();
+		changeObjectState();
+	}
 }
 
 void CircleObject::draw()const
 {
+	double v = 1.0;// (std::min)(
+	//	1.0, static_cast<double>(objectFrame_m*5) / static_cast<double>(clickedInterval_m));
 	switch (objectState_m) {
 	case CircleObject::ALLOCED:
 		ClickableBase<Circle>::draw();
 		FontAsset(FONT_ASSET_NAME).drawCenter(
-			L"NEW", shape_m.center.movedBy(0.0, 25.0), HSV(240, 0.5, 0.9));
+			L"NEW", shape_m.center.movedBy(0.0, -40.0), HSV(240, 0.5, v));
 		break;
 	case CircleObject::FREED:
 		ClickableBase<Circle>::draw();
 		FontAsset(FONT_ASSET_NAME).drawCenter(
-			L"DELETE", shape_m.center.movedBy(0.0, 25.0), HSV(300, 0.5, 0.9));
+			L"DELETE", shape_m.center.movedBy(0.0, 20.0), HSV(300, 0.5, v));
 		break;
 	case CircleObject::EXISTS:
 		ClickableBase<Circle>::draw();
@@ -99,7 +107,7 @@ void CircleObject::drawLeft(Circle shape, String const &text, int frame)const
 
 void CircleObject::drawClicked(Circle shape, String const &text, int frame)const
 {
-	shape.draw(HSV(0, 0.5, 0.7));
+	shape.draw(HSV(0, 0.5, 0.5));
 	FontAsset(FONT_ASSET_NAME).drawCenter(text, shape.center);
 }
 

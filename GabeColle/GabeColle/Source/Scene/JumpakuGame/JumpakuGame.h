@@ -12,36 +12,17 @@ class JumpakuGame :
 {
 	gc::Memory<clickable::CircleObject> memory_m;
 	void drawMemory(gc::Memory<clickable::CircleObject> const &memory)const;
-
+	long frame_m = 0;
 public:
 	// クラスの初期化時に一度だけ呼ばれる（省略可）
-	void init() override
-	{
-		memory_m.root().alloc(0);
-	}
+	void init() override;
 
 	// 毎フレーム updateAndDraw() で呼ばれる
-	void update() override
-	{
-		memory_m.root().update();
-		if (Mouse::LeftClicked()) {
-			auto p = memory_m.alloc();
-			if (p != 0) {
-				memory_m.access(p).alloc(p);
-			}
-		}
-		for (int i(1); i < memory_m.size(); ++i) {
-			if (!memory_m.hasExpired(i)) {
-				memory_m.access(i).update();
-			}
-		}
-	}
+	void update() override;
 
 	// 毎フレーム update() の次に呼ばれる
-	void draw() const override
-	{
-		drawMemory(memory_m);
-	}
+	void draw() const override;
+
 	JumpakuGame();
 	~JumpakuGame() = default;
 };
