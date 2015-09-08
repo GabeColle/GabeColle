@@ -12,6 +12,9 @@ FadeInAndDescendStringEffect::FadeInAndDescendStringEffect(String str, int frame
 	currentTransparency_m = 0;
 	increaseYRange_m = 40 / frame_m;
 	increaseTransparencyRange_m = 255 / frame_m;
+	if (true){
+
+	}
 	
 }
 
