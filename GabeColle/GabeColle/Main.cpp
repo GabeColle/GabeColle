@@ -20,7 +20,7 @@ void Main()
 	// シーンを設定
 	manager.add<Result>(L"Result");
 	//manager.add<Start>(L"Start");
-	manager.add<Game1>(L"Game1");
+	//manager.add<Game1>(L"Game1");
 
 	while (System::Update()) {
 		if (!manager.updateAndDraw())

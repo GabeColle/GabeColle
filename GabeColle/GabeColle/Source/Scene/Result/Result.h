@@ -10,6 +10,7 @@
 #include"FadeInAndDescendStringEffect.h"
 #include "ResultNode.h"
 #include "StageNameNode.h"
+#include "RankingWindow.h"
 
 class Result :
 	public SceneManager<String, GameData>::Scene
@@ -27,6 +28,7 @@ private:
 	Circle circle_totalScore_m = Circle(circle_error_m.x, circle_process_m.y, circleRadius);
 	ResultNode* results_m[4];
 	StageNameNode* stageNode_m;
+	
 
 public:
 	Result();

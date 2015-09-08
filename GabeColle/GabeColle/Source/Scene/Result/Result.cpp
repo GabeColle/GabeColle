@@ -23,6 +23,7 @@ void Result::update()
 	stageNode_m->update();
 	for (int i = 0; i < 4; ++i){
 		results_m[i]->update();
+		
 	}
 
 }
@@ -34,6 +35,11 @@ void Result::draw() const
 	
 	for (int i = 0; i < 4; ++i){
 		results_m[i]->draw();
+		
 	}
 	stageNode_m->draw();
+	for (int i = 0; i < 4; ++i){
+		results_m[i]->pushButton();
+	}
+	
 }

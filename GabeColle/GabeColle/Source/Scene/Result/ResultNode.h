@@ -6,6 +6,7 @@
 #include "ExpandCircleEffect.h"
 #include "ExtendArrowEffect.h"
 #include "FadeInAndDescendStringEffect.h"
+#include "RankingWindow.h"
 
 class ResultNode{
 private:
@@ -23,8 +24,11 @@ private:
 	Vec2 position_m;
 	Circle* node_m;
 	NodeEffect* effects[4];
+	RankingWindow test;
+	bool switchRanking;
 public:
 	ResultNode(int variable, String name, int delayFrame,Vec2 position);
 	void update();
 	void draw()const;
+	void pushButton();
 };
