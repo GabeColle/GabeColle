@@ -8,10 +8,10 @@ void Result::init()
 {
 	stageNode_m = new StageNameNode(this->m_data->stageName, 0, Window::Center());
 
-	results_m[0] = new ResultNode(this->m_data->time, L"Time", 10, circle_time_m.center);
-	results_m[1] = new ResultNode(this->m_data->numOfError, L"Errors", 20, circle_error_m.center);
-	results_m[2] = new ResultNode(this->m_data->numOfDeletedObject, L"Processes", 30, circle_process_m.center);
-	results_m[3] = new ResultNode(this->m_data->totalScore, L"Score", 40, circle_totalScore_m.center);
+	results_m[0] = new ResultNode(0,this->m_data->time, L"Time", 10, circle_time_m.center);
+	results_m[1] = new ResultNode(1,this->m_data->numOfError, L"Errors", 20, circle_error_m.center);
+	results_m[2] = new ResultNode(2,this->m_data->numOfDeletedObject, L"Processes", 30, circle_process_m.center);
+	results_m[3] = new ResultNode(3,this->m_data->totalScore, L"Score", 40, circle_totalScore_m.center);
 	Graphics::SetBackground(Palette::Silver);
 
 	
@@ -22,8 +22,7 @@ void Result::update()
 {
 	stageNode_m->update();
 	for (int i = 0; i < 4; ++i){
-		results_m[i]->update();
-		
+		results_m[i]->update();	
 	}
 
 }
@@ -32,14 +31,9 @@ void Result::update()
 void Result::draw() const
 {
 	backGround.draw(Window::GetPos(), Alpha(180));
-	
-	for (int i = 0; i < 4; ++i){
-		results_m[i]->draw();
-		
-	}
 	stageNode_m->draw();
 	for (int i = 0; i < 4; ++i){
-		results_m[i]->pushButton();
+		results_m[i]->draw();
 	}
 	
 }

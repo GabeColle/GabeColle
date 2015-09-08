@@ -11,7 +11,7 @@
 class ResultNode{
 private:
 	static const int circleRadius_m = 100;
-
+	int id_m;
 	enum{
 		ARROW,
 		CIRCLE,
@@ -24,11 +24,12 @@ private:
 	Vec2 position_m;
 	Circle* node_m;
 	NodeEffect* effects[4];
-	RankingWindow test;
+	RankingWindow* ranking;
 	bool switchRanking;
+
+	void pushButton();
 public:
-	ResultNode(int variable, String name, int delayFrame,Vec2 position);
+	ResultNode(int id, int variable, String name, int delayFrame,Vec2 position);
 	void update();
 	void draw()const;
-	void pushButton();
 };

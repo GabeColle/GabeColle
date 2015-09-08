@@ -19,7 +19,10 @@ private:
 	Vec2 titlePosition;
 	Vec2 scorePosition[10];
 	Array<int> ranking;
+	int value_m;
+	Rect* ownFilter;
 public:
-	RankingWindow(int id);
+	RankingWindow(int id,int value);
+	void update();
 	void draw()const;
 };
