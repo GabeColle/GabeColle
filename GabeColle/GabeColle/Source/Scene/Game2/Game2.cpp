@@ -58,10 +58,11 @@ void Game2::update()
 		seekSegmentFault();
 		if (button_m.leftClicked()){
 			garbage_m = Game2GabeColle<game2::CircleObject>::gc(memory_m);
-			m_data->error = garbage_m + segmentFault_m;
+			m_data->stageName = name;
+			m_data->numOfError = garbage_m + segmentFault_m;
 			m_data->time = time_m;
-			m_data->process = process_m;
-			m_data->score = 100000 - time_m *2 - garbage_m * 1000 - segmentFault_m * 5000 + process_m * 100;
+			m_data->numOfDeletedObject = process_m;
+			m_data->totalScore = 100000 - time_m *2 - garbage_m * 1000 - segmentFault_m * 5000 + process_m * 100;
 			state = State::result;
 		}
 	}
@@ -86,9 +87,9 @@ void Game2::draw() const
 
 	Println(L"----------------------");
 	Println(Format(L"TIME ", m_data->time));
-	Println(Format(L"Process ", m_data->process));
-	Println(Format(L"Error ", m_data->error));
-	Println(Format(L"Score ", m_data->score));
+	Println(Format(L"Process ", m_data->numOfDeletedObject));
+	Println(Format(L"Error ", m_data->numOfError));
+	Println(Format(L"Score ", m_data->totalScore));
 
 
 	double rad = (double)System::FrameCount() / 80;

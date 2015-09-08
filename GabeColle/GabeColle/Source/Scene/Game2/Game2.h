@@ -24,6 +24,8 @@ protected:
 	int segmentFault_m;
 	int process_m;
 
+	String name = L"Game2";
+
 	const Vec2 rootPos = { Window::Width() / 2.0, Window::Height() / 2.0 };	
 
 	enum class State{
