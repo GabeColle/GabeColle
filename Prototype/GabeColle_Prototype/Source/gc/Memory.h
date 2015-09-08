@@ -77,7 +77,6 @@ public:
 				if (!map.isMarked(i)) {
 					unlink(i, address);
 				}
-				unlink(i, address);
 			}
 			memory_m[address].destruct();
 		}
