@@ -1,8 +1,8 @@
 #include "Game2.h"
 #include"Game2GabeColle.h"
+#include"Effect.h"
 
 using namespace game2;
-//using namespace clickable;
 
 void drawMemory(gc::Memory<CircleObject> const &memory);
 
@@ -94,6 +94,7 @@ void Game2::update()
 // 毎フレーム update() の次に呼ばれる
 void Game2::draw() const
 {
+	/*
 	ClearPrint();
 
 	Println(Format(L"TIME ",time_m));
@@ -108,7 +109,7 @@ void Game2::draw() const
 	Println(Format(L"Process ", m_data->numOfDeletedObject));
 	Println(Format(L"Error ", m_data->numOfError));
 	Println(Format(L"Score ", m_data->totalScore));
-
+	*/
 	
 	drawBackGround();
 	drawMemory(memory_m);
@@ -116,6 +117,7 @@ void Game2::draw() const
 	completionButton_m.draw();
 	resultButton_m.draw();
 	titleButton_m.draw();
+	effect_m.update();
 }
 
 //クリックでメモリ解放
@@ -151,7 +153,11 @@ void Game2::countAndChangeState(bool isOutOfMemory){
 
 	if (count_m % NUM_OF_MEMORY == 0){
 		count_m = 0;
+		if (state == State::erase){
+			effect_m.add<TextEffect>(Font(70,Typeface::Heavy, FontStyle::Outline), L"Start!", rootPos);
+		}
 		state = static_cast<State> (static_cast<int>(state)+1);
+		
 	}
 }
 
@@ -163,10 +169,17 @@ void Game2::drawStates()const
 	textField_m.draw({ x, y + 61 }, Format(time_m), { 200, 60 });
 	textField_m.draw({ x, y + 160 }, L"Garbage", { 200, 60 });
 	textField_m.draw({ x, y + 221 }, Format(garbage_m), { 200, 60 });
-	//RoundRect({ x, y + 320 }, { 200, 120 }, 10).draw(Color(Palette::Darkgray, 196));
 	textField_m.draw({ x, y + 320 }, Format(L"Segment\nFault\n "), { 200, 120 });
 	textField_m.draw({ x, y + 441 }, Format(segmentFault_m), { 200, 60 });
+
+	if (state == State::result){
+		reference_m.draw({ 30, 400 }, L"Resultボタンで\nスコア画面に\n移動します。", { 280, 190 });
+	}
+	else{
+		reference_m.draw({ 30, 400 }, L"Rootから矢印で\n辿れないMemoryを\n全て消してから\nCompleteボタンを\n押してください。", { 280, 190 });
+	}
 }
+
 
 void Game2::drawBackGround() const
 {
