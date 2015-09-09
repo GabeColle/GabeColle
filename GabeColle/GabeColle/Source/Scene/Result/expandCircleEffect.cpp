@@ -29,6 +29,5 @@ void ExpandCircleEffect::update()
 
 void ExpandCircleEffect::draw()const
 {
-	expandedCircle_m.scaled(currentMagnificationRate_m).draw(color_m).drawFrame(0.0, 3.0, color_m);
-
+	expandedCircle_m.scaled(currentMagnificationRate_m).draw(Color(color_m,128)).drawFrame(0.0, 3.0, Color(color_m.r/2,color_m.g/2,color_m.b/2));
 }

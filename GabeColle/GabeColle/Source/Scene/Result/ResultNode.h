@@ -7,6 +7,7 @@
 #include "ExtendArrowEffect.h"
 #include "FadeInAndDescendStringEffect.h"
 #include "RankingWindow.h"
+#include "Record.h"
 
 
 class ResultNode{

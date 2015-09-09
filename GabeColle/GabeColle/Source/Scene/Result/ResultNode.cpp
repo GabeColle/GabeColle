@@ -20,7 +20,11 @@ ResultNode::ResultNode(int id,int variable, String name, int delayFrame, Vec2 po
 	effects[NAME] = new FadeInAndDescendStringEffect(name, 30, delayFrame_m+30*2+60, Vec2(position_m.x, position_m.y + circleRadius_m));
 
 	ranking = new RankingWindow(id_m,variable_m);
+
+
 	switchRanking = false;
+
+	
 	
 }
 
@@ -50,5 +54,6 @@ void ResultNode::pushButton()
 	if (ranking->pushButton()){
 		switchRanking = false;
 	}
+	ranking->initPush();
 
 }
