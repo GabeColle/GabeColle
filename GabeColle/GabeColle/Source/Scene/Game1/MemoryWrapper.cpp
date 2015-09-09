@@ -101,7 +101,7 @@ void MemoryWrapper::randomLink(int allocAddress)
 {
 	int from = -1;	// 出発地
 	int to = -1;	// 目的地
-	if(RandomBool(0.5)) {
+	if(RandomBool(0.7)) {
 		std::vector<int> numList = getExistAddress();
 		std::random_shuffle(numList.begin(), numList.end());
 		if(RandomBool(0.5)) {

@@ -15,6 +15,8 @@ class Game1 :
 {
 private:
 	MemoryWrapper memory_m;
+	Sound sound;
+	SoundBeat beat_m;
 public:
 	Game1();
 	void init() override;
