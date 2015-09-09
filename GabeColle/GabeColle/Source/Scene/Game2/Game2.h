@@ -3,18 +3,29 @@
 #include<Siv3D.hpp>
 #include<HamFramework.hpp>
 
+#include<map>
+
 #include"../GameData.h"
 
 #include"../../GC/Memory.h"
 #include"CircleObject.h"
-#include"../../Utility/Button/Button.h"
+#include"../../Utility/Button/Button.h" //
+#include"../../Clickable/Button.h"
+#include"TextField.h"
 
 class Game2 :
 	public SceneManager<String, GameData>::Scene
 {
 protected:
+	typedef std::shared_ptr<clickable::Button> Button_t;
+
 	gc::Memory<game2::CircleObject> memory_m;
-	Button button_m;
+	//Button button_m; //
+	clickable::Button completionButton_m;
+	clickable::Button resultButton_m;
+	clickable::Button titleButton_m;
+	//std::map<String, Button_t> buttons_m;
+	const TextField textField_m;
 
 	int NUM_OF_MEMORY = 12; 
 
@@ -24,7 +35,7 @@ protected:
 	int segmentFault_m;
 	int process_m;
 
-	String name = L"Game2";
+	String name_m = L"Game2(Normal)";
 
 	const Vec2 rootPos = { Window::Width() / 2.0, Window::Height() / 2.0 };	
 
@@ -35,7 +46,13 @@ protected:
 public:
 	//コンストラクタ
 	Game2() : memory_m(19),
-		      button_m(30,L"OK",100,100){};
+		      //button_m(30,L"OK",100,100),
+			  //button_m(Rect(200, 48).setCenter({ 100, 100 }), L"OK", L"Asset/SoundEffect/Decision.mp3"),
+			  completionButton_m(Rect(200, 48).setCenter({ 100, 100 }), L"Completion", L"Asset/SoundEffect/Decision.mp3"),
+			  resultButton_m(Rect(200, 48).setCenter({ 100, 150 }), L"Result", L"Asset/SoundEffect/Decision.mp3"),
+			  titleButton_m(Rect(200, 48).setCenter({ 100, 200 }), L"Back to Title", L"Asset/SoundEffect/Decision.mp3"),
+			  textField_m(30)
+	{};
 
 	//デストラクタ
 	~Game2(){};
@@ -57,6 +74,8 @@ private:
 	void freeByInput();
 	void countAndChangeState(bool isOutOfMemory);
 	void seekSegmentFault();
+	void drawBackGround() const;
+	void drawStates() const;
 
 };
 
