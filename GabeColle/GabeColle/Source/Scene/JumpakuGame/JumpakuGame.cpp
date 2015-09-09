@@ -9,17 +9,18 @@ JumpakuGame::JumpakuGame()
 void JumpakuGame::init()
 {
 	Graphics::SetBackground(Palette::Whitesmoke);
-
-	font100_m = Font(100, Typeface::Black, FontStyle::Outline);
-	font100_m.changeOutlineStyle(TextOutlineStyle(Palette::Black, Color(Palette::Red).setAlpha(167), 3.0));
-
-	font30_m = Font(30, Typeface::Medium, FontStyle::Outline);
-	font30_m.changeOutlineStyle(TextOutlineStyle(Palette::Black, Palette::Red, 1.0));
+	
 	memory_m.root().initialize(0);
 	for (int i(0); i < 10; ++i) {
 		auto p = memory_m.alloc();
 		memory_m.access(p).initialize(p);
 	}
+
+	gameOverFont_m = Font(100, Typeface::Black, FontStyle::Outline);
+	gameOverFont_m.changeOutlineStyle(TextOutlineStyle(Palette::Black, Color(Palette::Red).setAlpha(167), 3.0));
+
+	gameOverMessageFont_m = Font(30, Typeface::Medium, FontStyle::Outline);
+	gameOverMessageFont_m.changeOutlineStyle(TextOutlineStyle(Palette::Black, Palette::Red, 1.0));
 }
 
 // 毎フレーム updateAndDraw() で呼ばれる
@@ -28,12 +29,13 @@ void JumpakuGame::update()
 	++frame_m;
 
 	switch (state_m) {
-	case JumpakuGame::SEGMENTATION_FAULT:
-	case JumpakuGame::OUT_OF_MEMORY:
-		updateError();
+	case JumpakuGame::GAME_OVER:
+		updateGameOver();
 		break;
 	case JumpakuGame::VALID:
 		updateObjects();
+		break;
+	case JumpakuGame::CLEAR:
 		break;
 	default:
 		break;
@@ -41,18 +43,23 @@ void JumpakuGame::update()
 	checkState();
 }
 
-void JumpakuGame::updateError()
+// 毎フレーム update() の次に呼ばれる
+void JumpakuGame::draw() const
 {
-	buttons_m.at(L"Garbage Collection")->update();
-	buttons_m.at(L"Result")->update();
-	
-	if (buttons_m.at(L"Garbage Collection")->isClicked()) {
-		memory_m.gc();
-	}
-	if (buttons_m.at(L"Result")->isClicked()) {
-		//changeScene(L"Result");
+	drawMemory();
+	switch (state_m) {
+	case JumpakuGame::GAME_OVER:
+		drawGameOver();
+		break;
+	case JumpakuGame::CLEAR:
+		break;
+	case JumpakuGame::VALID:
+		break;
+	default:
+		break;
 	}
 }
+
 
 void JumpakuGame::updateObjects()
 {
@@ -118,22 +125,6 @@ void JumpakuGame::updateObjects()
 	}
 }
 
-// 毎フレーム update() の次に呼ばれる
-void JumpakuGame::draw() const
-{
-	drawMemory();
-	switch (state_m) {
-	case JumpakuGame::SEGMENTATION_FAULT:
-	case JumpakuGame::OUT_OF_MEMORY:
-		drawError();
-		break;
-	case JumpakuGame::VALID:
-		break;
-	default:
-		break;
-	}
-}
-
 void JumpakuGame::drawMemory()const
 {
 	//オブジェクトを描く
@@ -159,36 +150,15 @@ void JumpakuGame::checkState()
 {
 	auto e = memory_m.error();
 	if (e.outOfMemory_m > 0 || e.segmentationFault_m > 0) {
-		state_m = e.outOfMemory_m > 0 ? OUT_OF_MEMORY : SEGMENTATION_FAULT;
-		initButtons();
+		state_m = GAME_OVER;
+		initGameOver(e);
 		saveScore();
 	}
-}
-
-void JumpakuGame::drawError()const
-{
-	String text =
-		state_m == SEGMENTATION_FAULT ? L"Segmentation Fault" :
-		state_m == OUT_OF_MEMORY ? L"Out of Memory" :
-		L"";
-	Rect(Window::ClientRect()).draw(HSV(180.0, 0.9, 0.9).toColor(127));
-	font100_m(L"GAME OVER").drawCenter(Window::Center().movedBy(0, -100));
-	font30_m(text).drawCenter(Window::Center().movedBy(0, 60));
-	buttons_m.at(L"Garbage Collection")->draw();
-	buttons_m.at(L"Result")->draw();
-
-}
-
-void JumpakuGame::initButtons()
-{
-	auto addButton = [this] (Point p, String name, String sound)
-	{
-		auto btn = std::make_shared<clickable::Button>(Rect(500, 60).setCenter(p), name, sound);
-		btn->show();
-		buttons_m.insert(std::make_pair(name, btn));
-	};
-	addButton(Window::Center().movedBy(0, 140), L"Garbage Collection", L"Asset/SoundEffect/Decision.mp3");
-	addButton(Window::Center().movedBy(0, 230), L"Result", L"Asset/SoundEffect/Decision.mp3");
+	else if (frame_m > CLEAR_LIMIT_m) {
+		state_m = CLEAR;
+		saveScore();
+		setMessage(L"Success");
+	}
 }
 
 void JumpakuGame::saveScore()
@@ -199,4 +169,48 @@ void JumpakuGame::saveScore()
 	m_data->numOfDeletedObject = deletes_m;
 	m_data->time = frame_m;
 	m_data->totalScore = e.outOfMemory_m * -3000 + e.segmentationFault_m * -4000 + deletes_m*50 + frame_m * 5;
+}
+
+
+
+
+void JumpakuGame::updateGameOver()
+{
+	gameOverButtons_m.at(L"Garbage Collection")->update();
+	gameOverButtons_m.at(L"Result")->update();
+
+	if (gameOverButtons_m.at(L"Garbage Collection")->isClicked()) {
+		memory_m.gc();
+	}
+	if (gameOverButtons_m.at(L"Result")->isClicked()) {
+		//changeScene(L"Result");
+	}
+}
+
+void JumpakuGame::drawGameOver()const
+{
+	Rect(Window::ClientRect()).draw(HSV(180.0, 0.9, 0.9).toColor(127));
+	gameOverFont_m(L"GAME OVER").drawCenter(Window::Center().movedBy(0, -100));
+	gameOverMessageFont_m(message_m).drawCenter(Window::Center().movedBy(0, 60));
+	gameOverButtons_m.at(L"Garbage Collection")->draw();
+	gameOverButtons_m.at(L"Result")->draw();
+
+}
+
+void JumpakuGame::initGameOver(gc::Error const &e)
+{
+	setMessage(e.outOfMemory_m > 0 ? L"Out of Memory" : L"Segmentation Fault");
+	auto addButton = [this] (Point p, String name, String sound)
+	{
+		auto btn = std::make_shared<clickable::Button>(Rect(500, 60).setCenter(p), name, sound);
+		btn->show();
+		gameOverButtons_m.insert(std::make_pair(name, btn));
+	};
+	addButton(Window::Center().movedBy(0, 140), L"Garbage Collection", L"Asset/SoundEffect/Decision.mp3");
+	addButton(Window::Center().movedBy(0, 230), L"Result", L"Asset/SoundEffect/Decision.mp3");
+}
+
+void JumpakuGame::setMessage(String const &m)
+{
+	message_m = m;
 }
