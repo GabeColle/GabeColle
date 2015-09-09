@@ -5,7 +5,7 @@ const double MemoryWrapper::MEMORY_RADIUS = 40.0;
 const double MemoryWrapper::ROOT_RADIUS = 50.0;
 
 
-MemoryWrapper::MemoryWrapper() : memory_m(31), positionList_m()
+MemoryWrapper::MemoryWrapper() : memory_m(41), positionList_m()
 {
 }
 
@@ -28,7 +28,7 @@ bool MemoryWrapper::free()
 {
 	bool isFree = false;
 	for(int i(1); i < memory_m.size(); ++i) {
-		if(!memory_m.hasExpired(i) && Circle(memory_m.access(i).getCenter(), 40.0).leftClicked) {
+		if(!memory_m.hasExpired(i) && Circle(memory_m.access(i).getCenter(), 40.0).mouseOver) {
 			positionList_m.restoreRandomPos(memory_m.access(i).getCenter());
 			memory_m.free(i);
 			isFree = true;
@@ -96,6 +96,20 @@ void MemoryWrapper::draw() const
 	
 }
 
+//GameData MemoryWrapper::calculateScore()
+//{
+//	data_m.numOfError = 
+//		  memory_m.error().outOfMemory_m
+//		+ memory_m.error().segmentationFault_m
+//		+ memory_m.error().nullptrAccess_m
+//		+ memory_m.error().addressOutOfBounds_m;
+//
+//	data_m.totalScore = 
+//		  data_m.time
+//		+ data_m.numOfDeletedObject
+//		- data_m.numOfError;
+//}
+
 
 void MemoryWrapper::randomLink(int allocAddress)
 {
@@ -107,7 +121,8 @@ void MemoryWrapper::randomLink(int allocAddress)
 		if(RandomBool(0.5)) {
 			from = numList[0];
 			to = allocAddress;
-		} else {
+		}
+		else {
 			from = allocAddress;
 			to = numList[0];
 		}

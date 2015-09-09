@@ -3,6 +3,7 @@
 #include <Siv3D.hpp>
 
 #include "../../GC/Memory.h"
+#include "../GameData.h"
 #include "CircleObject.h"
 #include "PositionList.h"
 
@@ -15,14 +16,15 @@ private:
 private:
 	gc::Memory<CircleObject> memory_m;
 	PositionList positionList_m;
+	std::shared_ptr<GameData> data_m;
 public:
 	MemoryWrapper();
-	~MemoryWrapper() = default;
 public:
 	void init();
 	void alloc();
 	bool free();
 	void draw() const;
+	//GameData calculateScore();
 private:
 	std::vector<int> getExistAddress();
 	void randomLink(int allocAddress);

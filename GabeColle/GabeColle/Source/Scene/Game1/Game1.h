@@ -7,7 +7,10 @@
 #include <algorithm>
 
 #include "../GameData.h"
+#include "../Result/Result.h"
 #include "MemoryWrapper.h"
+#include "Beat.h"
+#include "MySound.h"
 
 
 class Game1 :
@@ -15,10 +18,11 @@ class Game1 :
 {
 private:
 	MemoryWrapper memory_m;
-	Sound sound;
-	SoundBeat beat_m;
+	MySound sound_m;
+	Beat beat_m;
 public:
 	Game1();
+public:
 	void init() override;
 	void update() override;
 	void draw() const override;
