@@ -46,12 +46,13 @@ private:
 	LinkTable_t linkArrowTable_m;
 	long frame_m = 0;
 	Effect objectEffect_m;
+protected:
 	long const CLEAR_LIMIT_m = 10800;//10800[frame]==3[minute](60[frame/s])
 	int allocInterval_m = 30;
 	int objectLinkInterval_m = 10;
 	int rootLinkInterval_m = 60;
 	int unlinkInterval_m = 1;
-
+private:
 	void drawMemory()const;
 	void updateMemory();
 	void checkState();

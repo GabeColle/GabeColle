@@ -1,6 +1,7 @@
 
 #include "Button.h"
 #include"ButtonOverEffect.h"
+#include"ButtonClickedEffect.h"
 
 using namespace clickable;
 
@@ -33,16 +34,16 @@ void Button::update(Effect &effect)
 	case clickable::Button::PRESSED:
 		break;
 	case clickable::Button::OVER:
-		if (frame_m%20 == 0) {
-			effect.add<ButtonOverEffect>(
-				color_m, shape_m);
+		if (frame_m%30 == 1) {
+			effect.add<ButtonOverEffect>(color_m, shape_m);
 		}
 		break;
 	case clickable::Button::LEFT:
 		break;
 	case clickable::Button::CLICKED:
-		if (frame_m == 2) {
+		if (frame_m == 1) {
 			SoundAsset(soundName_m).play();
+			effect.add<ButtonClickedEffect>(color_m, shape_m.rect.center);
 		}
 	default:
 		break;
@@ -70,16 +71,16 @@ void Button::drawLeft(RoundRect shape, String const &text, int frame)const
 
 void Button::drawClicked(RoundRect shape, String const &text, int frame)const
 {
-	double t = static_cast<double>(frame);
+	/*double t = static_cast<double>(frame);
 	static Point clickPoint;
 	if (frame <= 1) {
 		clickPoint = Mouse::Pos();
-	}
+	}*/
 	shape.draw(color_m + HSV(0, 0.5, 1.0));
 	FontAsset(FONT_ASSET_NAME).drawCenter(text, shape.rect.center);
-	Circle(clickPoint, t * 5.0).drawFrame(0.0, 2.0,
+	/*Circle(clickPoint, t * 5.0).drawFrame(0.0, 2.0,
 		(color_m + HSV(180, 0.8, 1.0)).toColor().setAlpha(255 - static_cast<int>(t / 31.0 * 255.0)));
-
+*/
 }
 
 String const Button::FONT_ASSET_NAME(L"ButtonFont");
