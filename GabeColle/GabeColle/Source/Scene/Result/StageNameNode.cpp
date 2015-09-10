@@ -10,7 +10,7 @@ StageNameNode::StageNameNode(String name, int delayFrame, Vec2 position) : font_
 
 	effect_m = new ExpandCircleEffect(*node_m,30,delayFrame_m,Palette::Aqua);
 
-	turnOnNextStage = new ScrollFadeOutStringEffect(name,L"Return the title?",*node_m,font_m);
+	turnOnNextStage = new ScrollFadeOutStringEffect(name,L"Return the title?",*node_m,font_m,30,100);
 	
 }
 

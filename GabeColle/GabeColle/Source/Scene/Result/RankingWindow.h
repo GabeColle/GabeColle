@@ -29,17 +29,13 @@ private:
 	Rect* ownFilter_m;
 
 	Button* closeButton_m;
-	Button* initButton_m;
 
 	void constructRankingWindow();
 	void createRanking(int id,int value);
 	int searchPosition(int value);
-
-	void initRanking();
 public:
 	RankingWindow(int id,int value);
 	void init(int id,int value);
 	void draw()const;
 	bool pushButton();
-	void initPush();
 };

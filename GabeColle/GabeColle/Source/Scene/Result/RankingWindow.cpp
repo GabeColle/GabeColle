@@ -30,7 +30,6 @@ void RankingWindow::init(int id,int value)
 	}
 
 	closeButton_m = new Button(L"x", (int)window->x + WINDOW_WITDTH - 40, (int)window->y, 40, BAR_HEIGHT);
-	initButton_m = new Button(L"☠", 30, Window::Height() - 30, 40, 40);
 }
 void RankingWindow::draw()const
 {
@@ -47,9 +46,6 @@ void RankingWindow::draw()const
 		ownFilter_m->draw(Color(Palette::Aquamarine, 200));
 	}
 	closeButton_m->draw();
-	initButton_m->draw();
-	
-
 }
 
 void RankingWindow::constructRankingWindow()
@@ -95,20 +91,3 @@ bool RankingWindow::pushButton()
 	return closeButton_m->leftClicked();
 }
 
-
-void RankingWindow::initRanking()
-{
-	for (int i = 0; i < 4; ++i){
-		for (int j = 0; j < 10; ++j){
-			Record::rankingData_m[i][j] = 0;
-		}
-	}
-	
-}
-
-void RankingWindow::initPush()
-{
-	if (initButton_m->leftClicked()){
-		initRanking();
-	}
-}
