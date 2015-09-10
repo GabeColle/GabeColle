@@ -10,20 +10,36 @@
 #include"../../Clickable/CircleObject.h"
 #include"LinkArrow.h"
 #include"../../Clickable/Button.h"
+#include"../../Utility/Text.h"
+
+class GameOver;
+class Clear;
+class Playing;
 
 class JumpakuGame :
 	public SceneManager<String, GameData>::Scene
 {
 	static int const SIZE_m = 51;
 	using LinkTable_t = std::array < std::array<LinkArrow, SIZE_m>, SIZE_m >;
-	enum State
+	friend GameOver;
+	friend Clear;
+	friend Playing;
+public:
+	class SceneState
 	{
-		VALID,
-		GAME_OVER,
-		CLEAR,
+	protected:
+		using Buttons_t = std::map<String, std::shared_ptr<clickable::Button>>;
+		Buttons_t buttons_m;
+		Text title_m;
+		Text message_m;
+		Color back_m;
+		static String const nextScene_m;
+	public:
+		virtual void draw()const = 0;
+		virtual void update(JumpakuGame &parent) = 0;
+		virtual ~SceneState() = default;
 	};
-
-	State state_m = VALID;
+private:
 	gc::Memory<clickable::CircleObject> memory_m;
 	int deletes_m = 0;
 	LinkTable_t linkArrowTable_m;
@@ -36,19 +52,11 @@ class JumpakuGame :
 	int unlinkInterval_m = 1;
 
 	void drawMemory()const;
-	void updateObjects();
+	void updateMemory();
 	void checkState();
 	void saveScore();
 
-	Font gameOverFont_m;
-	Font gameOverMessageFont_m;
-	std::map<String, std::shared_ptr<clickable::Button>> gameOverButtons_m;
-	void drawGameOver()const;
-	void updateGameOver();
-	void initGameOver(gc::Error const &e);
-
-	String message_m;
-	void setMessage(String const &s);
+	std::shared_ptr<SceneState> sceneState_m;
 
 public:
 	// クラスの初期化時に一度だけ呼ばれる（省略可）

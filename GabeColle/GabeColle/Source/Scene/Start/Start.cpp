@@ -33,6 +33,9 @@ void Start::update()
 			Twitter::OpenTweetWindow, L"ƒKƒx‚±‚ê‚ğƒvƒŒƒC’†\nhttp://jumpaku.hatenablog.com/entry/2015/09/04/001226");
 		twitter_m.detach();
 	}
+	if (buttons_m.at(L"Start")->isClicked()) {
+		changeScene(L"JumpakuGame");
+	}
 
 	std::for_each(sakuras_m.begin(), sakuras_m.end(), [] (SakuraTexture &s)
 	{

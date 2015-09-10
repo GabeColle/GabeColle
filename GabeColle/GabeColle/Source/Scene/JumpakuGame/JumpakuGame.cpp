@@ -1,5 +1,9 @@
+#include<typeinfo>
 #include "JumpakuGame.h"
 #include"../../Clickable/Button.h"
+#include"GameOver.h"
+#include"Clear.h"
+#include"Playing.h"
 
 JumpakuGame::JumpakuGame()
 	: memory_m(SIZE_m)
@@ -15,31 +19,14 @@ void JumpakuGame::init()
 		auto p = memory_m.alloc();
 		memory_m.access(p).initialize(p);
 	}
-
-	gameOverFont_m = Font(100, Typeface::Black, FontStyle::Outline);
-	gameOverFont_m.changeOutlineStyle(TextOutlineStyle(Palette::Black, Color(Palette::Red).setAlpha(167), 3.0));
-
-	gameOverMessageFont_m = Font(30, Typeface::Medium, FontStyle::Outline);
-	gameOverMessageFont_m.changeOutlineStyle(TextOutlineStyle(Palette::Black, Palette::Red, 1.0));
+	sceneState_m = std::make_shared<Playing>();
 }
 
 // –ˆƒtƒŒ[ƒ€ updateAndDraw() ‚ÅŒÄ‚Î‚ê‚é
 void JumpakuGame::update()
 {
 	++frame_m;
-
-	switch (state_m) {
-	case JumpakuGame::GAME_OVER:
-		updateGameOver();
-		break;
-	case JumpakuGame::VALID:
-		updateObjects();
-		break;
-	case JumpakuGame::CLEAR:
-		break;
-	default:
-		break;
-	}
+	sceneState_m->update(*this);
 	checkState();
 }
 
@@ -47,21 +34,11 @@ void JumpakuGame::update()
 void JumpakuGame::draw() const
 {
 	drawMemory();
-	switch (state_m) {
-	case JumpakuGame::GAME_OVER:
-		drawGameOver();
-		break;
-	case JumpakuGame::CLEAR:
-		break;
-	case JumpakuGame::VALID:
-		break;
-	default:
-		break;
-	}
+	sceneState_m->draw();
 }
 
 
-void JumpakuGame::updateObjects()
+void JumpakuGame::updateMemory()
 {
 	//alloc
 	if (frame_m%allocInterval_m == 0) {
@@ -149,15 +126,16 @@ void JumpakuGame::drawMemory()const
 void JumpakuGame::checkState()
 {
 	auto e = memory_m.error();
-	if (e.outOfMemory_m > 0 || e.segmentationFault_m > 0) {
-		state_m = GAME_OVER;
-		initGameOver(e);
+	if (typeid(*sceneState_m.get()) != typeid(GameOver) &&
+		(e.outOfMemory_m > 0 || e.segmentationFault_m > 0)) {
+		sceneState_m = std::make_shared<GameOver>(
+			e.outOfMemory_m > 0 ? L"Out of Memory" : L"Segmentation Fault");
 		saveScore();
 	}
-	else if (frame_m > CLEAR_LIMIT_m) {
-		state_m = CLEAR;
+	else if (typeid(*sceneState_m.get()) != typeid(Clear) &&
+		frame_m > CLEAR_LIMIT_m) {
+		sceneState_m = std::make_shared<Clear>();
 		saveScore();
-		setMessage(L"Success");
 	}
 }
 
@@ -168,49 +146,9 @@ void JumpakuGame::saveScore()
 	m_data->stageName = L"Stage0";
 	m_data->numOfDeletedObject = deletes_m;
 	m_data->time = frame_m;
-	m_data->totalScore = e.outOfMemory_m * -3000 + e.segmentationFault_m * -4000 + deletes_m*50 + frame_m * 5;
+	m_data->totalScore = 
+		e.outOfMemory_m * -3000 + e.segmentationFault_m * -4000 + deletes_m*20 + frame_m * 2;
 }
 
 
-
-
-void JumpakuGame::updateGameOver()
-{
-	gameOverButtons_m.at(L"Garbage Collection")->update();
-	gameOverButtons_m.at(L"Result")->update();
-
-	if (gameOverButtons_m.at(L"Garbage Collection")->isClicked()) {
-		memory_m.gc();
-	}
-	if (gameOverButtons_m.at(L"Result")->isClicked()) {
-		//changeScene(L"Result");
-	}
-}
-
-void JumpakuGame::drawGameOver()const
-{
-	Rect(Window::ClientRect()).draw(HSV(180.0, 0.9, 0.9).toColor(127));
-	gameOverFont_m(L"GAME OVER").drawCenter(Window::Center().movedBy(0, -100));
-	gameOverMessageFont_m(message_m).drawCenter(Window::Center().movedBy(0, 60));
-	gameOverButtons_m.at(L"Garbage Collection")->draw();
-	gameOverButtons_m.at(L"Result")->draw();
-
-}
-
-void JumpakuGame::initGameOver(gc::Error const &e)
-{
-	setMessage(e.outOfMemory_m > 0 ? L"Out of Memory" : L"Segmentation Fault");
-	auto addButton = [this] (Point p, String name, String sound)
-	{
-		auto btn = std::make_shared<clickable::Button>(Rect(500, 60).setCenter(p), name, sound);
-		btn->show();
-		gameOverButtons_m.insert(std::make_pair(name, btn));
-	};
-	addButton(Window::Center().movedBy(0, 140), L"Garbage Collection", L"Asset/SoundEffect/Decision.mp3");
-	addButton(Window::Center().movedBy(0, 230), L"Result", L"Asset/SoundEffect/Decision.mp3");
-}
-
-void JumpakuGame::setMessage(String const &m)
-{
-	message_m = m;
-}
+String const JumpakuGame::SceneState::nextScene_m = L"Result";

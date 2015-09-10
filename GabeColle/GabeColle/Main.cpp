@@ -4,6 +4,7 @@
 #include"Source\Scene\Sample\Sample.h"
 #include"Source\Scene\Start\Start.h"
 #include"Source\Scene\JumpakuGame\JumpakuGame.h"
+#include"Source\Scene\Result\Result.h"
 
 void Main()
 {
@@ -17,8 +18,9 @@ void Main()
 	manager.setFadeColor(Palette::White);
 
 	// シーンを設定
-	manager.add<JumpakuGame>(L"JumpakuGame");
 	manager.add<Start>(L"Start");
+	manager.add<JumpakuGame>(L"JumpakuGame");
+	manager.add<Result>(L"Result");
 	manager.add<Sample>(L"Sample");
 
 	while (System::Update()) {
