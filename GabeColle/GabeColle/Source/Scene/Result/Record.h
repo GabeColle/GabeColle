@@ -9,6 +9,6 @@ public:
 	static Grid<int> rankingData_m;
 
 	Record();
-	static void encryptData();
-	static void decryptData();
+	static void encryptData(String stageName);
+	static void decryptData(String stageName);
 };

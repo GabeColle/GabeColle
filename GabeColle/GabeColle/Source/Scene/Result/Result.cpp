@@ -18,7 +18,7 @@ void Result::init()
 
 	returnButton_m = circle_stage;
 
-	Record::decryptData();
+	Record::decryptData(this->m_data->stageName);
 
 	stageNode_m = new StageNameNode(this->m_data->stageName, 0, Window::Center());
 
@@ -28,7 +28,7 @@ void Result::init()
 	results_m[3] = new ResultNode(3,this->m_data->totalScore, L"Score", 40, circle_totalScore.center);
 	Graphics::SetBackground(Palette::Darkblue);
 
-	Record::encryptData();
+	Record::encryptData(this->m_data->stageName);
 }
 
 // –ˆƒtƒŒ[ƒ€ updateAndDraw() ‚ÅŒÄ‚Î‚ê‚é

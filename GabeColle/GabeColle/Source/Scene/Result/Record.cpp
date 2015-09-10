@@ -1,6 +1,6 @@
 #include "Record.h"
 
-const String Record::path_m(L"Data/result.dat");
+const String Record::path_m(L"Data/");
 Grid<int> Record::rankingData_m(10,4,0);
 
 
@@ -8,9 +8,9 @@ Record::Record()
 {
 }
 
-void Record::encryptData()
+void Record::encryptData(String stageName)
 {
-	TextWriter writer(path_m);
+	BinaryWriter writer(path_m+stageName+L".bin");
 	int array[40];
 	for (int i = 0; i < 4; ++i){
 		for (int j = 0; j < 10; ++j){
@@ -24,21 +24,23 @@ void Record::encryptData()
 
 
 
-void Record::decryptData()
+void Record::decryptData(String stageName)
 {
 	Array<uint8> sequence;
 	String str;
 	int array[40];
-	TextReader reader(path_m);
+	BinaryReader reader(path_m+stageName+L".bin");
 
-	str = reader.readContents();
-	str = str.remove_if([](wchar c){return (c == L'{' ||c == L'}'); });
-	for (const auto& elem : str.split(L',')){
-		sequence.push_back(Parse<uint8>(elem.trim()));
+	if (!reader.isOpened()){
+		for (int i = 0; i < 4; ++i){
+			for (int j = 0; j < 10; ++j){
+				rankingData_m[i][j] = 0;
+			}
+		}
+		return;
 	}
-	
-	Crypto::Decrypt(MemoryReader(sequence), array, sizeof(array), AES128Key(12, 34, 56, 78));
-	
+
+	Crypto::Decrypt(reader.readWhole(), array, sizeof(array), AES128Key(12, 34, 56, 78));
 	for (int i = 0; i < 4; ++i){
 		for (int j = 0; j < 10; ++j){
 			rankingData_m[i][j] = array[i * 10 + j];

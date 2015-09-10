@@ -100,7 +100,7 @@ void RankingWindow::initRanking()
 			Record::rankingData_m[i][j] = 0;
 		}
 	}
-	Record::encryptData();
+	
 }
 
 void RankingWindow::initPush()
