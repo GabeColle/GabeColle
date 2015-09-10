@@ -29,6 +29,8 @@ private:
 	ResultNode* results_m[4];
 	StageNameNode* stageNode_m;
 
+	Circle returnButton_m;
+
 	
 
 public:

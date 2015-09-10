@@ -9,16 +9,19 @@ StageNameNode::StageNameNode(String name, int delayFrame, Vec2 position) : font_
 	node_m = new Circle(position_m, circleRadius_m);
 
 	effect_m = new ExpandCircleEffect(*node_m,30,delayFrame_m,Palette::Aqua);
+
+	turnOnNextStage = new ScrollFadeOutStringEffect(name,L"Return the title?",*node_m,font_m);
 	
 }
 
 void StageNameNode::update()
 {
 	effect_m->update();
+	turnOnNextStage->update();
 }
 
 void StageNameNode::draw()const
 {
 	effect_m->draw();
-	font_m(stageName_m).drawCenter(position_m, Palette::Azure);
+	turnOnNextStage->draw();
 }

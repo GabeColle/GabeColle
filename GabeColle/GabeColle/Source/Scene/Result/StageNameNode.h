@@ -2,6 +2,7 @@
 
 #include <Siv3D.hpp>
 #include "ExpandCircleEffect.h"
+#include "ScrollFadeOutStringEffect.h"
 
 class StageNameNode{
 private:
@@ -12,6 +13,7 @@ private:
 	Circle* node_m;
 
 	ExpandCircleEffect* effect_m;
+	ScrollFadeOutStringEffect* turnOnNextStage;
 
 	Font font_m;
 

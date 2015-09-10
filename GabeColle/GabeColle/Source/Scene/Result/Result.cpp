@@ -1,4 +1,7 @@
 #include "Result.h"
+
+
+
 Result::Result() : fontSize(30), resultText(fontSize), circleRadius(100)
 {
 	
@@ -12,6 +15,8 @@ void Result::init()
 	Circle circle_error = Circle((Window::Width() + circle_stage.center.x) / 2, circle_time.y, circleRadius);
 	Circle circle_process = Circle(circle_time.x, (Window::Height() + circle_stage.center.y) / 2, circleRadius);
 	Circle circle_totalScore = Circle(circle_error.x, circle_process.y, circleRadius);
+
+	returnButton_m = circle_stage;
 
 	Record::decryptData();
 
@@ -35,7 +40,9 @@ void Result::update()
 	for (int i = 0; i < 4; ++i){
 		results_m[i]->update();	
 	}
-	
+	if (returnButton_m.leftClicked){
+		this->changeScene(L"Start", 2000, false);
+	}
 }
 
 // ñàÉtÉåÅ[ÉÄ update() ÇÃéüÇ…åƒÇŒÇÍÇÈ

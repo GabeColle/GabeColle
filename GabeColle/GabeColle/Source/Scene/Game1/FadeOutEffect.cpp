@@ -10,6 +10,6 @@ bool FadeOutEffect::update(double t)
 {
 	if(t > 0.5) { return false; }
 	const double alpha = 255 * Cos(t * Pi);
-	font_m(str_m).drawCenter({pos_m.x, pos_m.y - 80}, Color(Palette::Aqua, alpha));
+	font_m(str_m).drawCenter({(int)pos_m.x, (int)pos_m.y - 80}, Color(Palette::Aqua, alpha));
 	return true;
 }
