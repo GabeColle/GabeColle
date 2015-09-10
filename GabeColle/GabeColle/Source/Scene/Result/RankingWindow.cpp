@@ -69,7 +69,10 @@ void RankingWindow::createRanking(int id,int value)
 		ranking_m.push_back(Record::rankingData_m[id][i]);
 	}
 	ranking_m.push_back(value);
-	std::sort(ranking_m.begin(), ranking_m.end(), [](const int x, const int y) { return x > y; });
+	std::sort(ranking_m.begin(), ranking_m.end(), 
+		[id](const int x, const int y) { 
+		if (id < 2) return x < y; 
+		else return x > y; });
 	ranking_m.pop_back();
 	for (int i = 0; i < LOWEST; ++i){
 		Record::rankingData_m[id][i] = ranking_m.at(i);	
