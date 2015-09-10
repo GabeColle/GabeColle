@@ -11,7 +11,7 @@ Result::Result() : fontSize(30), resultText(fontSize), circleRadius(100), backGr
 void Result::init()
 {
 	
-	Record::decryptCSV();
+	Record::decryptData();
 
 	stageNode_m = new StageNameNode(this->m_data->stageName, 0, Window::Center());
 
@@ -21,9 +21,8 @@ void Result::init()
 	results_m[3] = new ResultNode(3,this->m_data->totalScore, L"Score", 40, circle_totalScore_m.center);
 	Graphics::SetBackground(Palette::Darkblue);
 
-	Record::encryptCSV();
+	Record::encryptData();
 
-	
 
 	BGVelocity = 1;
 	BG_X = 0;

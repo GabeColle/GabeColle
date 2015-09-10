@@ -13,7 +13,7 @@ private:
 
 	ExpandCircleEffect* effect_m;
 
-	const Font font_m;
+	Font font_m;
 
 public:
 	StageNameNode(String name, int delayFrame, Vec2 position);

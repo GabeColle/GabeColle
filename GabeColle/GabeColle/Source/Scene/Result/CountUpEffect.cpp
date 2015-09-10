@@ -1,6 +1,6 @@
 #include"CountUpEffect.h"
 
-CountUpEffect::CountUpEffect(int countedVariable, int frame, int delayFrame, Vec2 position) : NodeEffect(frame,delayFrame,position),font(60)
+CountUpEffect::CountUpEffect(int countedVariable, int frame, int delayFrame, Vec2 position) : NodeEffect(frame, delayFrame, position), drawingVariable_m(60)
 {
 	countedVariable_m = countedVariable;
 	counter_m = 0;
@@ -27,7 +27,7 @@ void CountUpEffect::update()
 
 void CountUpEffect::draw()const
 {
-	font(Format(counter_m)).drawCenter(position_m,Palette::White);
+	drawingVariable_m(Format(counter_m)).drawCenter(position_m,Palette::White);
 }
 
 

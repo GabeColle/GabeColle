@@ -21,12 +21,12 @@ private:
 	Rect* bar;
 	Line* divideLine[LOWEST+1];
 	
-	const Font font_m[LOWEST];
-	const Font titleFont;
-	Vec2 titlePosition;
-	Vec2 scorePosition[LOWEST];
-	Array<int> ranking;
-	Rect* ownFilter;
+	Font drawingRankings_m[LOWEST];
+	Font drawingTitle_m;
+	Vec2 titlePosition_m;
+	Vec2 scorePosition_m[LOWEST];
+	Array<int> ranking_m;
+	Rect* ownFilter_m;
 
 	Button* closeButton_m;
 	Button* initButton_m;
@@ -38,6 +38,7 @@ private:
 	void initRanking();
 public:
 	RankingWindow(int id,int value);
+	void init(int id,int value);
 	void draw()const;
 	bool pushButton();
 	void initPush();

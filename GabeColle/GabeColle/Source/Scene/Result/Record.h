@@ -5,12 +5,10 @@
 class Record{
 private:
 	static const String path_m;
-	static MemoryReader encrypted;
 public:
 	static Grid<int> rankingData_m;
 
 	Record();
-	static void encryptCSV();
-	static void decryptCSV();
-
+	static void encryptData();
+	static void decryptData();
 };

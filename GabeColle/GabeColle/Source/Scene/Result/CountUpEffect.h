@@ -12,7 +12,7 @@ private:
 	// カウンターの上がり幅
 	int countRange_m;
 	// 描画用
-	const Font font;
+	Font drawingVariable_m;
 public:
 	CountUpEffect(int countedVariable, int frame, int delayFrame, Vec2 position);
 	void update();
