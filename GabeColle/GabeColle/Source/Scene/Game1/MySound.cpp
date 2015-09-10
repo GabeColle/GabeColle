@@ -33,6 +33,6 @@ bool MySound::isEnded()
 
 void MySound::initialize()
 {
-	SoundAsset::Register(L"Stage1BGM", BGM_PATH, {L"Stage1"});
+	if(!SoundAsset::IsRegistered(L"Stage1BGM"))  SoundAsset::Register(L"Stage1BGM", BGM_PATH, {L"Stage1"});
 	SoundAsset::Preload(L"Stage1BGM");
 }

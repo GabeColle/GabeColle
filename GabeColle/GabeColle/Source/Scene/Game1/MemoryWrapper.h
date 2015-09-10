@@ -6,6 +6,8 @@
 #include "../GameData.h"
 #include "CircleObject.h"
 #include "PositionList.h"
+#include "ErrorFlagManager.h"
+#include "FadeOutEffect.h"
 
 
 class MemoryWrapper
@@ -16,17 +18,22 @@ private:
 private:
 	gc::Memory<CircleObject> memory_m;
 	PositionList positionList_m;
-	std::shared_ptr<GameData> data_m;
+	ErrorFlagManager errorFlag_m;
+	Effect effect_m;
+	GameData data_m;
 public:
 	MemoryWrapper();
 public:
 	void init();
-	void alloc();
-	bool free();
+	void update();
 	void draw() const;
-	//GameData calculateScore();
+	void alloc();
+	void free();
+	GameData calculateScore();
 private:
 	std::vector<int> getExistAddress();
 	void randomLink(int allocAddress);
+	void drawMemory() const;
+	void drawArrow() const;
 };
 
