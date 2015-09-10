@@ -7,6 +7,7 @@
 #include "Source\Scene\JumpakuGame\JumpakuGame.h"
 #include "Source\Scene\Result/Result.h"
 #include "Source\Scene\Game2\Game2.h" 
+#include "Source\Scene\Game1\Game1.h"
 
 
 void Main()
@@ -32,6 +33,7 @@ void Main()
 	manager.add<Game2>(L"Game2");
 	manager.add<Game2Easy>(L"Game2Easy");
 	manager.add<Game2Hard>(L"Game2Hard");
+	manager.add<Game1>(L"Game1");
 
 	while (System::Update()) {
 		if (!manager.updateAndDraw())
