@@ -1,7 +1,10 @@
 #include "FadeOutEffect.h"
 
 
-FadeOutEffect::FadeOutEffect(Font font, String str, Vec2 pos) : font_m(font), str_m(str), pos_m(pos)
+FadeOutEffect::FadeOutEffect(Font font, String str, Vec2 pos)
+	: font_m(font)
+	, str_m(str)
+	, pos_m(pos)
 {
 }
 

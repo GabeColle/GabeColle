@@ -5,7 +5,11 @@ const double MemoryWrapper::MEMORY_RADIUS = 40.0;
 const double MemoryWrapper::ROOT_RADIUS = 50.0;
 
 
-MemoryWrapper::MemoryWrapper() : memory_m(31), positionList_m(), errorFlag_m(), effect_m()
+MemoryWrapper::MemoryWrapper()
+	: memory_m(31)
+	, positionList_m()
+	, errorFlag_m()
+	, effect_m()
 {
 }
 
@@ -13,7 +17,7 @@ MemoryWrapper::MemoryWrapper() : memory_m(31), positionList_m(), errorFlag_m(), 
 void MemoryWrapper::init()
 {
 	memory_m.root().setCenter(positionList_m.getRootPos());
-	data_m.stageName = L"Stage1";
+	data_m.stageName = L"Game1";
 }
 
 void MemoryWrapper::alloc()
