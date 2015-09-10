@@ -25,8 +25,9 @@ void Main()
 
 
 	// シーンを設定
-	manager.add<Start>(L"Start");
 	manager.add<Result>(L"Result");
+	manager.add<Start>(L"Start");
+	
 	manager.add<JumpakuGame>(L"JumpakuGame");
 	//manager.add<Sample>(L"Sample");
 	

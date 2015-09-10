@@ -29,7 +29,8 @@ void RankingWindow::init(int id,int value)
 		ownFilter_m = new Rect((int)divideLine[ownPosition]->begin.x, (int)divideLine[ownPosition]->begin.y, WINDOW_WITDTH, BETWEEN_LINE);
 	}
 
-	closeButton_m = new Button(L"x", (int)window->x + WINDOW_WITDTH - 40, (int)window->y, 40, BAR_HEIGHT);
+	//closeButton_m = new Button(L"x", (int)window->x + WINDOW_WITDTH - 20, bar->y+BAR_HEIGHT/2, 40, BAR_HEIGHT);
+	closeButton_m = new CloseButton(Rect((int)window->x + WINDOW_WITDTH - 40, bar->y, 40, BAR_HEIGHT), L"x", L"Asset/SoundEffect/button83.mp3");
 }
 void RankingWindow::draw()const
 {
@@ -50,7 +51,7 @@ void RankingWindow::draw()const
 
 void RankingWindow::constructRankingWindow()
 {
-	window = new RoundRect(Window::Center().x - WINDOW_WITDTH / 2, Window::Center().y - WINDOW_HEIGHT / 2, WINDOW_WITDTH, WINDOW_HEIGHT, 40);
+	window = new Rect(Window::Center().x - WINDOW_WITDTH / 2, Window::Center().y - WINDOW_HEIGHT / 2, WINDOW_WITDTH, WINDOW_HEIGHT);
 	bar = new Rect((int)window->x, (int)window->y, BAR_WIDTH, BAR_HEIGHT);
 	for (int i = 0; i < LOWEST+1; ++i){
 		divideLine[i] = new Line(window->x, bar->y + BAR_HEIGHT + i * BETWEEN_LINE, window->x + WINDOW_WITDTH, bar->y + BAR_HEIGHT + i * BETWEEN_LINE);
@@ -88,6 +89,7 @@ int RankingWindow::searchPosition(int value)
 
 bool RankingWindow::pushButton()
 {
-	return closeButton_m->leftClicked();
+	closeButton_m->update();
+	return closeButton_m->isClicked();
 }
 
