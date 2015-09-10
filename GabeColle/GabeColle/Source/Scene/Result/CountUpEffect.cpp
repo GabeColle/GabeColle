@@ -4,7 +4,7 @@ CountUpEffect::CountUpEffect(int countedVariable, int frame, int delayFrame, Vec
 {
 	countedVariable_m = countedVariable;
 	counter_m = 0;
-	countRange_m = countedVariable_m / frame_m;
+	countRange_m = (countedVariable_m / frame_m == 0) ? 1 : countedVariable_m / frame_m;
 }
 
 
