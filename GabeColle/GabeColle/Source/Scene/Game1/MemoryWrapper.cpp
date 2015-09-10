@@ -5,7 +5,7 @@ const double MemoryWrapper::MEMORY_RADIUS = 40.0;
 const double MemoryWrapper::ROOT_RADIUS = 50.0;
 
 
-MemoryWrapper::MemoryWrapper() : memory_m(31), positionList_m()
+MemoryWrapper::MemoryWrapper() : memory_m(31), positionList_m(), errorFlag_m(), effect_m()
 {
 }
 
@@ -13,6 +13,7 @@ MemoryWrapper::MemoryWrapper() : memory_m(31), positionList_m()
 void MemoryWrapper::init()
 {
 	memory_m.root().setCenter(positionList_m.getRootPos());
+	data_m.stageName = L"Stage1";
 }
 
 void MemoryWrapper::alloc()
@@ -24,25 +25,85 @@ void MemoryWrapper::alloc()
 	}
 }
 
-bool MemoryWrapper::free()
+void MemoryWrapper::free()
 {
-	bool isFree = false;
 	for(int i(1); i < memory_m.size(); ++i) {
-		if(!memory_m.hasExpired(i) && Circle(memory_m.access(i).getCenter(), 40.0).leftClicked) {
+		if(!memory_m.hasExpired(i) && Circle(memory_m.access(i).getCenter(), 40.0).mouseOver) {
 			positionList_m.restoreRandomPos(memory_m.access(i).getCenter());
 			memory_m.free(i);
-			isFree = true;
+			++data_m.numOfDeletedObject;
 		}
 	}
-	return isFree;
+}
+
+void MemoryWrapper::update()
+{
+	static const Font OoMFont(30, Typeface::Heavy);
+
+	errorFlag_m.update(memory_m.error());
+	
+	if(errorFlag_m.getErrorFlag().outOfMemory_m) {
+		effect_m.add<FadeOutEffect>(OoMFont, L"Out of Memory!", memory_m.root().getCenter());
+	}
+	++data_m.time;
 }
 
 void MemoryWrapper::draw() const
 {
-	static Font font;
+	static const Font font;
 
-	font(L"Segmentation Fault	: " + ToString(memory_m.error().segmentationFault_m)).draw(10, 0);
-	font(L"Out of Memory		: " + ToString(memory_m.error().outOfMemory_m)).draw(10, 30);
+	effect_m.update();
+	if(errorFlag_m.getErrorFlag().segmentationFault_m) { font(L"Segmentation Fault 発生中！！").drawCenter(Rect(1280, 50).setCenter(Window::Center().x, 25).draw(Color(Palette::Blue, 100)).center); }
+	drawMemory();
+	drawArrow();
+}
+
+GameData MemoryWrapper::calculateScore()
+{
+	data_m.numOfError = memory_m.error().segmentationFault_m + memory_m.error().outOfMemory_m;
+	data_m.totalScore =
+		data_m.numOfDeletedObject * 100 -
+		(memory_m.error().segmentationFault_m + memory_m.error().outOfMemory_m * 10);
+	return data_m;
+}
+
+
+void MemoryWrapper::randomLink(int allocAddress)
+{
+	int from = -1;	// 出発地
+	int to = -1;	// 目的地
+	if(RandomBool(0.7)) {
+		std::vector<int> numList = getExistAddress();
+		std::random_shuffle(numList.begin(), numList.end());
+		if(RandomBool(0.5)) {
+			from = numList[0];
+			to = allocAddress;
+		}
+		else {
+			from = allocAddress;
+			to = numList[0];
+		}
+	}
+	if(from != -1 && to != -1) {
+		memory_m.link(from, to);
+	}
+}
+
+std::vector<int> MemoryWrapper::getExistAddress()
+{
+	std::list<int> numList(0);
+	for(int i(0); i < memory_m.size(); ++i) {
+		if(!memory_m.hasExpired(i)) {
+			numList.push_back(i);
+		}
+	}
+	std::vector<int> numVector(numList.begin(), numList.end());
+	return numVector;
+}
+
+void MemoryWrapper::drawMemory() const
+{
+	static const Font font;
 
 	font.drawCenter(L"Root", Circle(memory_m.root().getCenter(), ROOT_RADIUS).draw(Palette::Aqua).center);
 
@@ -61,7 +122,12 @@ void MemoryWrapper::draw() const
 	for(int i(1); i < memory_m.size(); ++i) {
 		drawCircle(i);
 	}
-	
+}
+
+void MemoryWrapper::drawArrow() const
+{
+	static const Font font;
+
 	//ルートからの参照を描く
 	auto rm = memory_m.getRelation();
 	for(int j(1); j < memory_m.size(); ++j) {
@@ -93,38 +159,4 @@ void MemoryWrapper::draw() const
 			drawArrow(i, j);
 		}
 	}
-	
-}
-
-
-void MemoryWrapper::randomLink(int allocAddress)
-{
-	int from = -1;	// 出発地
-	int to = -1;	// 目的地
-	if(RandomBool(0.7)) {
-		std::vector<int> numList = getExistAddress();
-		std::random_shuffle(numList.begin(), numList.end());
-		if(RandomBool(0.5)) {
-			from = numList[0];
-			to = allocAddress;
-		} else {
-			from = allocAddress;
-			to = numList[0];
-		}
-	}
-	if(from != -1 && to != -1) {
-		memory_m.link(from, to);
-	}
-}
-
-std::vector<int> MemoryWrapper::getExistAddress()
-{
-	std::list<int> numList(0);
-	for(int i(0); i < memory_m.size(); ++i) {
-		if(!memory_m.hasExpired(i)) {
-			numList.push_back(i);
-		}
-	}
-	std::vector<int> numVector(numList.begin(), numList.end());
-	return numVector;
 }

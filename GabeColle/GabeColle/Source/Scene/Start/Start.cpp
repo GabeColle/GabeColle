@@ -33,7 +33,7 @@ void Start::update()
 	}
 	if (buttons_m.at(L"Twitter")->isClicked()) {
 		twitter_m = std::thread(
-			Twitter::OpenTweetWindow, L"ガベこれをプレイ中\nhttp://jumpaku.hatenablog.com/entry/2015/09/04/001226");
+			Twitter::OpenTweetWindow, L"ガベこれをプレイ中\nhttp://goo.gl/np2OfM\n#GabeColle");
 		twitter_m.detach();
 	}
 
