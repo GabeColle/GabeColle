@@ -21,20 +21,10 @@ void LinkArrow::draw()const
 	}
 }
 
-bool LinkArrow::isVisible()const
-{
-	return isVisible_m;
-}
-
 void LinkArrow::show(Vec2 const &from, Vec2 const &to)
 {
-	isVisible_m = true;
+	Visibility::show();
 	from_m = from;
 	to_m = to;
 	shape_m = from == to ? CIRCLE : LINE;
-}
-
-void LinkArrow::hide()
-{
-	isVisible_m = false;
 }

@@ -1,8 +1,9 @@
 #pragma once
 
 #include<siv3D.hpp>
+#include"../../Utility/Visibility.h"
 
-class LinkArrow
+class LinkArrow : public Visibility
 {
 	Color color_m;
 	Vec2 to_m;
@@ -13,12 +14,9 @@ class LinkArrow
 		LINE,
 	};
 	Shape shape_m;
-	bool isVisible_m = false;
 public:
 	void draw()const;
-	bool isVisible()const;
 	void show(Vec2 const &from, Vec2 const &to);
-	void hide();
 	LinkArrow();
 	~LinkArrow() = default;
 };

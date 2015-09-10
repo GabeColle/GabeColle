@@ -21,9 +21,9 @@ void Start::init()
 // 毎フレーム updateAndDraw() で呼ばれる
 void Start::update()
 {
-	buttons_m.at(L"Start")->update();
-	buttons_m.at(L"Quit")->update();
-	buttons_m.at(L"Twitter")->update();
+	buttons_m.at(L"Start")->update(buttonEffect_m);
+	buttons_m.at(L"Quit")->update(buttonEffect_m);
+	buttons_m.at(L"Twitter")->update(buttonEffect_m);
 
 	if (buttons_m.at(L"Start")->isClicked()){
 		changeScene(L"Game2Hard", 200);
@@ -35,6 +35,9 @@ void Start::update()
 		twitter_m = std::thread(
 			Twitter::OpenTweetWindow, L"ガベこれをプレイ中\nhttp://goo.gl/np2OfM\n#GabeColle");
 		twitter_m.detach();
+	}
+	if (buttons_m.at(L"Start")->isClicked()) {
+		changeScene(L"Game3");
 	}
 
 	std::for_each(sakuras_m.begin(), sakuras_m.end(), [] (SakuraTexture &s)
@@ -53,6 +56,7 @@ void Start::draw() const
 	buttons_m.at(L"Start")->draw();
 	buttons_m.at(L"Quit")->draw();
 	buttons_m.at(L"Twitter")->draw();
+	buttonEffect_m.update();
 }
 
 void Start::initButtons()

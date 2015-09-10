@@ -10,42 +10,54 @@
 #include"../../Clickable/CircleObject.h"
 #include"LinkArrow.h"
 #include"../../Clickable/Button.h"
+#include"../../Utility/Text.h"
 
-class JumpakuGame :
+class GameOver;
+class Clear;
+class Playing;
+
+class Game3 :
 	public SceneManager<String, GameData>::Scene
 {
 	static int const SIZE_m = 51;
 	using LinkTable_t = std::array < std::array<LinkArrow, SIZE_m>, SIZE_m >;
-	enum State
+	friend GameOver;
+	friend Clear;
+	friend Playing;
+public:
+	class SceneState
 	{
-		SEGMENTATION_FAULT,
-		OUT_OF_MEMORY,
-		VALID,
+	protected:
+		using Buttons_t = std::map<String, std::shared_ptr<clickable::Button>>;
+		Buttons_t buttons_m;
+		Effect buttonEffect_m;
+		Text title_m;
+		Text message_m;
+		Color back_m;
+		static String const nextScene_m;
+	public:
+		virtual void draw()const = 0;
+		virtual void update(Game3 &parent) = 0;
+		virtual ~SceneState() = default;
 	};
-
-	State state_m = VALID;
+private:
 	gc::Memory<clickable::CircleObject> memory_m;
-	void drawMemory()const;
-	void drawError()const;
-	long frame_m = 0;
+	int deletes_m = 0;
 	LinkTable_t linkArrowTable_m;
-
-	Font font100_m;
-	Font font20_m;
-	std::map<String, std::shared_ptr<clickable::Button>> buttons_m;
-
+	long frame_m = 0;
+	Effect objectEffect_m;
+	long const CLEAR_LIMIT_m = 10800;//10800[frame]==3[minute](60[frame/s])
 	int allocInterval_m = 30;
 	int objectLinkInterval_m = 10;
 	int rootLinkInterval_m = 60;
 	int unlinkInterval_m = 1;
 
-	int deletes_m = 0;
-	void initButtons();
-
-	void updateError();
-	void updateObjects();
+	void drawMemory()const;
+	void updateMemory();
 	void checkState();
 	void saveScore();
+
+	std::shared_ptr<SceneState> sceneState_m;
 public:
 	// クラスの初期化時に一度だけ呼ばれる（省略可）
 	void init() override;
@@ -56,9 +68,7 @@ public:
 	// 毎フレーム update() の次に呼ばれる
 	void draw() const override;
 
-
-
-	JumpakuGame();
-	~JumpakuGame() = default;
+	Game3();
+	~Game3() = default;
 };
 
