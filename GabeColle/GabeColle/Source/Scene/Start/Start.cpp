@@ -3,9 +3,17 @@
 
 using namespace clickable;
 
+String const Start::bgm_m = L"Asset/BGM/StartBGM.mp3";
+
 Start::Start()
 	:titleFont_m(Font(120)), sakuras_m(50)
-{}
+{
+	if (!SoundAsset::IsRegistered(bgm_m)) {
+		SoundAsset::Register(bgm_m, bgm_m);
+	}
+	SoundAsset(bgm_m).setLoop(true);
+	SoundAsset(bgm_m).play();
+}
 
 // クラスの初期化時に一度だけ呼ばれる（省略可）
 void Start::init()
@@ -14,6 +22,10 @@ void Start::init()
 
 	logo_m = Texture(L"Asset/Image/GabeColle.png");
 	back_m = Texture(L"Asset/Image/曇り気味の青空.png");
+	rightGirl_m = Texture(L"Asset/Image/Imouto.png");
+	leftGirl_m = Texture(L"Asset/Image/Heroine.png");
+	rightBoy_m = Texture(L"Asset/Image/Okama.png");
+	leftBoy_m = Texture(L"Asset/Image/Yamada.png");
 	title_m = L"ガベこれ";
 	initButtons();
 }
@@ -26,7 +38,8 @@ void Start::update()
 	buttons_m.at(L"Twitter")->update(buttonEffect_m);
 
 	if (buttons_m.at(L"Start")->isClicked()){
-		changeScene(L"Game2Hard", 200);
+		SoundAsset(bgm_m).stop();
+		changeScene(L"Game2Hard");
 	}
 	if (buttons_m.at(L"Quit")->isClicked()) {
 		System::Exit();
@@ -37,7 +50,7 @@ void Start::update()
 		twitter_m.detach();
 	}
 	if (buttons_m.at(L"Start")->isClicked()) {
-		changeScene(L"Game3Easy");
+		changeScene(L"Game3Hard");
 	}
 
 	std::for_each(sakuras_m.begin(), sakuras_m.end(), [] (SakuraTexture &s)
@@ -52,6 +65,11 @@ void Start::draw() const
 	back_m.draw();
 	std::for_each(sakuras_m.begin(), sakuras_m.end(),
 		[] (SakuraTexture const &s) { s.draw(); });
+	rightGirl_m.scale(0.9).drawAt(Window::Center().movedBy(550, 170));
+	leftGirl_m.drawAt(Window::Center().movedBy(-500, 180));
+	rightBoy_m.scale(0.9).drawAt(Window::Center().movedBy(350, -40));
+	leftBoy_m.scale(0.9).drawAt(Window::Center().movedBy(-350, -40));
+
 	logo_m.scale(0.4).drawAt(Window::Center().movedBy(0, -120));
 	buttons_m.at(L"Start")->draw();
 	buttons_m.at(L"Quit")->draw();
@@ -67,7 +85,7 @@ void Start::initButtons()
 		btn->show();
 		buttons_m.insert(std::make_pair(	name, btn));
 	};
-	addButton(Window::Center().movedBy(0, 150), L"Start", L"Asset/SoundEffect/Decision.mp3");
+	addButton(Window::Center().movedBy(0, 150), L"Start", L"Asset/SoundEffect/NextScene.mp3");
 	addButton(Window::Center().movedBy(0, 220), L"Quit", L"Asset/SoundEffect/Decision.mp3");
 	addButton(Window::Center().movedBy(0, 290), L"Twitter", L"Asset/SoundEffect/Decision.mp3");
 }

@@ -8,6 +8,12 @@ CircleObject::CircleObject()
 	if (!FontAsset::IsRegistered(FONT_ASSET_NAME)) {
 		FontAsset::Register(FONT_ASSET_NAME, 24);
 	}
+	if (!SoundAsset::IsRegistered(newSound_m)) {
+		SoundAsset::Register(newSound_m, newSound_m);
+	}
+	if (!SoundAsset::IsRegistered(deleteSound_m)) {
+		SoundAsset::Register(deleteSound_m, deleteSound_m);
+	}
 	clickedInterval_m = 1;
 }
 
@@ -22,7 +28,7 @@ void CircleObject::initialize(int address, Effect &effect)
 		text_m = ToString(address);
 	}
 	show();
-	
+	SoundAsset(newSound_m).playMulti();//.play();
 	effect.add<CircleObjectTextEffect>(
 		shape_m.center,
 		FontSharedText(
@@ -33,6 +39,7 @@ void CircleObject::finalize(Effect &effect)
 {
 	frame_m = clickedInterval_m + 1;
 	hide();
+	SoundAsset(deleteSound_m).playMulti(); //.play();
 	effect.add<CircleObjectTextEffect>(
 		shape_m.center,
 		FontSharedText(
@@ -78,3 +85,5 @@ void CircleObject::drawClicked(Circle shape, String const &text, int frame)const
 }
 
 String const CircleObject::FONT_ASSET_NAME(L"CircleObjectFont");
+String const CircleObject::newSound_m = L"Asset/SoundEffect/New.mp3";
+String const CircleObject::deleteSound_m = L"Asset/SoundEffect/Delete.mp3";

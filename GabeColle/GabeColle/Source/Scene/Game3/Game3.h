@@ -46,6 +46,10 @@ private:
 	LinkTable_t linkArrowTable_m;
 	long frame_m = 0;
 	Effect objectEffect_m;
+
+	static String const gameOverSound_m;
+	static String const clearSound_m;
+	static String const bgm_m;
 protected:
 	long clearLimit_m;//10800[frame]==3[minute](60[frame/s])
 	int allocInterval_m;
@@ -70,7 +74,7 @@ public:
 	void draw() const override;
 
 	//Game3();
-	Game3(int clearLimit = 10800, int allocInterval = 30, int objectLinkInterval = 10, int rootLinkInterval = 60, int unlinkInterval = 1);
+	Game3(int clearLimit = 10800, int allocInterval = 31, int objectLinkInterval = 11, int rootLinkInterval = 61, int unlinkInterval = 2);
 	virtual~Game3() = default;
 };
 
@@ -78,13 +82,13 @@ class Game3Easy :public Game3
 {
 public:
 	Game3Easy()
-		:Game3(7200, 60, 30, 90, 10) {}
+		:Game3(7200, 61, 23, 91, 1) {}
 };
 
 class Game3Hard :public Game3
 {
 public:
 	Game3Hard()
-		:Game3(14400, 20, 8, 400, 1)
+		:Game3(14400, 23, 7, 43, 3)
 	{}
 };

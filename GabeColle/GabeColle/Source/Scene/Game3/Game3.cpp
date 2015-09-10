@@ -6,6 +6,9 @@
 #include"Playing.h"
 
 String const Game3::SceneState::nextScene_m = L"Result";
+String const Game3::gameOverSound_m = L"Asset/SoundEffect/GameOver.mp3";
+String const Game3::clearSound_m = L"Asset/SoundEffect/clear.mp3";
+String const Game3::bgm_m = L"Asset/BGM/Game3BGM.mp3";
 
 Game3::Game3(int clearLimit, int allocInterval, int objectLinkInterval, int rootLinkInterval, int unlinkInterval)
 	: clearLimit_m(clearLimit),
@@ -14,7 +17,19 @@ Game3::Game3(int clearLimit, int allocInterval, int objectLinkInterval, int root
 	rootLinkInterval_m(rootLinkInterval),
 	unlinkInterval_m(unlinkInterval),
 	memory_m(SIZE_m)
-{}
+{
+	if (!SoundAsset::IsRegistered(gameOverSound_m)) {
+		SoundAsset::Register(gameOverSound_m, gameOverSound_m);
+	}
+	if (!SoundAsset::IsRegistered(clearSound_m)) {
+		SoundAsset::Register(clearSound_m, clearSound_m);
+	}
+	if (!SoundAsset::IsRegistered(bgm_m)) {
+		SoundAsset::Register(bgm_m, bgm_m);
+	}
+	SoundAsset(bgm_m).setLoop(true);
+	SoundAsset(bgm_m).play();
+}
 
 
 // クラスの初期化時に一度だけ呼ばれる（省略可）
@@ -139,11 +154,15 @@ void Game3::checkState()
 		(e.outOfMemory_m > 0 || e.segmentationFault_m > 0)) {
 		sceneState_m = std::make_shared<GameOver>(
 			e.outOfMemory_m > 0 ? L"Out of Memory" : L"Segmentation Fault");
+		SoundAsset(bgm_m).stop();
+		SoundAsset(gameOverSound_m).play();
 		saveScore();
 	}
 	else if (typeid(*sceneState_m.get()) != typeid(Clear) &&
 		frame_m > clearLimit_m) {
 		sceneState_m = std::make_shared<Clear>();
+		SoundAsset(bgm_m).stop();
+		SoundAsset(clearSound_m).play();
 		saveScore();
 	}
 }
@@ -158,3 +177,8 @@ void Game3::saveScore()
 	m_data->totalScore = 
 		e.outOfMemory_m * -2000 + e.segmentationFault_m * -3000 + deletes_m*30 + frame_m * 1;
 }
+
+/*void Game3::showResult()
+{
+	SoundAsset(bgm_m)
+}*/

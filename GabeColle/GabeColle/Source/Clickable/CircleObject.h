@@ -9,7 +9,8 @@ class CircleObject :
 	public ClickableBase<Circle>, public gc::Object
 {
 	static String const FONT_ASSET_NAME;
-	String soundName_m;
+	static String const newSound_m;
+	static String const deleteSound_m;
 	
 	void drawPressed(Circle shape, String const &text, int frame)const override;
 	void drawOver(Circle shape, String const &text, int frame)const override;
