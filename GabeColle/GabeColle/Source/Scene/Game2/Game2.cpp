@@ -86,7 +86,7 @@ void Game2::update()
 		resultButton_m.update();
 		if (resultButton_m.isClicked()){
 			SoundAsset(L"Game2_BGM").pause(500);
-			changeScene(L"Start", 500);
+			changeScene(L"Result", 500);
 		}
 	}
 }
