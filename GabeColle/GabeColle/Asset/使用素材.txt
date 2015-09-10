@@ -1,4 +1,25 @@
-SakuraHanabira,SakuraMosaiced http://www.illust-ai.com/single.php?c=00000124
-Decision.mp3 http://www.kurage-kosho.info/mp3/button33.mp3
+********************************************************************************************
+ライブラリ 
+
+Siv3D http://play-siv3d.hateblo.jp/
+
+********************************************************************************************
+効果音
+
+Decision.mp3 フリー効果音素材 くらげ工匠 http://www.kurage-kosho.info/
+
+********************************************************************************************
+BGM
+
+Game2BGM(bgm_maoudamashii_cyber09.ogg) 魔王魂 http://maoudamashii.jokersounds.com/
+
+********************************************************************************************
+画像
+
+SakuraHanabira,SakuraMosaiced イラスト愛 http://www.illust-ai.com/
 曇り気味の青空 HataG
 GabeColle.png HataG
+
+********************************************************************************************
+
+
