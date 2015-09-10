@@ -7,7 +7,7 @@
 
 namespace gc {
 
-template<class DeriverdObject>
+template<class DerivedObject>
 class GarbageCollection;
 
 /**
