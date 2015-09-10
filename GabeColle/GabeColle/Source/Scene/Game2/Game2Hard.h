@@ -7,5 +7,6 @@ class Game2Hard
 public:
 	Game2Hard() : Game2(){
 		NUM_OF_MEMORY = 18;
+		name_m = L"Game2(Hard)";
 	};
 };

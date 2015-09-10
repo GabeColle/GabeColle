@@ -1,9 +1,10 @@
 #include "Game2.h"
 #include"Game2GabeColle.h"
+#include"Effect.h"
 
 using namespace game2;
 
-void drawMemory(gc::Memory<CircleObject> const &memory, int num);
+void drawMemory(gc::Memory<CircleObject> const &memory);
 
 // クラスの初期化時に一度だけ呼ばれる（省略可）
 void Game2::init()
@@ -13,6 +14,9 @@ void Game2::init()
 	Graphics::SetBackground(Palette::Darkcyan);
 	// ルートを画面中央に
 	memory_m.root().center(rootPos);
+
+	completionButton_m.hide();
+	resultButton_m.hide();
 
 	time_m = 0;
 	count_m = 0;
@@ -26,6 +30,13 @@ void Game2::init()
 void Game2::update()
 {
 	SoundAsset(L"Game2_BGM").play();
+	
+	titleButton_m.update();
+	if (titleButton_m.isClicked()){
+		SoundAsset(L"Game2_BGM").pause(500);
+		changeScene(L"Start", 500);
+	}
+
 	if (static_cast<int> (state) < 3 )
 	{
 		if (System::FrameCount() % (108/NUM_OF_MEMORY) == 0)
@@ -56,19 +67,24 @@ void Game2::update()
 		time_m++;
 		freeByInput();
 		seekSegmentFault();
-		if (button_m.leftClicked()){
+		completionButton_m.show();
+		completionButton_m.update();
+		if (completionButton_m.isClicked()){
 			garbage_m = Game2GabeColle<game2::CircleObject>::gc(memory_m);
-			m_data->stageName = name;
+			m_data->stageName = name_m;
 			m_data->numOfError = garbage_m + segmentFault_m;
 			m_data->time = time_m;
 			m_data->numOfDeletedObject = process_m;
-			m_data->totalScore = 100000 - time_m *2 - garbage_m * 1000 - segmentFault_m * 5000 + process_m * 100;
+			m_data->totalScore = Max((unsigned int)0,100000 - time_m *2 - garbage_m * 1000 - segmentFault_m * 5000 + process_m * 100);
 			state = State::result;
 		}
 	}
 	else if (state == State::result)
 	{
-		if (Input::MouseL.clicked){
+		completionButton_m.hide();
+		resultButton_m.show();
+		resultButton_m.update();
+		if (resultButton_m.isClicked()){
 			SoundAsset(L"Game2_BGM").pause(500);
 			changeScene(L"Start", 500);
 		}
@@ -78,7 +94,9 @@ void Game2::update()
 // 毎フレーム update() の次に呼ばれる
 void Game2::draw() const
 {
+	/*
 	ClearPrint();
+
 	Println(Format(L"TIME ",time_m));
 	Println(Format(L"COUNT ", count_m));
 	Println(Format(L"Garbage", garbage_m));
@@ -86,36 +104,20 @@ void Game2::draw() const
 	Println(Format(L"State", static_cast<int>( state )));
 
 	Println(L"----------------------");
+	Println(Format(L"Name", m_data->stageName));
 	Println(Format(L"TIME ", m_data->time));
 	Println(Format(L"Process ", m_data->numOfDeletedObject));
 	Println(Format(L"Error ", m_data->numOfError));
 	Println(Format(L"Score ", m_data->totalScore));
-
-
-	double rad = (double)System::FrameCount() / 80;
-	Color c(Palette::Darkturquoise);//(HSV(180, 0.5, 0.5));
-	Circle(rootPos, 150).drawArc(0.0 + rad*2.3, HalfPi + 0.6, 50, 0, c);
-	Circle(rootPos, 211).drawArc(Pi - rad*2.0, HalfPi + 0.1, 60, 0, c);
-	Circle(rootPos, 211).drawArc(0.0 - rad*2.0, HalfPi + 0.3, 60, 0, c);
-	Circle(rootPos, 282).drawArc(HalfPi + rad*1.7, HalfPi + 0.6, 70, 0, c);
-	Circle(rootPos, 363).drawArc(0.0 - rad*1.4, HalfPi + 0.6, 80, 0, c);
-	Circle(rootPos, 363).drawArc(Pi - rad*1.4, HalfPi + 0.7, 80, 0, c);
-	Circle(rootPos, 454).drawArc(HalfPi + rad*1.1, HalfPi + 0.8, 90, 0, c);
-	Circle(rootPos, 555).drawArc(Pi - rad*0.8, HalfPi + 0.6, 100, 0, c);
-	Circle(rootPos, 555).drawArc(0.0 - rad*0.8, HalfPi + 0.6, 100, 0, c);
-	Circle(rootPos, 666).drawArc(0.0 + rad*0.5, HalfPi*3 + 0.3, 110, 0, c);
-
-	const auto fft = FFT::Analyze(SoundAsset(L"Game2_BGM"));
-
-	for (int i = 0; i < Window::Height() / 30 ; ++i)
-	{
-		const double size = Pow(fft.buffer[i*30], 0.6f) * 2000;
-		RectF(0, i * 30 ,size , 29).draw(HSV(240 - i));
-		RectF(Window::Width() - size , i * 30, size, 29).draw(HSV(240 - i));
-	}
-
-	drawMemory(memory_m,NUM_OF_MEMORY);
-	button_m.draw();
+	*/
+	
+	drawBackGround();
+	drawMemory(memory_m);
+	drawStates();
+	completionButton_m.draw();
+	resultButton_m.draw();
+	titleButton_m.draw();
+	effect_m.update();
 }
 
 //クリックでメモリ解放
@@ -151,11 +153,61 @@ void Game2::countAndChangeState(bool isOutOfMemory){
 
 	if (count_m % NUM_OF_MEMORY == 0){
 		count_m = 0;
+		if (state == State::erase){
+			effect_m.add<TextEffect>(Font(70,Typeface::Heavy, FontStyle::Outline), L"Start!", rootPos);
+		}
 		state = static_cast<State> (static_cast<int>(state)+1);
+		
 	}
 }
 
-void drawMemory(gc::Memory<CircleObject> const &memory,int num)
+void Game2::drawStates()const
+{
+	int x = Window::Width() * 5 / 6;
+	int y = 40;
+	textField_m.draw({ x, y }, L"TIME", {200,60});
+	textField_m.draw({ x, y + 61 }, Format(time_m), { 200, 60 });
+	textField_m.draw({ x, y + 160 }, L"Garbage", { 200, 60 });
+	textField_m.draw({ x, y + 221 }, Format(garbage_m), { 200, 60 });
+	textField_m.draw({ x, y + 320 }, Format(L"Segment\nFault\n "), { 200, 120 });
+	textField_m.draw({ x, y + 441 }, Format(segmentFault_m), { 200, 60 });
+
+	if (state == State::result){
+		reference_m.draw({ 30, 400 }, L"Resultボタンで\nスコア画面に\n移動します。", { 280, 190 });
+	}
+	else{
+		reference_m.draw({ 30, 400 }, L"Rootから矢印で\n辿れないMemoryを\n全て消してから\nCompleteボタンを\n押してください。", { 280, 190 });
+	}
+}
+
+
+void Game2::drawBackGround() const
+{
+	// くるくる
+	double rad = (double)System::FrameCount() / 80;
+	Color c(Palette::Darkturquoise);//(HSV(180, 0.5, 0.5));
+	Circle(rootPos, 150).drawArc(0.0 + rad*2.3, HalfPi + 0.6, 50, 0, c);
+	Circle(rootPos, 211).drawArc(Pi - rad*2.0, HalfPi + 0.1, 60, 0, c);
+	Circle(rootPos, 211).drawArc(0.0 - rad*2.0, HalfPi + 0.3, 60, 0, c);
+	Circle(rootPos, 282).drawArc(HalfPi + rad*1.7, HalfPi + 0.6, 70, 0, c);
+	Circle(rootPos, 363).drawArc(0.0 - rad*1.4, HalfPi + 0.6, 80, 0, c);
+	Circle(rootPos, 363).drawArc(Pi - rad*1.4, HalfPi + 0.7, 80, 0, c);
+	Circle(rootPos, 454).drawArc(HalfPi + rad*1.1, HalfPi + 0.8, 90, 0, c);
+	Circle(rootPos, 555).drawArc(Pi - rad*0.8, HalfPi + 0.6, 100, 0, c);
+	Circle(rootPos, 555).drawArc(0.0 - rad*0.8, HalfPi + 0.6, 100, 0, c);
+	Circle(rootPos, 666).drawArc(0.0 + rad*0.5, HalfPi * 3 + 0.3, 110, 0, c);
+
+	// 左右の波
+	const auto fft = FFT::Analyze(SoundAsset(L"Game2_BGM"));
+	for (int i = 0; i < Window::Height() / 30; ++i)
+	{
+		const double size = Pow(fft.buffer[i * 30], 0.6f) * 2000;
+		RectF(0, i * 30, size, 29).draw(HSV(240 - i));
+		RectF(Window::Width() - size, i * 30, size, 29).draw(HSV(240 - i));
+	}
+}
+
+void drawMemory(gc::Memory<CircleObject> const &memory)
 {
 	static Font font;
 	font.drawCenter(L"Root", Circle(memory.root().center(), 50.0).draw(HSV(System::FrameCount(),1.0,0.8)/*Palette::Aqua*/).center);
