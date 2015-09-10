@@ -16,7 +16,7 @@ class GameOver;
 class Clear;
 class Playing;
 
-class JumpakuGame :
+class Game3 :
 	public SceneManager<String, GameData>::Scene
 {
 	static int const SIZE_m = 51;
@@ -30,22 +30,23 @@ public:
 	protected:
 		using Buttons_t = std::map<String, std::shared_ptr<clickable::Button>>;
 		Buttons_t buttons_m;
+		Effect buttonEffect_m;
 		Text title_m;
 		Text message_m;
 		Color back_m;
 		static String const nextScene_m;
 	public:
 		virtual void draw()const = 0;
-		virtual void update(JumpakuGame &parent) = 0;
+		virtual void update(Game3 &parent) = 0;
 		virtual ~SceneState() = default;
 	};
 private:
 	gc::Memory<clickable::CircleObject> memory_m;
 	int deletes_m = 0;
 	LinkTable_t linkArrowTable_m;
-
 	long frame_m = 0;
-	long CLEAR_LIMIT_m = 10800;//10800[frame]==3[minute](60[frame/s])
+	Effect objectEffect_m;
+	long const CLEAR_LIMIT_m = 10800;//10800[frame]==3[minute](60[frame/s])
 	int allocInterval_m = 30;
 	int objectLinkInterval_m = 10;
 	int rootLinkInterval_m = 60;
@@ -57,7 +58,6 @@ private:
 	void saveScore();
 
 	std::shared_ptr<SceneState> sceneState_m;
-
 public:
 	// クラスの初期化時に一度だけ呼ばれる（省略可）
 	void init() override;
@@ -68,7 +68,7 @@ public:
 	// 毎フレーム update() の次に呼ばれる
 	void draw() const override;
 
-	JumpakuGame();
-	~JumpakuGame() = default;
+	Game3();
+	~Game3() = default;
 };
 

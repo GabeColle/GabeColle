@@ -23,6 +23,8 @@ private:
 	std::map<String, Button_t> buttons_m;
 	std::map<String, GUI> guis_m;
 
+	Effect buttonEffect_m;
+
 	std::thread twitter_m;
 
 	void initButtons();

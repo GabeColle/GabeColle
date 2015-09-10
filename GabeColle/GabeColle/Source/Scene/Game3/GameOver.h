@@ -1,16 +1,15 @@
 #pragma once
 
-#include "JumpakuGame.h"
+#include "Game3.h"
 
-class JumpakuGame;
+class Game3;
 
 class GameOver :
-	public JumpakuGame::SceneState
+	public Game3::SceneState
 {
 public:
-
 	void draw()const override;
-	void update(JumpakuGame &parent)override;
+	void update(Game3 &parent)override;
 	GameOver(String const &message);
 	~GameOver() = default;
 };

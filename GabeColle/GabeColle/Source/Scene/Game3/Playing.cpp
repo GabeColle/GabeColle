@@ -1,6 +1,6 @@
 #include "Playing.h"
 
-void Playing::update(JumpakuGame &parent)
+void Playing::update(Game3 &parent)
 {
 	parent.updateMemory();
 }

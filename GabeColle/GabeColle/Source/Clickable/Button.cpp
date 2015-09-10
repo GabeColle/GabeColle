@@ -1,5 +1,6 @@
 
 #include "Button.h"
+#include"ButtonOverEffect.h"
 
 using namespace clickable;
 
@@ -8,7 +9,7 @@ Button::Button(Rect const &rect, String text, String soundName)
 {}
 
 Button::Button(Rect const &rect, String text, int h, String soundName)
-	:ClickableBase(RoundRect(rect, 8), text)
+	: ClickableBase(RoundRect(rect, 8), text)
 {
 	if (!FontAsset::IsRegistered(FONT_ASSET_NAME)) {
 		FontAsset::Register(FONT_ASSET_NAME, 32);
@@ -24,7 +25,7 @@ Button::Button(Rect const &rect, String text, int h, String soundName)
 Button::~Button()
 {}
 
-void Button::update()
+void Button::update(Effect &effect)
 {
 	ClickableBase<RoundRect>::update();
 
@@ -32,6 +33,10 @@ void Button::update()
 	case clickable::Button::PRESSED:
 		break;
 	case clickable::Button::OVER:
+		if (frame_m%20 == 0) {
+			effect.add<ButtonOverEffect>(
+				color_m, shape_m);
+		}
 		break;
 	case clickable::Button::LEFT:
 		break;
@@ -53,13 +58,7 @@ void Button::drawPressed(RoundRect shape, String const &text, int frame)const
 
 void Button::drawOver(RoundRect shape, String const &text, int frame)const
 {
-	double const interval = 45.0;
-	double t = static_cast<double>(frame % static_cast<int>(interval));
-
 	shape.draw(color_m + HSV(0, 0.5, 0.9));
-	shape.setSize(t * 2 + shape.w, t / 2 + shape.h)
-		.setCenter(shape.rect.center)
-		.drawFrame(0.0, 2.0, color_m + HSV(0, 0.5 - 0.5 * t / interval, 0.9));
 	FontAsset(FONT_ASSET_NAME).drawCenter(text, shape.rect.center);
 }
 

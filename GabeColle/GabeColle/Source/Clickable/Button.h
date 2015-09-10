@@ -22,7 +22,7 @@ public:
 	Button(Rect const &rect, String text, int h, String soundName);
 
 	virtual ~Button();
-	void update()override;
+	void update(Effect &effect);
 };
 
 }

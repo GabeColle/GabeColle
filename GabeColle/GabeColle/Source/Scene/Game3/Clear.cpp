@@ -4,7 +4,8 @@ Clear::Clear()
 {
 	auto addButton = [this] (Point p, String name, String sound)
 	{
-		auto btn = std::make_shared<clickable::Button>(Rect(500, 60).setCenter(p), name, sound);
+		auto btn = std::make_shared<clickable::Button>(
+			Rect(500, 60).setCenter(p), name, sound);
 		btn->show();
 		buttons_m.insert(std::make_pair(name, btn));
 	};
@@ -28,9 +29,9 @@ Clear::Clear()
 	back_m = HSV(240.0, 0.9, 0.9).toColor(127);
 }
 
-void Clear::update(JumpakuGame &parent)
+void Clear::update(Game3 &parent)
 {
-	buttons_m.at(L"Result")->update();
+	buttons_m.at(L"Result")->update(buttonEffect_m);
 
 	if (buttons_m.at(L"Result")->isClicked()) {
 		parent.changeScene(nextScene_m);
@@ -43,5 +44,5 @@ void Clear::draw()const
 	title_m.draw();
 	message_m.draw();
 	buttons_m.at(L"Result")->draw();
-
+	buttonEffect_m.update();
 }

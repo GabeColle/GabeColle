@@ -8,19 +8,7 @@ namespace clickable{
 class CircleObject :
 	public ClickableBase<Circle>, public gc::Object
 {
-	enum ObjectState
-	{
-		ALLOCED,
-		FREED,
-		EXISTS,
-		EXPAIRED,
-	};
-	ObjectState objectState_m = EXPAIRED;
-	int objectFrame_m = 0;
-	void changeObjectState();
-
 	static String const FONT_ASSET_NAME;
-	
 	String soundName_m;
 	
 	void drawPressed(Circle shape, String const &text, int frame)const override;
@@ -28,12 +16,10 @@ class CircleObject :
 	void drawLeft(Circle shape, String const &text, int frame)const override;
 	void drawClicked(Circle shape, String const &text, int frame)const override;
 public:
-	void draw()const override;
 	void update() override;
-	void initialize(int address);
+	void initialize(int address, Effect &effect);
 	Vec2 center()const;
-	bool isFreed()const;
-	void finalize();
+	void finalize(Effect &effect);
 	CircleObject();
 	~CircleObject() = default;
 };
