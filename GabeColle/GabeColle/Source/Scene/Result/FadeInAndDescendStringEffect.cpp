@@ -1,6 +1,6 @@
 #include"FadeInAndDescendStringEffect.h"
 
-FadeInAndDescendStringEffect::FadeInAndDescendStringEffect(String str, int frame, int delayFrame, Vec2 position) : NodeEffect(frame, delayFrame, position), drawingSring_m(50)
+FadeInAndDescendStringEffect::FadeInAndDescendStringEffect(String str, int frame, int delayFrame, Vec2 position) : NodeEffect(frame, delayFrame, position), drawingString_m(50)
 {
 	descendedString_m = str;
 	position_m = position;
