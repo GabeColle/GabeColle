@@ -9,7 +9,7 @@ StageNameNode::StageNameNode(String name, int delayFrame, Vec2 position) : font_
 	node_m = new Circle(position_m, circleRadius_m);
 
 	effect_m = new ExpandCircleEffect(*node_m,30,delayFrame_m,Palette::Aqua);
-
+	
 }
 
 void StageNameNode::update()

@@ -1,6 +1,6 @@
 #include"FadeInAndDescendStringEffect.h"
 
-FadeInAndDescendStringEffect::FadeInAndDescendStringEffect(String str, int frame, int delayFrame, Vec2 position) : NodeEffect(frame,delayFrame,position),font_m(50)
+FadeInAndDescendStringEffect::FadeInAndDescendStringEffect(String str, int frame, int delayFrame, Vec2 position) : NodeEffect(frame, delayFrame, position), drawingString_m(50)
 {
 	descendedString_m = str;
 	position_m = position;
@@ -36,5 +36,5 @@ void FadeInAndDescendStringEffect::update()
 
 void FadeInAndDescendStringEffect::draw()const
 {
-	font_m(descendedString_m).drawCenter(currentPosition_m, Color(0,0,0,currentTransparency_m));
+	drawingString_m(descendedString_m).drawCenter(currentPosition_m, Color(0,0,0,currentTransparency_m));
 }

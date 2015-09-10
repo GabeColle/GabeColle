@@ -16,10 +16,11 @@ ResultNode::ResultNode(int id,int variable, String name, int delayFrame, Vec2 po
 	
 	effects[ARROW] = new ExtendArrowEffect(Line(Window::Center(), arrowEndPoint),30,delayFrame_m);
 	effects[CIRCLE] = new ExpandCircleEffect(*node_m, 30, delayFrame_m+30, Palette::Darkred);
-	effects[COUNTUP] = new CountUpEffect(variable_m,60,delayFrame_m+30*2,position_m);
+	effects[COUNTUP] = new CountUpEffect(variable,60,delayFrame_m+30*2,position_m);
 	effects[NAME] = new FadeInAndDescendStringEffect(name, 30, delayFrame_m+30*2+60, Vec2(position_m.x, position_m.y + circleRadius_m));
 
 	ranking = new RankingWindow(id_m,variable_m);
+
 	switchRanking = false;
 	
 }
@@ -50,5 +51,6 @@ void ResultNode::pushButton()
 	if (ranking->pushButton()){
 		switchRanking = false;
 	}
+	ranking->initPush();
 
 }
