@@ -33,11 +33,11 @@ void Start::update()
 	}
 	if (buttons_m.at(L"Twitter")->isClicked()) {
 		twitter_m = std::thread(
-			Twitter::OpenTweetWindow, L"ガベこれをプレイ中\nhttp://goo.gl/np2OfM\n#GabeColle");
+			Twitter::OpenTweetWindow, L"ガベこれをプレイ中\nhttp://goo.gl/np2OfM\n #GabeColle ");
 		twitter_m.detach();
 	}
 	if (buttons_m.at(L"Start")->isClicked()) {
-		changeScene(L"Game3");
+		changeScene(L"Game3Easy");
 	}
 
 	std::for_each(sakuras_m.begin(), sakuras_m.end(), [] (SakuraTexture &s)

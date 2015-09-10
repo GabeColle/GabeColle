@@ -47,11 +47,11 @@ private:
 	long frame_m = 0;
 	Effect objectEffect_m;
 protected:
-	long const CLEAR_LIMIT_m = 10800;//10800[frame]==3[minute](60[frame/s])
-	int allocInterval_m = 30;
-	int objectLinkInterval_m = 10;
-	int rootLinkInterval_m = 60;
-	int unlinkInterval_m = 1;
+	long clearLimit_m;//10800[frame]==3[minute](60[frame/s])
+	int allocInterval_m;
+	int objectLinkInterval_m;
+	int rootLinkInterval_m;
+	int unlinkInterval_m;
 private:
 	void drawMemory()const;
 	void updateMemory();
@@ -69,7 +69,22 @@ public:
 	// ñàÉtÉåÅ[ÉÄ update() ÇÃéüÇ…åƒÇŒÇÍÇÈ
 	void draw() const override;
 
-	Game3();
-	~Game3() = default;
+	//Game3();
+	Game3(int clearLimit = 10800, int allocInterval = 30, int objectLinkInterval = 10, int rootLinkInterval = 60, int unlinkInterval = 1);
+	virtual~Game3() = default;
 };
 
+class Game3Easy :public Game3
+{
+public:
+	Game3Easy()
+		:Game3(7200, 60, 30, 90, 10) {}
+};
+
+class Game3Hard :public Game3
+{
+public:
+	Game3Hard()
+		:Game3(14400, 20, 8, 400, 1)
+	{}
+};

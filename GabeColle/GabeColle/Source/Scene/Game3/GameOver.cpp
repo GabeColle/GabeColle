@@ -17,7 +17,7 @@ GameOver::GameOver(String const &message)
 	Color outline = Palette::Black;
 	Color charColor = Palette::Red;
 	font = Font(100, Typeface::Black, FontStyle::Outline);
-	font.changeOutlineStyle(TextOutlineStyle(outline, charColor.setAlpha(167), 3.0));
+	font.changeOutlineStyle(TextOutlineStyle(outline, charColor.setAlpha(200), 3.0));
 	title_m.string(L"GAME OVER");
 	title_m.font(font);
 	title_m.center(Window::Center().movedBy(0, -100));

@@ -31,6 +31,8 @@ void Main()
 	manager.add<Game2Easy>(L"Game2Easy");
 	manager.add<Game2Hard>(L"Game2Hard");
 	manager.add<Game3>(L"Game3");
+	manager.add<Game3Easy>(L"Game3Easy");
+	manager.add<Game3Hard>(L"Game3Hard");
 
 	while (System::Update()) {
 		if (!manager.updateAndDraw())

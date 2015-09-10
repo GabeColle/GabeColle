@@ -43,7 +43,7 @@ void Button::update(Effect &effect)
 	case clickable::Button::CLICKED:
 		if (frame_m == 1) {
 			SoundAsset(soundName_m).play();
-			effect.add<ButtonClickedEffect>(color_m, shape_m.rect.center);
+			effect.add<ButtonClickedEffect>(color_m, Mouse::Pos());
 		}
 	default:
 		break;

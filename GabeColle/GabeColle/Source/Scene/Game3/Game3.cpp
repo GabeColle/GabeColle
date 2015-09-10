@@ -5,9 +5,17 @@
 #include"Clear.h"
 #include"Playing.h"
 
-Game3::Game3()
-	: memory_m(SIZE_m)
+String const Game3::SceneState::nextScene_m = L"Result";
+
+Game3::Game3(int clearLimit, int allocInterval, int objectLinkInterval, int rootLinkInterval, int unlinkInterval)
+	: clearLimit_m(clearLimit),
+	allocInterval_m(allocInterval),
+	objectLinkInterval_m(objectLinkInterval),
+	rootLinkInterval_m(rootLinkInterval),
+	unlinkInterval_m(unlinkInterval),
+	memory_m(SIZE_m)
 {}
+
 
 // クラスの初期化時に一度だけ呼ばれる（省略可）
 void Game3::init()
@@ -134,7 +142,7 @@ void Game3::checkState()
 		saveScore();
 	}
 	else if (typeid(*sceneState_m.get()) != typeid(Clear) &&
-		frame_m > CLEAR_LIMIT_m) {
+		frame_m > clearLimit_m) {
 		sceneState_m = std::make_shared<Clear>();
 		saveScore();
 	}
@@ -148,8 +156,5 @@ void Game3::saveScore()
 	m_data->numOfDeletedObject = deletes_m;
 	m_data->time = frame_m;
 	m_data->totalScore = 
-		e.outOfMemory_m * -3000 + e.segmentationFault_m * -4000 + deletes_m*20 + frame_m * 2;
+		e.outOfMemory_m * -2000 + e.segmentationFault_m * -3000 + deletes_m*30 + frame_m * 1;
 }
-
-
-String const Game3::SceneState::nextScene_m = L"Result";

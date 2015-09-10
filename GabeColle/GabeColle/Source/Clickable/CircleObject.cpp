@@ -8,6 +8,7 @@ CircleObject::CircleObject()
 	if (!FontAsset::IsRegistered(FONT_ASSET_NAME)) {
 		FontAsset::Register(FONT_ASSET_NAME, 24);
 	}
+	clickedInterval_m = 1;
 }
 
 void CircleObject::initialize(int address, Effect &effect)
@@ -26,8 +27,6 @@ void CircleObject::initialize(int address, Effect &effect)
 		shape_m.center,
 		FontSharedText(
 			FONT_ASSET_NAME, L"NEW", shape_m.center.movedBy(0,-45), Palette::Red));
-
-	clickedInterval_m = 3;
 }
 
 void CircleObject::finalize(Effect &effect)
