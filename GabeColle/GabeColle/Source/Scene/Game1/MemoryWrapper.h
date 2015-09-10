@@ -8,6 +8,7 @@
 #include "PositionList.h"
 #include "ErrorFlagManager.h"
 #include "FadeOutEffect.h"
+#include "OutOfEffect.h"
 
 
 class MemoryWrapper

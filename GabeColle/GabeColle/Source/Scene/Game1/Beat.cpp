@@ -1,7 +1,7 @@
 #include "Beat.h"
 
 
-Beat::Beat() : soundBeat_m(16000, 160), nowBeat_m(0), prevBeat_m(0)
+Beat::Beat() : soundBeat_m(16000, /*134*/160), nowBeat_m(0), prevBeat_m(0)
 {
 }
 

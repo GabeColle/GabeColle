@@ -1,7 +1,7 @@
 #include "MySound.h"
 
 
-const FilePath MySound::BGM_PATH = L"./Asset/BGM/和風ロックBGM.ogg";
+const FilePath MySound::BGM_PATH = L"./Asset/BGM/歌舞伎ダンシング_2.ogg";
 
 
 MySound::MySound()

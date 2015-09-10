@@ -6,7 +6,7 @@ const double MemoryWrapper::ROOT_RADIUS = 50.0;
 
 
 MemoryWrapper::MemoryWrapper()
-	: memory_m(31)
+	: memory_m(36)
 	, positionList_m()
 	, errorFlag_m()
 	, effect_m()
@@ -43,12 +43,12 @@ void MemoryWrapper::free()
 void MemoryWrapper::update()
 {
 	static const Font OoMFont(30, Typeface::Heavy);
+	static const Font font;
 
 	errorFlag_m.update(memory_m.error());
 	
-	if(errorFlag_m.getErrorFlag().outOfMemory_m) {
-		effect_m.add<FadeOutEffect>(OoMFont, L"Out of Memory!", memory_m.root().getCenter());
-	}
+	if(errorFlag_m.getErrorFlag().outOfMemory_m) { effect_m.add<FadeOutEffect>(OoMFont, L"Out of Memory!", memory_m.root().getCenter()); }
+	if(errorFlag_m.getErrorFlag().resolveSegmentationFault_m) { effect_m.add<OutOfEffect>(font); }
 	++data_m.time;
 }
 
@@ -56,10 +56,10 @@ void MemoryWrapper::draw() const
 {
 	static const Font font;
 
-	effect_m.update();
-	if(errorFlag_m.getErrorFlag().segmentationFault_m) { font(L"Segmentation Fault 発生中！！").drawCenter(Rect(1280, 50).setCenter(Window::Center().x, 25).draw(Color(Palette::Blue, 100)).center); }
 	drawMemory();
 	drawArrow();
+	if(errorFlag_m.getErrorFlag().segmentationFault_m) { font(L"Segmentation Fault 発生中！！").drawCenter(Rect(1280, 50).setCenter(Window::Center().x, 25).draw(Color(Palette::Blue, 100)).center); }
+	effect_m.update();
 }
 
 GameData MemoryWrapper::calculateScore()
@@ -76,7 +76,7 @@ void MemoryWrapper::randomLink(int allocAddress)
 {
 	int from = -1;	// 出発地
 	int to = -1;	// 目的地
-	if(RandomBool(0.7)) {
+	if(RandomBool(0.6)) {
 		std::vector<int> numList = getExistAddress();
 		std::random_shuffle(numList.begin(), numList.end());
 		if(RandomBool(0.5)) {
