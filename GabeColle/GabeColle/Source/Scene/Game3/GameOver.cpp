@@ -1,6 +1,5 @@
 #include "GameOver.h"
 
-
 GameOver::GameOver(String const &message)
 {
 	auto addButton = [this] (Point p, String name, String sound)
@@ -31,8 +30,8 @@ GameOver::GameOver(String const &message)
 
 void GameOver::update(Game3 &parent)
 {
-	buttons_m.at(L"Garbage Collection")->update(buttonEffect_m);
-	buttons_m.at(L"Result")->update(buttonEffect_m);
+	buttons_m.at(L"Garbage Collection")->update();
+	buttons_m.at(L"Result")->update();
 
 	if (buttons_m.at(L"Garbage Collection")->isClicked()) {
 		parent.memory_m.gc();
@@ -49,5 +48,5 @@ void GameOver::draw()const
 	message_m.draw();
 	buttons_m.at(L"Garbage Collection")->draw();
 	buttons_m.at(L"Result")->draw();
-	buttonEffect_m.update();
+	clickable::Button::drawEffect();
 }

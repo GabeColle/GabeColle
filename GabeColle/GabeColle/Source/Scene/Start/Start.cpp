@@ -33,9 +33,9 @@ void Start::init()
 // –ˆƒtƒŒ[ƒ€ updateAndDraw() ‚ÅŒÄ‚Î‚ê‚é
 void Start::update()
 {
-	buttons_m.at(L"Start")->update(buttonEffect_m);
-	buttons_m.at(L"Quit")->update(buttonEffect_m);
-	buttons_m.at(L"Twitter")->update(buttonEffect_m);
+	buttons_m.at(L"Start")->update();
+	buttons_m.at(L"Quit")->update();
+	buttons_m.at(L"Twitter")->update();
 
 	if (buttons_m.at(L"Start")->isClicked()){
 		SoundAsset(bgm_m).stop();
@@ -74,7 +74,7 @@ void Start::draw() const
 	buttons_m.at(L"Start")->draw();
 	buttons_m.at(L"Quit")->draw();
 	buttons_m.at(L"Twitter")->draw();
-	buttonEffect_m.update();
+	Button::drawEffect();
 }
 
 void Start::initButtons()

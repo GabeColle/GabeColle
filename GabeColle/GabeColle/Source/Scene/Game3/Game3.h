@@ -30,7 +30,6 @@ public:
 	protected:
 		using Buttons_t = std::map<String, std::shared_ptr<clickable::Button>>;
 		Buttons_t buttons_m;
-		Effect buttonEffect_m;
 		Text title_m;
 		Text message_m;
 		Color back_m;
