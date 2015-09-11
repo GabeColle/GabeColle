@@ -2,6 +2,8 @@
 #include<Siv3D.hpp>
 
 // サンプルコードをそのままコピペだ～
+//
+// そのままじゃダメだったよ
 
 struct TextEffect : IEffect
 {

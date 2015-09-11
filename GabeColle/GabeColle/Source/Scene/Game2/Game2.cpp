@@ -31,7 +31,7 @@ void Game2::update()
 {
 	SoundAsset(L"Game2_BGM").play();
 	
-	static_cast<clickable::Clickable>(titleButton_m).update();
+	titleButton_m.update(buttonEffect_m);
 	if (titleButton_m.isClicked()){
 		SoundAsset(L"Game2_BGM").pause(500);
 		changeScene(L"Start", 500);
@@ -68,7 +68,7 @@ void Game2::update()
 		freeByInput();
 		seekSegmentFault();
 		completionButton_m.show();
-		static_cast<clickable::Clickable>(completionButton_m).update();
+		completionButton_m.update(buttonEffect_m);
 		if (completionButton_m.isClicked()){
 			garbage_m = Game2GabeColle<game2::CircleObject>::gc(memory_m);
 			m_data->stageName = name_m;
@@ -83,7 +83,7 @@ void Game2::update()
 	{
 		completionButton_m.hide();
 		resultButton_m.show();
-		static_cast<clickable::Clickable>(resultButton_m).update();
+		resultButton_m.update(buttonEffect_m);
 		if (resultButton_m.isClicked()){
 			SoundAsset(L"Game2_BGM").pause(500);
 			changeScene(L"Result", 500);
@@ -118,6 +118,7 @@ void Game2::draw() const
 	resultButton_m.draw();
 	titleButton_m.draw();
 	effect_m.update();
+	buttonEffect_m.update();
 }
 
 //ÉNÉäÉbÉNÇ≈ÉÅÉÇÉäâï˙
@@ -185,7 +186,7 @@ void Game2::drawBackGround() const
 {
 	// Ç≠ÇÈÇ≠ÇÈ
 	double rad = (double)System::FrameCount() / 80;
-	Color c(Palette::Darkturquoise);//(HSV(180, 0.5, 0.5));
+	Color c(HSV(180, 0.4, 0.8));//Palette::Darkturquoise);//(HSV(180, 0.5, 0.5));
 	Circle(rootPos, 150).drawArc(0.0 + rad*2.3, HalfPi + 0.6, 50, 0, c);
 	Circle(rootPos, 211).drawArc(Pi - rad*2.0, HalfPi + 0.1, 60, 0, c);
 	Circle(rootPos, 211).drawArc(0.0 - rad*2.0, HalfPi + 0.3, 60, 0, c);
@@ -202,8 +203,8 @@ void Game2::drawBackGround() const
 	for (int i = 0; i < Window::Height() / 30; ++i)
 	{
 		const double size = Pow(fft.buffer[i * 30], 0.6f) * 2000;
-		RectF(0, i * 30, size, 29).draw(HSV(240 - i));
-		RectF(Window::Width() - size, i * 30, size, 29).draw(HSV(240 - i));
+		RectF(0, i * 30, size, 29).draw(HSV(240 - i,0.6,0.8));
+		RectF(Window::Width() - size, i * 30, size, 29).draw(HSV(240 - i,0.6,0.8));
 	}
 }
 

@@ -50,7 +50,7 @@ void Start::update()
 		twitter_m.detach();
 	}
 	if (buttons_m.at(L"Start")->isClicked()) {
-		changeScene(L"Game3Hard");
+		changeScene(L"GameSelect");
 	}
 
 	std::for_each(sakuras_m.begin(), sakuras_m.end(), [] (SakuraTexture &s)
