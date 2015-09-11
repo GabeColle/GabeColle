@@ -50,7 +50,7 @@ private:
 	static String const clearSound_m;
 	static String const bgm_m;
 protected:
-	long clearLimit_m;//10800[frame]==3[minute](60[frame/s])
+	long clearLimit_m;
 	int allocInterval_m;
 	int objectLinkInterval_m;
 	int rootLinkInterval_m;
