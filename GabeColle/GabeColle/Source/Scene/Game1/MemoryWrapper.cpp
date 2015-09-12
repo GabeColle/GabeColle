@@ -14,10 +14,10 @@ MemoryWrapper::MemoryWrapper()
 }
 
 
-void MemoryWrapper::init()
+void MemoryWrapper::init(const String stageName)
 {
 	memory_m.root().setCenter(positionList_m.getRootPos());
-	data_m.stageName = L"Game1";
+	data_m.stageName = stageName;
 }
 
 void MemoryWrapper::alloc()

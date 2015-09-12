@@ -25,7 +25,7 @@ private:
 public:
 	MemoryWrapper();
 public:
-	void init();
+	void init(const String stageName);
 	void update();
 	void draw() const;
 	void alloc();
