@@ -11,6 +11,7 @@ struct ErrorFlag
 	bool nullptrAccess_m = false;
 	bool outOfMemory_m = false;
 	bool addressOutOfBounds_m = false;
+	bool resolveSegmentationFault_m = false;
 };
 
 class ErrorFlagManager

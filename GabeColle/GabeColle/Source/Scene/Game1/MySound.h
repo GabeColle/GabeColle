@@ -6,9 +6,10 @@
 class MySound
 {
 private:
-	static const FilePath BGM_PATH;
+	const FilePath BGM_PATH;
+	const String BGM_NAME;
 public:
-	MySound();
+	MySound(const FilePath BGMPath, const String BGMName);
 public:
 	/**
 	 * ‰¹Šy‚ÌÄ¶‚ğŠJn‚·‚é
