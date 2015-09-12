@@ -35,28 +35,24 @@ void Start::update()
 {
 	buttons_m.at(L"Start")->update();
 	buttons_m.at(L"Quit")->update();
-	buttons_m.at(L"Twitter")->update();
+	buttons_m.at(L"Rules")->update();
 
 	if (buttons_m.at(L"Start")->isClicked()){
 		SoundAsset(bgm_m).stop();
-		changeScene(L"Game2Hard");
+		changeScene(L"GameSelect");
 	}
 	if (buttons_m.at(L"Quit")->isClicked()) {
 		System::Exit();
 	}
-	if (buttons_m.at(L"Twitter")->isClicked()) {
-		twitter_m = std::thread(
-			Twitter::OpenTweetWindow, L"ガベこれをプレイ中\nhttp://goo.gl/np2OfM\n #GabeColle ");
-		twitter_m.detach();
-	}
-	if (buttons_m.at(L"Start")->isClicked()) {
-		changeScene(L"Game3Hard");
+	if (buttons_m.at(L"Rules")->isClicked()) {
+		SoundAsset(bgm_m).stop();
+		changeScene(L"Rules");
 	}
 
-	std::for_each(sakuras_m.begin(), sakuras_m.end(), [] (SakuraTexture &s)
-	{
-		s.update();
-	});
+	std::for_each(sakuras_m.begin(), sakuras_m.end(),
+		[] (SakuraTexture &s){
+			s.update();
+		});
 }
 
 // 毎フレーム update() の次に呼ばれる
@@ -73,7 +69,7 @@ void Start::draw() const
 	logo_m.scale(0.4).drawAt(Window::Center().movedBy(0, -120));
 	buttons_m.at(L"Start")->draw();
 	buttons_m.at(L"Quit")->draw();
-	buttons_m.at(L"Twitter")->draw();
+	buttons_m.at(L"Rules")->draw();
 	Button::drawEffect();
 }
 
@@ -87,5 +83,5 @@ void Start::initButtons()
 	};
 	addButton(Window::Center().movedBy(0, 150), L"Start", L"Asset/SoundEffect/NextScene.mp3");
 	addButton(Window::Center().movedBy(0, 220), L"Quit", L"Asset/SoundEffect/Decision.mp3");
-	addButton(Window::Center().movedBy(0, 290), L"Twitter", L"Asset/SoundEffect/Decision.mp3");
+	addButton(Window::Center().movedBy(0, 290), L"Rules", L"Asset/SoundEffect/NextScene.mp3");
 }
