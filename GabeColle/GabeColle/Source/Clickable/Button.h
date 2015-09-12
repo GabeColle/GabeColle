@@ -10,6 +10,7 @@ class Button :
 	public ClickableBase<RoundRect>
 {
 protected:
+	static std::unique_ptr<Effect> effect_m;
 	static String const FONT_ASSET_NAME;
 	String soundName_m;
 	HSV color_m;
@@ -20,9 +21,10 @@ protected:
 public:
 	Button(Rect const &rect, String text, String soundName);
 	Button(Rect const &rect, String text, int h, String soundName);
+	static void drawEffect();
 
 	virtual ~Button();
-	void update(Effect &effect);
+	void update()override;
 };
 
 }
