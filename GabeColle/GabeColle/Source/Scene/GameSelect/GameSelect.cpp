@@ -29,7 +29,7 @@ void GameSelect::init(){
 	buttons_m.push_back(clickable::Button(Rect(350, 48).setCenter(Window::Width()*1/4-40,100+70*8), tag_m[tag_m.size()-1].buttonName, ok));
 
 	tag_m.push_back({ L"BackToTitle", L"Start", L"Title", Difficulty::normal });
-	buttons_m.push_back(clickable::Button(Rect(350, 48).setCenter(Window::Width() * 3 / 4 + 40, 100), tag_m[tag_m.size() - 1].buttonName, ok));
+	buttons_m.push_back(clickable::Button(Rect(350, 48).setCenter(Window::Width() * 1 / 4 - 40, 100+70*7), tag_m[tag_m.size() - 1].buttonName, ok));
 
 }
 
@@ -52,12 +52,23 @@ void GameSelect::update(){
 }
 
 void GameSelect::draw()const{
+
+	const Point pos = { Window::Width() * 3 / 4, 100 };
+	font_m(L"Game Select").drawCenter({ pos.x + 4, pos.y + 4 }, HSV(System::FrameCount() + 170, 0.5, 0.4));
+	font_m(L"Game Select").drawCenter(pos, HSV(System::FrameCount() + 180, 0.5, 0.8));
+
 	lineEffect_m.update();
 	lingEffect_m.update();
+
+
+	//const Point pos = { Window::Width() * 3 / 4, 100 };
+	
+	//font_m.changeOutlineStyle(TextOutlineStyle(Palette::Black, Palette::White, 1.0));
 
 	for (auto& b : buttons_m){
 		b.draw();
 	}
+	
 	buttonEffect_m.update();
 	
 }

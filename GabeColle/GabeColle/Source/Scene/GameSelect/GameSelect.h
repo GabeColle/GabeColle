@@ -19,10 +19,13 @@ protected:
 	Effect lingEffect_m;
 	Effect lineEffect_m;
 	Effect buttonEffect_m;
+	Font font_m;
 
 public:
 	//コンストラクタ
-	GameSelect()	{};
+	GameSelect()
+		:font_m(50, L"Georgia", FontStyle::Italic)
+	{};
 
 	//デストラクタ
 	~GameSelect(){};
