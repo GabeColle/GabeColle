@@ -17,11 +17,14 @@ class GameSelect :
 protected:
 	std::vector<gameselect::Tag> tag_m;
 	std::vector<GameSelectButton>buttons_m;
+
 	Effect lingEffect_m;
 	Effect lineEffect_m;
 	Font font_m;
 	Array<Vec2> pts_m;
 	Array<Vec2> pts2_m;	
+	String pictureName_m;
+	int alpha_m;
 
 public:
 	//コンストラクタ

@@ -28,9 +28,6 @@ void GameSelect::init(){
 		Size size = { 350, 48 };
 		buttons_m.push_back(GameSelectButton(Rect(size).setCenter(pos), tag_m[i].buttonName, /*(90)*(i/3)-(10*i)+20*/hs[i], ok));
 	}
-	
-	//tag_m.push_back({ L"Rules", L"", L"Rules", Difficulty::normal });
-	//buttons_m.push_back(clickable::Button(Rect(350, 48).setCenter(Window::Width()*1/4-40,100+70*8), tag_m[tag_m.size()-1].buttonName, ok));
 
 	tag_m.push_back({ L"BackToTitle", L"Start", L"Title", Difficulty::normal });
 	buttons_m.push_back(GameSelectButton(Rect(350, 48).setCenter(Window::Width() * 1 / 4 - 40, 100+70*8), tag_m[tag_m.size() - 1].buttonName, 270 ,ok));
@@ -46,11 +43,12 @@ void GameSelect::update(){
 	}
 	for (auto i = 0; i < buttons_m.size(); ++i){
 		if (buttons_m[i].isMouceOver()){
-			ClearPrint();
-			Println(tag_m[i].gameName);
+			pictureName_m = Format(tag_m[i].gameName, L"_SS");
+			alpha_m = 127;
 		}
 	}
-
+	alpha_m-=3;
+	alpha_m = Max(0,alpha_m);
 
 	for (auto i = 0; i <tag_m.size(); ++i){
 		if (buttons_m[i].isClicked()){
@@ -65,7 +63,10 @@ void GameSelect::update(){
 
 void GameSelect::draw()const{
 
-	Graphics::SetBackground(HSV(System::FrameCount() * 2 + 60,0.2,0.9));
+	//Graphics::SetBackground(HSV(System::FrameCount() * 2 + 60,0.2,0.9));
+	if (pictureName_m!=L""){
+		TextureAsset(pictureName_m).drawAt(Window::Center(), Color(255, 255, 255, alpha_m));
+	}
 
 	const Point pos = { Window::Width() * 3 / 4, 100 };
 	font_m(L"Game Select").drawCenter({ pos.x + 4, pos.y + 4 }, HSV(System::FrameCount() + 170, 0.5, 0.4));
@@ -93,9 +94,9 @@ void GameSelect::fft(){
 		pts2_m[i] = { Window::Width() - i, size -35};
 	}
 	//LineString(pts_m).moveBy({ 3, 3 }).draw(2.0, Color(HSV(System::FrameCount() * 2, 0.2, 0.2), 127));
-	LineString(pts_m).draw(2.0, HSV(System::FrameCount() * 2, 0.5, 0.8));
+	//LineString(pts_m).draw(2.0, HSV(System::FrameCount() * 2, 0.5, 0.8));
 	//LineString(pts2_m).moveBy({ 3, 3 }).draw(2.0, Color(HSV(System::FrameCount() * 2, 0.2, 0.2),127));
-	LineString(pts2_m).draw(2.0, HSV(System::FrameCount()*2,0.5,0.8));
+	//LineString(pts2_m).draw(2.0, HSV(System::FrameCount()*2,0.5,0.8));
 	//lineEffect_m.add<LineEffect>(LineString(pts),HSV(System::FrameCount()));
 }
 
