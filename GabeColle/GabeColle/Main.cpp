@@ -24,7 +24,7 @@ void Main()
 
 	// テクスチャアセットに画像を追加
 	TextureAsset::Register(L"Title_SS", L"Asset/Image/StartScene.png");
-	TextureAsset::Register(L"Game1_SS", L"Asset/Image/GabeColle.png");
+	TextureAsset::Register(L"Game1_SS", L"Asset/Image/ScreenShot_Game1.png");
 	TextureAsset::Register(L"Game2_SS", L"Asset/Image/ScreenShot_Game2.PNG");
 	TextureAsset::Register(L"Game3_SS", L"Asset/Image/Game3Scene.png");
 
@@ -38,6 +38,8 @@ void Main()
 	manager.add<Result>(L"Result");
 	
 	manager.add<Game1>(L"Game1");
+	manager.add<Game1Easy>(L"Game1Easy");
+	manager.add<Game1Hard>(L"Game1Hard");
 	manager.add<Game2>(L"Game2");
 	manager.add<Game2Easy>(L"Game2Easy");
 	manager.add<Game2Hard>(L"Game2Hard");

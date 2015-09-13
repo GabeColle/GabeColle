@@ -29,7 +29,7 @@ protected:
 public:
 	//コンストラクタ
 	GameSelect()
-		:font_m(50, L"Georgia", FontStyle::Italic)
+		:font_m(70, L"Georgia", FontStyle::Italic)
 	{};
 
 	//デストラクタ
