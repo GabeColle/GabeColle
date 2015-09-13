@@ -26,7 +26,6 @@ void Start::init()
 	leftGirl_m = Texture(L"Asset/Image/Heroine.png");
 	rightBoy_m = Texture(L"Asset/Image/Okama.png");
 	leftBoy_m = Texture(L"Asset/Image/Yamada.png");
-	title_m = L"ƒKƒx‚±‚ê";
 	initButtons();
 }
 
@@ -35,7 +34,7 @@ void Start::update()
 {
 	buttons_m.at(L"Start")->update();
 	buttons_m.at(L"Quit")->update();
-	buttons_m.at(L"Rules")->update();
+	buttons_m.at(L"Rule")->update();
 
 	if (buttons_m.at(L"Start")->isClicked()){
 		SoundAsset(bgm_m).stop();
@@ -44,15 +43,14 @@ void Start::update()
 	if (buttons_m.at(L"Quit")->isClicked()) {
 		System::Exit();
 	}
-	if (buttons_m.at(L"Rules")->isClicked()) {
-		SoundAsset(bgm_m).stop();
-		changeScene(L"Rules");
+	if (buttons_m.at(L"Rule")->isClicked()) {
+		changeScene(L"Rule");
 	}
 
-	std::for_each(sakuras_m.begin(), sakuras_m.end(),
-		[] (SakuraTexture &s){
-			s.update();
-		});
+	std::for_each(sakuras_m.begin(), sakuras_m.end(), [] (SakuraTexture &s)
+	{
+		s.update();
+	});
 }
 
 // –ˆƒtƒŒ[ƒ€ update() ‚ÌŽŸ‚ÉŒÄ‚Î‚ê‚é
@@ -69,7 +67,7 @@ void Start::draw() const
 	logo_m.scale(0.4).drawAt(Window::Center().movedBy(0, -120));
 	buttons_m.at(L"Start")->draw();
 	buttons_m.at(L"Quit")->draw();
-	buttons_m.at(L"Rules")->draw();
+	buttons_m.at(L"Rule")->draw();
 	Button::drawEffect();
 }
 
@@ -79,9 +77,9 @@ void Start::initButtons()
 	{
 		auto btn = std::make_shared<Button>(Rect(200, 48).setCenter(p), name, sound);
 		btn->show();
-		buttons_m.insert(std::make_pair(name, btn));
+		buttons_m.insert(std::make_pair(	name, btn));
 	};
 	addButton(Window::Center().movedBy(0, 150), L"Start", L"Asset/SoundEffect/NextScene.ogg");
 	addButton(Window::Center().movedBy(0, 220), L"Quit", L"Asset/SoundEffect/Decision.ogg");
-	addButton(Window::Center().movedBy(0, 290), L"Rules", L"Asset/SoundEffect/NextScene.ogg");
+	addButton(Window::Center().movedBy(0, 290), L"Rule", L"Asset/SoundEffect/NextScene.ogg");
 }
