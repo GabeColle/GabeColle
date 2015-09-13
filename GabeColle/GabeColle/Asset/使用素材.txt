@@ -6,18 +6,19 @@ Siv3D http://play-siv3d.hateblo.jp/
 ********************************************************************************************
 効果音
 
-Decision.mp3 フリー効果音素材 くらげ工匠 http://www.kurage-kosho.info/
-NextScene.mp3 フリー効果音素材 くらげ工匠 http://www.kurage-kosho.info/
-GameOver.mp3 フリー効果音素材 くらげ工匠 http://www.kurage-kosho.info/
-New.mp3 フリー効果音素材 くらげ工匠 http://www.kurage-kosho.info/
-Delete.mp3 フリー効果音素材 くらげ工匠 http://www.kurage-kosho.info/
+Decision.ogg フリー効果音素材 くらげ工匠 http://www.kurage-kosho.info/
+NextScene.ogg フリー効果音素材 くらげ工匠 http://www.kurage-kosho.info/
+GameOver.ogg フリー効果音素材 くらげ工匠 http://www.kurage-kosho.info/
+New.ogg フリー効果音素材 くらげ工匠 http://www.kurage-kosho.info/
+Delete.ogg フリー効果音素材 くらげ工匠 http://www.kurage-kosho.info/
 ********************************************************************************************
 BGM
 
 Game2BGM(bgm_maoudamashii_cyber09.ogg) 魔王魂 http://maoudamashii.jokersounds.com/
 GameSelectBGM(bgm_maoudamashii_cyber07.ogg) 魔王魂 http://maoudamashii.jokersounds.com/
-Game3BGM.mp3 死刑実習 フリーBGM・音楽素材 H/MIX GALLERY http://www.hmix.net/
-StartBGM.mp3 Celebration フリーBGM・音楽素材 H/MIX GALLERY http://www.hmix.net/
+Game3BGM.ogg 死刑実習 フリーBGM・音楽素材 H/MIX GALLERY http://www.hmix.net/
+StartBGM.ogg Celebration フリーBGM・音楽素材 H/MIX GALLERY http://www.hmix.net/
+魔空.ogg
 
 ********************************************************************************************
 画像
