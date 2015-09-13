@@ -47,8 +47,6 @@ void Game1::update()
 
 void Game1::draw() const
 {
-	static Font font;
 	sound_m.drawSpectrum();
 	memory_m.draw();
-	font(Profiler::FPS()).draw(0, 680);
 }

@@ -9,6 +9,13 @@ MySound::MySound(const FilePath BGMPath, const String BGMName)
 }
 
 
+MySound& MySound::operator=(const MySound& obj)
+{
+	obj.BGM_PATH;
+	return *this;
+}
+
+
 void MySound::startMusic()
 {
 	SoundAsset(BGM_NAME).play();

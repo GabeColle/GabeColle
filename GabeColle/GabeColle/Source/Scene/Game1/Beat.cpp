@@ -10,6 +10,15 @@ Beat::Beat(const String BGMName, const int32 tempo)
 }
 
 
+Beat& Beat::operator=(const Beat& obj)
+{
+	soundBeat_m = obj.soundBeat_m;
+	nowBeat_m = obj.nowBeat_m;
+	prevBeat_m = obj.prevBeat_m;
+	return *this;
+}
+
+
 void Beat::update()
 {
 	const auto b = soundBeat_m(SoundAsset(BGM_NAME), 4, 4);

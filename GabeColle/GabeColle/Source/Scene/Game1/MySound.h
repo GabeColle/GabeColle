@@ -11,6 +11,8 @@ private:
 public:
 	MySound(const FilePath BGMPath, const String BGMName);
 public:
+	MySound& operator=(const MySound& obj);
+public:
 	/**
 	 * ‰¹Šy‚ÌÄ¶‚ğŠJn‚·‚é
 	 */

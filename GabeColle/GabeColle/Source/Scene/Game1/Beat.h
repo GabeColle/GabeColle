@@ -14,6 +14,8 @@ private:
 public:
 	Beat(const String BGMName, const int32 tempo);
 public:
+	Beat& operator=(const Beat& obj);
+public:
 	/**
 	 * XVˆ—‚ğ‚·‚é
 	 */
