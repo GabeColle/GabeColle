@@ -7,7 +7,7 @@
 
 namespace gc {
 
-template<class DeriverdObject>
+template<class DerivedObject>
 class GarbageCollection;
 
 /**
@@ -70,12 +70,15 @@ public:
 	{
 		Marking const &&map = mark();
 		if (address != 0) {
-			for (Address_t i(0); i < size(); ++i) {
-				unlink(address, i);
+			if (map.isMarked(address)) {
+				++error_m.segmentationFault_m;
 			}
-			for (Address_t i(1); i < size(); ++i) {
-				if (!map.isMarked(i)) {
-					unlink(i, address);
+			for (Address_t to(0); to < size(); ++to) {
+				unlink(address, to);
+			}
+			for (Address_t from(1); from < size(); ++from) {
+				if (!map.isMarked(from)) {
+					unlink(from, address);
 				}
 			}
 			memory_m[address].destruct();
@@ -111,7 +114,7 @@ public:
 	*/
 	Marking mark()const
 	{
-		return GarbageCollection<CircleObject>::mark(*this);
+		return GarbageCollection<DerivedObject>::mark(*this);
 	}
 
 	/**
@@ -119,7 +122,7 @@ public:
 	*/
 	void gc()
 	{
-		GarbageCollection<CircleObject>::gc(*this);
+		GarbageCollection<DerivedObject>::gc(*this);
 	}
 
 	/**

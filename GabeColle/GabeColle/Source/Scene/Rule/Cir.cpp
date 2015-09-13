@@ -14,16 +14,34 @@ Cir::Cir(int x,int y,int r,int sp){
 }
 
 
-//移動パターン1(右に動くだけ)
+int Cir::getX(){
+	return this->x;
+}
+int Cir::getY(){
+	return this->y;
+}
+int Cir::getE(){
+	return this->exist;
+}
+
+//1(右に動くだけ)
 void Cir::rightmove(){
 	this->right(this->speed);
 }
-//移動パターン2(左に動くだけ)
+//2(左に動くだけ)
 void Cir::leftmove(){
 	this->right(-this->speed);
 }
-
-
+//3(分からん動き)
+void Cir::sinmove(){
+	this->right(Random(0,10));
+	this->up(-speed);
+}
+//4(分からん動き)
+void Cir::sinmove2(){
+	this->right(Random(0, 10));
+	this->up(speed);
+}
 //描画
 void Cir::draw(){
 	if (t.leftClicked)this->exist = false;
@@ -47,8 +65,8 @@ void Cir::right(int sp){
 	this->setValue(this->x, this->y,this->r);
 }
 void Cir::up(int sp){
-	this->y += sp;
-	if (this->y < 0)this->x = Window::Height();
-	if (this->y > Window::Height())this->x = 0;
+	this->y -= sp;
+	if (this->y < 0)this->y = Window::Height();
+	if (this->y > Window::Height())this->y = 0;
 	this->setValue(this->x,this->y,this->r);
 }

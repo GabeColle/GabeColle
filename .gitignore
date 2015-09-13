@@ -197,3 +197,5 @@ ModelManifest.xml
 
 # Siv3D
 *_Log.html
+*.dat
+*Thumbs.db

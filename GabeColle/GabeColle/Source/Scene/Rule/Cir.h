@@ -7,10 +7,14 @@ public:
 
 	Cir();
 	Cir(int,int,int,int);
+	int getX();
+	int getY();
+	int getE();
 	void draw();
 	void rightmove();
 	void leftmove();
 	void sinmove();
+	void sinmove2();
 	void randommove();
 
 private:

@@ -18,10 +18,14 @@ protected:
 
 public:
 	/*
+	デフォルトコンストラクタ
+	*/
+	Button(){}
+	/*
 	コンストラクタ　
 	引数: 名称、X座標、Y座標、幅、高さ、フォントサイズ
 	*/
-	Button(String str = L"", int xPos = 0, int yPos = 0, int width = 100, int height = 50, int fontSize = 30);
+	Button(String str , int xPos = 0, int yPos = 0, int width = 100, int height = 50, int fontSize = 30);
 
 	/*
 	コンストラクタ　
@@ -54,7 +58,7 @@ public:
 	/*
 	ボタンを描画
 	*/
-	void draw();
+	void draw() const;
 
 	/*
 	ボタンや文字の色を変える

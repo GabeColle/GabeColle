@@ -7,22 +7,23 @@
 #include <algorithm>
 
 #include "../GameData.h"
-#include "../../GC/Memory.h"
-#include "CircleObject.h"
+#include "../Result/Result.h"
+#include "MemoryWrapper.h"
+#include "Beat.h"
+#include "MySound.h"
 
 
 class Game1 :
 	public SceneManager<String, GameData>::Scene
 {
 private:
-	gc::Memory<CircleObject> memory_m;
+	MemoryWrapper memory_m;
+	MySound sound_m;
+	Beat beat_m;
 public:
 	Game1();
+public:
 	void init() override;
 	void update() override;
 	void draw() const override;
-private:
-	void drawMemory() const;
-	std::vector<int> getExistAddress();
-	void randomLink(int allocAddress);
 };

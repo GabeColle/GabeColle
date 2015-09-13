@@ -13,7 +13,12 @@ private:
 	Font subtitle;
 	Font text;
 	Rect titleRect;
-	Cir cir[10];
+	Cir cir[20];
+	Circle back;
+	Texture mainimage;
+	Font click;
+	Font font;
+	bool backbutton;
 
 public:
 	// クラスの初期化時に一度だけ呼ばれる（省略可）

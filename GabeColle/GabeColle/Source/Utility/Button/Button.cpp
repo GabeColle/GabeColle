@@ -44,7 +44,7 @@ bool Button::leftClicked(){
 	return rect_m.leftClicked;
 }
 
-void Button::draw(){
+void Button::draw() const{
 	if (!rect_m.mouseOver){
 		rect_m.draw(buttonColor_m);
 		font_m(str_m).drawCenter({ xPos_m, yPos_m }, textColor_m);
