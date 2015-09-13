@@ -9,17 +9,22 @@ MemoryFromRoot::MemoryFromRoot(int maxMemory,String contentName,Array<String> pa
 {
 	memory_m.root().setCenter(positionList_m.getRootPos());
 	contentName_m = contentName;
-	parties_m = parties;
+	for (int i = 0; i < parties.size(); ++i){
+		parties_m.push_back(new DescendAndCountStringEffect(parties[i], 30, 30 + i * 10));
+	}
 }
 
 void MemoryFromRoot::update()
 {
+	for (auto ite : parties_m){
+		ite->update();
+	}
 }
 
 void MemoryFromRoot::draw()const
 {
-	drawMemory();
 	drawArrow();
+	drawMemory();
 }
 
 void MemoryFromRoot::alloc()
@@ -51,7 +56,7 @@ void MemoryFromRoot::drawMemory()const
 		if (!memory_m.hasExpired(address)) {
 			Circle c = Circle(memory_m.access(address).getCenter(), MEMORY_RADIUS);
 			c.draw(Color(Palette::Red, 128)).drawFrame(0.0, 3.0, Palette::Darkred);
-			font.drawCenter(parties_m.at(address-1), c.center);
+			parties_m[address - 1]->draw(c.center);
 		}
 	};
 	for (int i(1); i < memory_m.size(); ++i) {

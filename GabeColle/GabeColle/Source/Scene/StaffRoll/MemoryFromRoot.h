@@ -6,7 +6,7 @@
 #include "../GameData.h"
 #include "CircleObject.h"
 #include "PositionList.h"
-#include "../Result/FadeInAndDescendStringEffect.h"
+#include "DescendAndCountStringEffect.h"
 
 namespace staffroll{
 	class MemoryFromRoot{
@@ -16,7 +16,7 @@ namespace staffroll{
 		gc::Memory<CircleObject> memory_m;
 		PositionList positionList_m;
 		String contentName_m;
-		Array<String> parties_m;
+		Array<DescendAndCountStringEffect*> parties_m;
 	public:
 		MemoryFromRoot(int maxMemory,String contentName,Array<String> parties);
 		void update();
