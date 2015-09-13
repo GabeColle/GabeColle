@@ -16,8 +16,9 @@ public:
 	void sinmove();
 	void sinmove2();
 	void randommove();
-
+	static void drawEffect();
 private:
+	static std::unique_ptr<Effect> effect_m;
 
 	int x;
 	int y;

@@ -1,16 +1,59 @@
 #include "Cir.h"
 
+std::unique_ptr<Effect> Cir::effect_m;
+
+void Cir::drawEffect()
+{
+	if (effect_m != nullptr){
+		effect_m->update();
+	}
+}
+
+struct Snow : IEffect
+{
+	struct Particle
+	{
+		Vec2 pos, v0;
+	};
+
+	Array<Particle> m_particles;
+
+	Snow(const Point& pos, int count)
+		: m_particles(count)
+	{
+		for (auto& particle : m_particles)
+		{
+			const Vec2 v = Circular(Random(10.0, 80.0), Random(TwoPi));
+			particle.pos = pos + v;
+			particle.v0 = v * 2.0;
+		}
+	}
+
+	bool update(double t) override
+	{
+		for (const auto& particle : m_particles)
+		{
+			const Vec2 pos = particle.pos + particle.v0 * t + 0.5* t*t * Vec2(0, 320);
+
+			Circle(pos, 3).draw(HSV(pos.y / 4.0, 1.0, 1.0).toColorF(1.0 - t));
+		}
+
+		return t < 1.0;
+	}
+};
 
 //コンストラクタ
-Cir::Cir(){
-	this->x = 0;
-	this->y = 0;
-	this->r = 0;
+Cir::Cir()
+	:Cir(0,0,0,0)
+{
 	this->exist = true;
 }
 Cir::Cir(int x,int y,int r,int sp){
 	this->speed = sp;
 	setValue(x, y, r);
+	if (effect_m == nullptr){
+		effect_m = std::make_unique<Effect>();
+	}
 }
 
 
@@ -44,8 +87,11 @@ void Cir::sinmove2(){
 }
 //描画
 void Cir::draw(){
-	if (t.leftClicked)this->exist = false;
-	if(this->exist)this->t.draw(HSV(System::FrameCount()));
+	if (t.leftClicked){
+		this->exist = false;
+		effect_m->add<Snow>(Point({ x, y }), 50);
+	}
+	if(this->exist)this->t.draw(HSV(2*System::FrameCount(), 0.8, 0.5).toColor(63));
 }
 
 //値を入れる

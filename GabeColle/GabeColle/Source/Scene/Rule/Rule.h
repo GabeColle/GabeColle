@@ -4,6 +4,8 @@
 #include<HamFramework.hpp>
 #include"../GameData.h"
 #include "Cir.h"
+#include"../../Clickable/Button.h"
+
 
 class Rule :
 	public SceneManager<String, GameData>::Scene
@@ -13,12 +15,13 @@ private:
 	Font subtitle;
 	Font text;
 	Rect titleRect;
-	Cir cir[20];
+	Cir cir[40];
 	Circle back;
 	Texture mainimage;
 	Font click;
 	Font font;
 	bool backbutton;
+	clickable::Button button_m;
 
 public:
 	// クラスの初期化時に一度だけ呼ばれる（省略可）
@@ -29,4 +32,6 @@ public:
 
 	// 毎フレーム update() の次に呼ばれる
 	void draw() const override;
+
+	Rule();
 };
