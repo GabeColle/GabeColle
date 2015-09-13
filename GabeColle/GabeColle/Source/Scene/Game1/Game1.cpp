@@ -1,13 +1,27 @@
 ﻿#include "Game1.h"
 
 
-Game1::Game1() : memory_m(), sound_m(), beat_m()
+Game1::Game1()
+	: memory_m()
+	, sound_m(L"./Asset/BGM/歌舞伎ダンシング_2.ogg", L"Game1BGM")
+	, beat_m(L"Game1BGM", 160)
+	, BEAT(2)
+	, STAGE_NAME(L"Game1Normal")
+{
+}
+
+Game1::Game1(const FilePath BGMPath, const String BGMName, const int32 tempo, const int beat, const String stageName)
+	: memory_m()
+	, sound_m(BGMPath, BGMName)
+	, beat_m(BGMName, tempo)
+	, BEAT(beat)
+	, STAGE_NAME(stageName)
 {
 }
 
 void Game1::init()
 {
-	memory_m.init();
+	memory_m.init(STAGE_NAME);
 	sound_m.startMusic();
 }
 
@@ -16,7 +30,7 @@ void Game1::update()
 	// 拍カウントの更新処理
 	beat_m.update();
 	// 拍が切り替わった時にメモリ生成
-	if(beat_m.getBeatRising()) { memory_m.alloc(); }
+	if(beat_m.getBeatRising(BEAT)) { memory_m.alloc(); }
 
 	// メモリの開放
 	if(Mouse::LeftClicked()) { memory_m.free(); }
@@ -33,8 +47,6 @@ void Game1::update()
 
 void Game1::draw() const
 {
-	static Font font;
 	sound_m.drawSpectrum();
 	memory_m.draw();
-	font(Profiler::FPS()).draw(0, 680);
 }
