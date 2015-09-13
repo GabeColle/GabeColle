@@ -31,7 +31,7 @@ void Game2::update()
 {
 	SoundAsset(L"Game2_BGM").play();
 	
-	titleButton_m.update(buttonEffect_m);
+	titleButton_m.update();
 	if (titleButton_m.isClicked()){
 		SoundAsset(L"Game2_BGM").pause(500);
 		changeScene(L"Start", 500);
@@ -68,7 +68,7 @@ void Game2::update()
 		freeByInput();
 		seekSegmentFault();
 		completionButton_m.show();
-		completionButton_m.update(buttonEffect_m);
+		completionButton_m.update();
 		if (completionButton_m.isClicked()){
 			garbage_m = Game2GabeColle<game2::CircleObject>::gc(memory_m);
 			m_data->stageName = name_m;
@@ -83,7 +83,7 @@ void Game2::update()
 	{
 		completionButton_m.hide();
 		resultButton_m.show();
-		resultButton_m.update(buttonEffect_m);
+		resultButton_m.update();
 		if (resultButton_m.isClicked()){
 			SoundAsset(L"Game2_BGM").pause(500);
 			changeScene(L"Result", 500);
@@ -118,7 +118,7 @@ void Game2::draw() const
 	resultButton_m.draw();
 	titleButton_m.draw();
 	effect_m.update();
-	buttonEffect_m.update();
+	clickable::Button::drawEffect();
 }
 
 //ƒNƒŠƒbƒN‚Åƒƒ‚ƒŠ‰ğ•ú

@@ -7,6 +7,9 @@ void GameSelect::init(){
 	SoundAsset(L"GameSelect_BGM").play();
 	SoundAsset(L"GameSelect_BGM").setPosSec(0.5);
 
+	pts_m.resize(Window::Width());
+	pts2_m.resize(Window::Width());
+
 	tag_m.push_back({ L"Game1 Easy"		, L""			, L"Game1", Difficulty::easy	});
 	tag_m.push_back({ L"Game1 Normal"	, L"Game1"		, L"Game1", Difficulty::normal	});
 	tag_m.push_back({ L"Game1 Hard"		, L""			, L"Game1", Difficulty::hard	});
@@ -17,19 +20,20 @@ void GameSelect::init(){
 	tag_m.push_back({ L"Game3 Normal"	, L"Game3"		, L"Game3", Difficulty::normal	});
 	tag_m.push_back({ L"Game3 Hard"		, L"Game3Hard"	, L"Game3", Difficulty::hard	});
 	
-	
+	int hs[9] = { 20, 10, 0, 90, 100, 110, 180, 190, 200 };
 	String ok = L"Asset/SoundEffect/Decision.mp3";
 
 	for (auto i = 0; i < tag_m.size(); ++i){
 		Point pos = { (Window::Width()/4 * ( i/3 +1 ))  + (i%3)*40 -40, 70 * i + 100 };
-		buttons_m.push_back(clickable::Button(Rect(350, 48).setCenter(pos), tag_m[i].buttonName, ok));
+		Size size = { 350, 48 };
+		buttons_m.push_back(GameSelectButton(Rect(size).setCenter(pos), tag_m[i].buttonName, /*(90)*(i/3)-(10*i)+20*/hs[i], ok));
 	}
 	
-	tag_m.push_back({ L"Rules", L"", L"Rules", Difficulty::normal });
-	buttons_m.push_back(clickable::Button(Rect(350, 48).setCenter(Window::Width()*1/4-40,100+70*8), tag_m[tag_m.size()-1].buttonName, ok));
+	//tag_m.push_back({ L"Rules", L"", L"Rules", Difficulty::normal });
+	//buttons_m.push_back(clickable::Button(Rect(350, 48).setCenter(Window::Width()*1/4-40,100+70*8), tag_m[tag_m.size()-1].buttonName, ok));
 
 	tag_m.push_back({ L"BackToTitle", L"Start", L"Title", Difficulty::normal });
-	buttons_m.push_back(clickable::Button(Rect(350, 48).setCenter(Window::Width() * 1 / 4 - 40, 100+70*7), tag_m[tag_m.size() - 1].buttonName, ok));
+	buttons_m.push_back(GameSelectButton(Rect(350, 48).setCenter(Window::Width() * 1 / 4 - 40, 100+70*8), tag_m[tag_m.size() - 1].buttonName, 270 ,ok));
 
 }
 
@@ -38,8 +42,16 @@ void GameSelect::update(){
 	SoundAsset(L"GameSelect_BGM").play();
 
 	for (auto& b : buttons_m){
-		b.update(buttonEffect_m);
+		b.update();
 	}
+	for (auto i = 0; i < buttons_m.size(); ++i){
+		if (buttons_m[i].isMouceOver()){
+			ClearPrint();
+			Println(tag_m[i].gameName);
+		}
+	}
+
+
 	for (auto i = 0; i <tag_m.size(); ++i){
 		if (buttons_m[i].isClicked()){
 			SoundAsset(L"GameSelect_BGM").pause(1000);
@@ -53,6 +65,8 @@ void GameSelect::update(){
 
 void GameSelect::draw()const{
 
+	Graphics::SetBackground(HSV(System::FrameCount() * 2 + 60,0.2,0.9));
+
 	const Point pos = { Window::Width() * 3 / 4, 100 };
 	font_m(L"Game Select").drawCenter({ pos.x + 4, pos.y + 4 }, HSV(System::FrameCount() + 170, 0.5, 0.4));
 	font_m(L"Game Select").drawCenter(pos, HSV(System::FrameCount() + 180, 0.5, 0.8));
@@ -60,34 +74,30 @@ void GameSelect::draw()const{
 	lineEffect_m.update();
 	lingEffect_m.update();
 
-
-	//const Point pos = { Window::Width() * 3 / 4, 100 };
-	
-	//font_m.changeOutlineStyle(TextOutlineStyle(Palette::Black, Palette::White, 1.0));
-
 	for (auto& b : buttons_m){
+		b.drawShadow();
 		b.draw();
 	}
 	
-	buttonEffect_m.update();
+	clickable::Button::drawEffect();
 	
 }
 
 
 
 void GameSelect::fft(){
-	
-	Array<Vec2> pts;
-	Array<Vec2> pts2;
+
 	const auto fft = FFT::Analyze(SoundAsset(L"GameSelect_BGM"));
 	for (auto i = 0; i < Window::Width(); i++)
 	{
 		const double size = Pow(fft.buffer[i], 0.6f) * 2500;
-		pts.push_back({ i, Window::Height() - size +35});
-		pts2.push_back({ Window::Width() - i, size -35});
+		pts_m[i] = { i, Window::Height() - size +35};
+		pts2_m[i] = { Window::Width() - i, size -35};
 	}
-	LineString(pts).draw(1.0,HSV(System::FrameCount()*2,0.5,0.8));
-	LineString(pts2).draw(1.0, HSV(System::FrameCount()*2,0.5,0.8));
+	//LineString(pts_m).moveBy({ 3, 3 }).draw(2.0, Color(HSV(System::FrameCount() * 2, 0.2, 0.2), 127));
+	LineString(pts_m).draw(2.0, HSV(System::FrameCount() * 2, 0.5, 0.8));
+	//LineString(pts2_m).moveBy({ 3, 3 }).draw(2.0, Color(HSV(System::FrameCount() * 2, 0.2, 0.2),127));
+	LineString(pts2_m).draw(2.0, HSV(System::FrameCount()*2,0.5,0.8));
 	//lineEffect_m.add<LineEffect>(LineString(pts),HSV(System::FrameCount()));
 }
 

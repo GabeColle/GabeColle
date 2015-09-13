@@ -7,7 +7,8 @@
 
 #include"Tag.h"
 #include"Effect.h"
-#include"../../Clickable/Button.h"
+//#include"../../Clickable/Button.h"
+#include"GameSelectButton.h"
 #include"../game2/TextField.h"
 
 class GameSelect :
@@ -15,11 +16,12 @@ class GameSelect :
 {
 protected:
 	std::vector<gameselect::Tag> tag_m;
-	std::vector<clickable::Button>buttons_m;
+	std::vector<GameSelectButton>buttons_m;
 	Effect lingEffect_m;
 	Effect lineEffect_m;
-	Effect buttonEffect_m;
 	Font font_m;
+	Array<Vec2> pts_m;
+	Array<Vec2> pts2_m;	
 
 public:
 	//コンストラクタ

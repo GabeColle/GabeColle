@@ -22,8 +22,6 @@ protected:
 	const TextField reference_m;
 	Effect effect_m;
 
-	Effect buttonEffect_m;
-
 	int NUM_OF_MEMORY = 12; 
 
 	unsigned int time_m;
