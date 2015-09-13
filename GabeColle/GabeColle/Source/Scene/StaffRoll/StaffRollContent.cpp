@@ -2,9 +2,10 @@
 
 const int StaffRollContent::INIT_OBJECTS = 40;
 
-StaffRollContent::StaffRollContent(int numOfObjectFromRoot, String contentName)
+StaffRollContent::StaffRollContent(int numOfObjectFromRoot, String contentName,Array<String> parties)
 {
-	Array<String> parties = { L"HataG", L"Jumpaku", L"Namba", L"Uhhyoi"};
+	parties_m = parties;
+	
 	memoryR_m = new staffroll::MemoryFromRoot(numOfObjectFromRoot, contentName, parties);
 	init();
 }

@@ -23,8 +23,8 @@ void MemoryFromRoot::update()
 
 void MemoryFromRoot::draw()const
 {
-	drawArrow();
 	drawMemory();
+	drawArrow();
 }
 
 void MemoryFromRoot::alloc()
