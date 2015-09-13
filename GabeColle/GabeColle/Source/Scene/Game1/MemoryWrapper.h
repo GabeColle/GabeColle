@@ -8,6 +8,7 @@
 #include "PositionList.h"
 #include "ErrorFlagManager.h"
 #include "FadeOutEffect.h"
+#include "OutOfEffect.h"
 
 
 class MemoryWrapper
@@ -24,7 +25,7 @@ private:
 public:
 	MemoryWrapper();
 public:
-	void init();
+	void init(const String stageName);
 	void update();
 	void draw() const;
 	void alloc();
