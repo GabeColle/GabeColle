@@ -22,6 +22,11 @@ void Main()
 	SoundAsset::Register(L"Game2_BGM", L"Asset/BGM/bgm_maoudamashii_cyber09.ogg");
 	SoundAsset::Register(L"GameSelect_BGM", L"Asset/BGM/bgm_maoudamashii_cyber07.ogg");
 
+	// テクスチャアセットに画像を追加
+	TextureAsset::Register(L"Game1_SS", L"Asset/Image/GabeColle.png");
+	TextureAsset::Register(L"Game2_SS", L"Asset/Image/ScreenShot_Game2.PNG");
+	TextureAsset::Register(L"Game3_SS", L"Asset/Image/GabeColle.png");
+
 	// フェードイン・アウト時の色
 	manager.setFadeColor(Palette::White);
 

@@ -83,8 +83,6 @@ void GameSelect::draw()const{
 	
 }
 
-
-
 void GameSelect::fft(){
 
 	const auto fft = FFT::Analyze(SoundAsset(L"GameSelect_BGM"));
