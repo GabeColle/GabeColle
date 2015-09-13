@@ -1,5 +1,5 @@
 ﻿
-# include <Siv3D.hpp>
+#include <Siv3D.hpp>
 
 
 #include "Source\Scene\Sample\Sample.h"
@@ -7,6 +7,7 @@
 #include "Source\Scene\JumpakuGame\JumpakuGame.h"
 #include "Source\Scene\Result/Result.h"
 #include "Source\Scene\Game2\Game2.h" 
+#include "Source\Scene\StaffRoll\StaffRoll.h"
 
 
 void Main()
@@ -25,6 +26,7 @@ void Main()
 
 
 	// シーンを設定
+	manager.add<StaffRoll>(L"StaffRoll");
 	manager.add<Result>(L"Result");
 	manager.add<Start>(L"Start");
 	

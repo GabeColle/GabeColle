@@ -19,6 +19,8 @@ private:
 	Font drawingString_m;
 public:
 	FadeInAndDescendStringEffect(String str, int frame, int delayFrame, Vec2 position);
+	FadeInAndDescendStringEffect(String str, int frame, int delayFrame);
 	void update();
 	void draw()const;
+	void setPosition(Vec2 position);
 };
