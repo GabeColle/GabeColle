@@ -4,7 +4,7 @@
 
 #include "Source\Scene\Sample\Sample.h"
 #include "Source\Scene\Start\Start.h"
-#include "Source\Scene\JumpakuGame\JumpakuGame.h"
+#include "Source\Scene\Game3\Game3.h"
 #include "Source\Scene\Result/Result.h"
 #include "Source\Scene\Game2\Game2.h" 
 #include "Source\Scene\Game1\Game1.h"
@@ -27,7 +27,7 @@ void Main()
 
 	// シーンを設定
 	manager.add<Start>(L"Start");
-	manager.add<JumpakuGame>(L"JumpakuGame");
+	manager.add<Game3>(L"JumpakuGame");
 	//manager.add<Sample>(L"Sample");
 	manager.add<Result>(L"Result");
 	manager.add<Game2>(L"Game2");
