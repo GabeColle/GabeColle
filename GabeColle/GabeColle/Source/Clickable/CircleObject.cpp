@@ -4,8 +4,8 @@
 using namespace clickable;
 
 String const CircleObject::fontAsset_m(L"CircleObjectFont");
-String const CircleObject::newSound_m = L"Asset/SoundEffect/New.mp3";
-String const CircleObject::deleteSound_m = L"Asset/SoundEffect/Delete.mp3";
+String const CircleObject::newSound_m = L"Asset/SoundEffect/New.ogg";
+String const CircleObject::deleteSound_m = L"Asset/SoundEffect/Delete.ogg";
 
 CircleObject::CircleObject()
 {

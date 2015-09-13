@@ -9,7 +9,7 @@ Clear::Clear()
 		btn->show();
 		buttons_m.insert(std::make_pair(name, btn));
 	};
-	static String const sound = L"Asset/SoundEffect/Decision.mp3";
+	static String const sound = L"Asset/SoundEffect/Decision.ogg";
 	addButton(Window::Center().movedBy(0, 150), L"Result", sound);
 
 	static Font font;

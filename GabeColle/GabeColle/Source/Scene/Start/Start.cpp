@@ -3,7 +3,7 @@
 
 using namespace clickable;
 
-String const Start::bgm_m = L"Asset/BGM/StartBGM.mp3";
+String const Start::bgm_m = L"Asset/BGM/StartBGM.ogg";
 
 Start::Start()
 	:titleFont_m(Font(120)), sakuras_m(50)
@@ -81,7 +81,7 @@ void Start::initButtons()
 		btn->show();
 		buttons_m.insert(std::make_pair(name, btn));
 	};
-	addButton(Window::Center().movedBy(0, 150), L"Start", L"Asset/SoundEffect/NextScene.mp3");
-	addButton(Window::Center().movedBy(0, 220), L"Quit", L"Asset/SoundEffect/Decision.mp3");
-	addButton(Window::Center().movedBy(0, 290), L"Rules", L"Asset/SoundEffect/NextScene.mp3");
+	addButton(Window::Center().movedBy(0, 150), L"Start", L"Asset/SoundEffect/NextScene.ogg");
+	addButton(Window::Center().movedBy(0, 220), L"Quit", L"Asset/SoundEffect/Decision.ogg");
+	addButton(Window::Center().movedBy(0, 290), L"Rules", L"Asset/SoundEffect/NextScene.ogg");
 }

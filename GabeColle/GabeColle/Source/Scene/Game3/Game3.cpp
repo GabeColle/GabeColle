@@ -6,9 +6,9 @@
 #include"Playing.h"
 
 String const Game3::SceneState::nextScene_m = L"Result";
-String const Game3::gameOverSound_m = L"Asset/SoundEffect/GameOver.mp3";
-String const Game3::clearSound_m = L"Asset/SoundEffect/clear.mp3";
-String const Game3::bgm_m = L"Asset/BGM/Game3BGM.mp3";
+String const Game3::gameOverSound_m = L"Asset/SoundEffect/GameOver.ogg";
+String const Game3::clearSound_m = L"Asset/SoundEffect/clear.ogg";
+String const Game3::bgm_m = L"Asset/BGM/Game3BGM.ogg";
 
 Game3::Game3(int clearLimit, int allocInterval, int objectLinkInterval, int rootLinkInterval, int unlinkInterval)
 	: clearLimit_m(clearLimit),

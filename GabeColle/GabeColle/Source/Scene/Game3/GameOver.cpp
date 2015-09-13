@@ -8,8 +8,8 @@ GameOver::GameOver(String const &message)
 		btn->show();
 		buttons_m.insert(std::make_pair(name, btn));
 	};
-	addButton(Window::Center().movedBy(0, 140), L"Garbage Collection", L"Asset/SoundEffect/Decision.mp3");
-	addButton(Window::Center().movedBy(0, 230), L"Result", L"Asset/SoundEffect/NextScene.mp3");
+	addButton(Window::Center().movedBy(0, 140), L"Garbage Collection", L"Asset/SoundEffect/Decision.ogg");
+	addButton(Window::Center().movedBy(0, 230), L"Result", L"Asset/SoundEffect/NextScene.ogg");
 
 	static Font font;
 	Color outline = Palette::Black;
