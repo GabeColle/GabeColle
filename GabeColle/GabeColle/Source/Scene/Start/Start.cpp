@@ -79,7 +79,7 @@ void Start::initButtons()
 	{
 		auto btn = std::make_shared<Button>(Rect(200, 48).setCenter(p), name, sound);
 		btn->show();
-		buttons_m.insert(std::make_pair(	name, btn));
+		buttons_m.insert(std::make_pair(name, btn));
 	};
 	addButton(Window::Center().movedBy(0, 150), L"Start", L"Asset/SoundEffect/NextScene.mp3");
 	addButton(Window::Center().movedBy(0, 220), L"Quit", L"Asset/SoundEffect/Decision.mp3");

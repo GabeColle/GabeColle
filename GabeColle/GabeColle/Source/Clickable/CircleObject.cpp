@@ -3,10 +3,14 @@
 
 using namespace clickable;
 
+String const CircleObject::fontAsset_m(L"CircleObjectFont");
+String const CircleObject::newSound_m = L"Asset/SoundEffect/New.mp3";
+String const CircleObject::deleteSound_m = L"Asset/SoundEffect/Delete.mp3";
+
 CircleObject::CircleObject()
 {
-	if (!FontAsset::IsRegistered(FONT_ASSET_NAME)) {
-		FontAsset::Register(FONT_ASSET_NAME, 24);
+	if (!FontAsset::IsRegistered(fontAsset_m)) {
+		FontAsset::Register(fontAsset_m, 24);
 	}
 	if (!SoundAsset::IsRegistered(newSound_m)) {
 		SoundAsset::Register(newSound_m, newSound_m);
@@ -28,22 +32,22 @@ void CircleObject::initialize(int address, Effect &effect)
 		text_m = ToString(address);
 	}
 	show();
-	SoundAsset(newSound_m).playMulti();//.play();
+	SoundAsset(newSound_m).playMulti();
 	effect.add<CircleObjectTextEffect>(
 		shape_m.center,
 		FontSharedText(
-			FONT_ASSET_NAME, L"NEW", shape_m.center.movedBy(0,-45), Palette::Red));
+			fontAsset_m, L"NEW", shape_m.center.movedBy(0,-45), Palette::Red));
 }
 
 void CircleObject::finalize(Effect &effect)
 {
 	frame_m = clickedInterval_m + 1;
 	hide();
-	SoundAsset(deleteSound_m).playMulti(); //.play();
+	SoundAsset(deleteSound_m).playMulti();
 	effect.add<CircleObjectTextEffect>(
 		shape_m.center,
 		FontSharedText(
-			FONT_ASSET_NAME, L"DELETE", shape_m.center.movedBy(0,45), Palette::Blue));
+			fontAsset_m, L"DELETE", shape_m.center.movedBy(0,45), Palette::Blue));
 
 	changeState();
 }
@@ -63,27 +67,28 @@ void CircleObject::update()
 void CircleObject::drawPressed(Circle shape, String const &text, int frame)const
 {
 	shape.draw(HSV(0, 0.7, 1.0)).drawFrame(1.0, 0.0, HSV(0, 1.0, 1.0));
-	FontAsset(FONT_ASSET_NAME).drawCenter(text, shape.center);
+	FontAsset(fontAsset_m).drawCenter(text, shape.center);
 }
 
 void CircleObject::drawOver(Circle shape, String const &text, int frame)const
 {
 	shape.draw(HSV(0, 0.7, 0.9)).drawFrame(1.0, 0.0, HSV(0, 1.0, 0.9));
-	FontAsset(FONT_ASSET_NAME).drawCenter(text, shape.center);
+	FontAsset(fontAsset_m).drawCenter(text, shape.center);
 }
 
 void CircleObject::drawLeft(Circle shape, String const &text, int frame)const
 {
 	shape.draw(HSV(0, 0.7, 0.8)).drawFrame(1.0, 0.0, HSV(0, 1.0, 0.8));
-	FontAsset(FONT_ASSET_NAME).drawCenter(text, shape.center);
+	FontAsset(fontAsset_m).drawCenter(text, shape.center);
 }
 
 void CircleObject::drawClicked(Circle shape, String const &text, int frame)const
 {
 	shape.draw(HSV(0, 0.7, 0.5)).drawFrame(1.0, 0.0, HSV(0, 1.0, 0.5));
-	FontAsset(FONT_ASSET_NAME).drawCenter(text, shape.center);
+	FontAsset(fontAsset_m).drawCenter(text, shape.center);
 }
 
-String const CircleObject::FONT_ASSET_NAME(L"CircleObjectFont");
-String const CircleObject::newSound_m = L"Asset/SoundEffect/New.mp3";
-String const CircleObject::deleteSound_m = L"Asset/SoundEffect/Delete.mp3";
+bool CircleObject::isClicked()const
+{
+	return shape_m.leftClicked;
+}
