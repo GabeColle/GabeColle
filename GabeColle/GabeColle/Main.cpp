@@ -12,9 +12,9 @@
 
 void Main()
 {
-	Window::SetStyle(WindowStyle::NonFrame); 
 	Window::Resize(1280, 720);
 	Window::Centering();
+	Window::SetStyle(WindowStyle::NonFrame);
 
 	SceneManager<String, GameData> manager(SceneManagerOption::None);
 
@@ -28,7 +28,7 @@ void Main()
 	TextureAsset::Register(L"Game3_SS", L"Asset/Image/GabeColle.png");
 
 	// フェードイン・アウト時の色
-	manager.setFadeColor(Palette::White);
+	manager.setFadeColor(Palette::Black);
 
 
 	// シーンを設定

@@ -177,8 +177,3 @@ void Game3::saveScore()
 	m_data->totalScore = 
 		e.outOfMemory_m * -2000 + e.segmentationFault_m * -3000 + deletes_m*30 + frame_m * 1;
 }
-
-/*void Game3::showResult()
-{
-	SoundAsset(bgm_m)
-}*/
