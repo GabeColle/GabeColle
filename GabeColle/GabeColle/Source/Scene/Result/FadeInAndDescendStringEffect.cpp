@@ -11,6 +11,11 @@ FadeInAndDescendStringEffect::FadeInAndDescendStringEffect(String str, int frame
 	increaseTransparencyRange_m = 255 / frame_m;
 }
 
+FadeInAndDescendStringEffect::FadeInAndDescendStringEffect(String str, int frame, int delayFrame) : FadeInAndDescendStringEffect(str, frame, delayFrame, Vec2(0, 0))
+{
+	
+}
+
 void FadeInAndDescendStringEffect::update()
 {
 	if (delayFrame_m == 0){
@@ -37,4 +42,9 @@ void FadeInAndDescendStringEffect::update()
 void FadeInAndDescendStringEffect::draw()const
 {
 	drawingString_m(descendedString_m).drawCenter(currentPosition_m, Color(0,0,0,currentTransparency_m));
+}
+
+void FadeInAndDescendStringEffect::setPosition(Vec2 position)
+{
+	position_m = position;
 }

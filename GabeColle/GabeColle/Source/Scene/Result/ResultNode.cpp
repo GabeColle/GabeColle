@@ -51,6 +51,4 @@ void ResultNode::pushButton()
 	if (ranking->pushButton()){
 		switchRanking = false;
 	}
-	ranking->initPush();
-
 }

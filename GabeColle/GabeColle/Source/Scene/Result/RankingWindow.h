@@ -2,7 +2,8 @@
 
 #include <Siv3D.hpp>
 #include <algorithm>
-#include "../../Utility/Button/Button.h"
+//#include "../../Utility/Button/Button.h"
+#include "CloseButton.h"
 #include "Record.h"
 
 class RankingWindow{
@@ -17,7 +18,7 @@ private:
 	static String titles_m[4];
 
 	String title_m;
-	RoundRect* window;
+	Rect* window;
 	Rect* bar;
 	Line* divideLine[LOWEST+1];
 	
@@ -28,18 +29,14 @@ private:
 	Array<int> ranking_m;
 	Rect* ownFilter_m;
 
-	Button* closeButton_m;
-	Button* initButton_m;
+	CloseButton* closeButton_m;
 
 	void constructRankingWindow();
 	void createRanking(int id,int value);
 	int searchPosition(int value);
-
-	void initRanking();
 public:
 	RankingWindow(int id,int value);
 	void init(int id,int value);
 	void draw()const;
 	bool pushButton();
-	void initPush();
 };

@@ -33,8 +33,15 @@ void Record::decryptData(String stageName)
 
 	if (!reader.isOpened()){
 		for (int i = 0; i < 4; ++i){
-			for (int j = 0; j < 10; ++j){
-				rankingData_m[i][j] = 0;
+			if (i < 2){
+				for (int j = 0; j < 10; ++j){
+					rankingData_m[i][j] = 999999;
+				}
+			}
+			else{
+				for (int j = 0; j < 10; ++j){
+					rankingData_m[i][j] = 0;
+				}
 			}
 		}
 		return;

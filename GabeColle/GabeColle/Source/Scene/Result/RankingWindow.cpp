@@ -29,8 +29,8 @@ void RankingWindow::init(int id,int value)
 		ownFilter_m = new Rect((int)divideLine[ownPosition]->begin.x, (int)divideLine[ownPosition]->begin.y, WINDOW_WITDTH, BETWEEN_LINE);
 	}
 
-	closeButton_m = new Button(L"x", (int)window->x + WINDOW_WITDTH - 40, (int)window->y, 40, BAR_HEIGHT);
-	initButton_m = new Button(L"☠", 30, Window::Height() - 30, 40, 40);
+	//closeButton_m = new Button(L"x", (int)window->x + WINDOW_WITDTH - 20, bar->y+BAR_HEIGHT/2, 40, BAR_HEIGHT);
+	closeButton_m = new CloseButton(Rect((int)window->x + WINDOW_WITDTH - 40, bar->y, 40, BAR_HEIGHT), L"x", L"Asset/SoundEffect/button83.mp3");
 }
 void RankingWindow::draw()const
 {
@@ -47,14 +47,11 @@ void RankingWindow::draw()const
 		ownFilter_m->draw(Color(Palette::Aquamarine, 200));
 	}
 	closeButton_m->draw();
-	initButton_m->draw();
-	
-
 }
 
 void RankingWindow::constructRankingWindow()
 {
-	window = new RoundRect(Window::Center().x - WINDOW_WITDTH / 2, Window::Center().y - WINDOW_HEIGHT / 2, WINDOW_WITDTH, WINDOW_HEIGHT, 40);
+	window = new Rect(Window::Center().x - WINDOW_WITDTH / 2, Window::Center().y - WINDOW_HEIGHT / 2, WINDOW_WITDTH, WINDOW_HEIGHT);
 	bar = new Rect((int)window->x, (int)window->y, BAR_WIDTH, BAR_HEIGHT);
 	for (int i = 0; i < LOWEST+1; ++i){
 		divideLine[i] = new Line(window->x, bar->y + BAR_HEIGHT + i * BETWEEN_LINE, window->x + WINDOW_WITDTH, bar->y + BAR_HEIGHT + i * BETWEEN_LINE);
@@ -69,7 +66,10 @@ void RankingWindow::createRanking(int id,int value)
 		ranking_m.push_back(Record::rankingData_m[id][i]);
 	}
 	ranking_m.push_back(value);
-	std::sort(ranking_m.begin(), ranking_m.end(), [](const int x, const int y) { return x > y; });
+	std::sort(ranking_m.begin(), ranking_m.end(), 
+		[id](const int x, const int y) { 
+		if (id < 2) return x < y; 
+		else return x > y; });
 	ranking_m.pop_back();
 	for (int i = 0; i < LOWEST; ++i){
 		Record::rankingData_m[id][i] = ranking_m.at(i);	
@@ -89,23 +89,7 @@ int RankingWindow::searchPosition(int value)
 
 bool RankingWindow::pushButton()
 {
-	return closeButton_m->leftClicked();
+	closeButton_m->update();
+	return closeButton_m->isClicked();
 }
 
-
-void RankingWindow::initRanking()
-{
-	for (int i = 0; i < 4; ++i){
-		for (int j = 0; j < 10; ++j){
-			Record::rankingData_m[i][j] = 0;
-		}
-	}
-	
-}
-
-void RankingWindow::initPush()
-{
-	if (initButton_m->leftClicked()){
-		initRanking();
-	}
-}

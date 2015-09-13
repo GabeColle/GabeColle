@@ -1,5 +1,5 @@
 ﻿
-# include <Siv3D.hpp>
+#include <Siv3D.hpp>
 
 
 #include "Source\Scene\Game1\Game1.h"
@@ -11,6 +11,7 @@
 #include "Source\Scene\Game2\Game2.h" 
 #include"Source\Scene\Game3\Game3.h"
 #include"Source\Scene\Result\Result.h"
+#include "Source\Scene\StaffRoll\StaffRoll.h"
 
 void Main()
 {
@@ -39,7 +40,9 @@ void Main()
 	manager.add<Start>(L"Start");
 	manager.add<GameSelect>(L"GameSelect");
 	manager.add<Result>(L"Result");
-	
+	manager.add<StaffRoll>(L"StaffRoll");
+	manager.add<Result>(L"Result");
+	manager.add<Start>(L"Start");
 	manager.add<Game1>(L"Game1");
 	manager.add<Game1Easy>(L"Game1Easy");
 	manager.add<Game1Hard>(L"Game1Hard");
