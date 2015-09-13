@@ -18,7 +18,7 @@ Game2BGM(bgm_maoudamashii_cyber09.ogg) 魔王魂 http://maoudamashii.jokersounds.co
 GameSelectBGM(bgm_maoudamashii_cyber07.ogg) 魔王魂 http://maoudamashii.jokersounds.com/
 Game3BGM.ogg 死刑実習 フリーBGM・音楽素材 H/MIX GALLERY http://www.hmix.net/
 StartBGM.ogg Celebration フリーBGM・音楽素材 H/MIX GALLERY http://www.hmix.net/
-魔空.ogg
+魔空.ogg Free BGM DOVA SYNDROME http://dova-s.jp/ かずち
 
 ********************************************************************************************
 画像
