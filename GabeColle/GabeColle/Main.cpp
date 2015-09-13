@@ -2,6 +2,8 @@
 # include <Siv3D.hpp>
 
 
+#include "Source\Scene\Game1\Game1.h"
+#include"Source\Scene\Rule\Rule.h"
 #include "Source\Scene\Sample\Sample.h"
 #include "Source\Scene\Start\Start.h"
 #include "Source\Scene\GameSelect\GameSelect.h"
@@ -33,6 +35,8 @@ void Main()
 
 
 	// シーンを設定
+	manager.add<Rule>(L"Rule");
+	manager.add<Game1>(L"Game1");
 	manager.add<Start>(L"Start");
 	manager.add<GameSelect>(L"GameSelect");
 	manager.add<Result>(L"Result");
