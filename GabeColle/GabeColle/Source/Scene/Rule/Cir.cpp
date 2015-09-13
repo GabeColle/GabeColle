@@ -85,12 +85,16 @@ void Cir::sinmove2(){
 	this->right(Random(0, 10));
 	this->up(speed);
 }
-//•`‰æ
-void Cir::draw(){
+
+void Cir::update(){
 	if (t.leftClicked){
 		this->exist = false;
 		effect_m->add<Snow>(Point({ x, y }), 50);
 	}
+}
+//•`‰æ
+void Cir::draw()const{
+	
 	if(this->exist)this->t.draw(HSV(2*System::FrameCount(), 0.8, 0.5).toColor(63));
 }
 

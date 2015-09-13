@@ -10,7 +10,8 @@ public:
 	int getX();
 	int getY();
 	int getE();
-	void draw();
+	void update();
+	void draw()const;
 	void rightmove();
 	void leftmove();
 	void sinmove();

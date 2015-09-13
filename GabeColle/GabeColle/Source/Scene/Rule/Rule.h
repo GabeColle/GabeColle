@@ -18,6 +18,11 @@ private:
 	Cir cir[40];
 	Circle back;
 	Texture mainimage;
+
+	Texture game1_m;
+	Texture game2_m;
+	Texture game3_m;
+
 	Font click;
 	Font font;
 	bool backbutton;
