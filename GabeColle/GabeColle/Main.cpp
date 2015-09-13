@@ -36,7 +36,6 @@ void Main()
 
 	// シーンを設定
 	manager.add<Rule>(L"Rule");
-	manager.add<Game1>(L"Game1");
 	manager.add<Start>(L"Start");
 	manager.add<GameSelect>(L"GameSelect");
 	manager.add<Result>(L"Result");
@@ -50,6 +49,8 @@ void Main()
 	manager.add<Game3>(L"Game3");
 	manager.add<Game3Easy>(L"Game3Easy");
 	manager.add<Game3Hard>(L"Game3Hard");
+
+	manager.init(L"Start");
 
 	while (System::Update()) {
 		if (!manager.updateAndDraw())

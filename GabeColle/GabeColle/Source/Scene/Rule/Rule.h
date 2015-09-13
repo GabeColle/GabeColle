@@ -28,6 +28,8 @@ private:
 	bool backbutton;
 	clickable::Button button_m;
 
+	static String const bgm_m;
+
 public:
 	// クラスの初期化時に一度だけ呼ばれる（省略可）
 	void init() override;

@@ -44,6 +44,7 @@ void Start::update()
 		System::Exit();
 	}
 	if (buttons_m.at(L"Rule")->isClicked()) {
+		SoundAsset(bgm_m).stop();
 		changeScene(L"Rule");
 	}
 
@@ -80,6 +81,6 @@ void Start::initButtons()
 		buttons_m.insert(std::make_pair(	name, btn));
 	};
 	addButton(Window::Center().movedBy(0, 150), L"Start", L"Asset/SoundEffect/NextScene.ogg");
-	addButton(Window::Center().movedBy(0, 220), L"Quit", L"Asset/SoundEffect/Decision.ogg");
-	addButton(Window::Center().movedBy(0, 290), L"Rule", L"Asset/SoundEffect/NextScene.ogg");
+	addButton(Window::Center().movedBy(0, 290), L"Quit", L"Asset/SoundEffect/Decision.ogg");
+	addButton(Window::Center().movedBy(0, 220), L"Rule", L"Asset/SoundEffect/NextScene.ogg");
 }

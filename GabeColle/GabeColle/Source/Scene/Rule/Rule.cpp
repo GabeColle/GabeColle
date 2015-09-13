@@ -1,9 +1,14 @@
 #include "Rule.h"
 
+String const Rule::bgm_m = L"Asset/BGM/魔空.ogg";
 
 Rule::Rule()
 	:button_m(Rect(200, 80).setCenter(Window::Center().moveBy(0, 300)), L"戻る", 300, L"Asset/SoundEffect/Decision.ogg")
-{}
+{
+	if (!SoundAsset::IsRegistered(bgm_m)){
+		SoundAsset::Register(bgm_m, bgm_m);
+	}
+}
 
 // クラスの初期化時に一度だけ呼ばれる（省略可）
 void Rule::init()
@@ -23,6 +28,8 @@ void Rule::init()
 	back = Circle(Window::Width() / 2, Window::Height() / 2-30, 40);
 	font = Font(20);
 	click = Font(10);
+
+	SoundAsset(bgm_m).play();
 }
 
 // 毎フレーム updateAndDraw() で呼ばれる
@@ -56,7 +63,10 @@ void Rule::update()
 	if (back.leftClicked){ changeScene(L"Start"); }
 	button_m.update();
 	
-	
+	if (button_m.isClicked()){
+		SoundAsset(bgm_m).stop();
+		changeScene(L"Start");
+	}
 }
 
 // 毎フレーム update() の次に呼ばれる
