@@ -11,7 +11,7 @@ void RankingWindow::init(int id,int value)
 {
 	constructRankingWindow();
 
-	const int WINDOW_CENTER_X = (int)window->x + WINDOW_WITDTH / 2;
+	const int WINDOW_CENTER_X = (int)window_m->x + WINDOW_WITDTH / 2;
 
 	titles_m[0] = L"経過時間";
 	titles_m[1] = L"発生したエラー数";
@@ -19,25 +19,24 @@ void RankingWindow::init(int id,int value)
 	titles_m[3] = L"合計得点";
 
 	createRanking(id, value);
-	titlePosition_m = Vec2(WINDOW_CENTER_X, window->y + BAR_HEIGHT / 2);
+	titlePosition_m = Vec2(WINDOW_CENTER_X, window_m->y + BAR_HEIGHT / 2);
 	for (int i = 0; i < 10; ++i){
-		scorePosition_m[i] = Vec2(WINDOW_CENTER_X, (divideLine[i]->begin.y + divideLine[i + 1]->begin.y) / 2);
+		scorePosition_m[i] = Vec2(WINDOW_CENTER_X, (divideLine_m[i]->begin.y + divideLine_m[i + 1]->begin.y) / 2);
 	}
 
 	int ownPosition = searchPosition(value);
 	if (ownPosition != -1){
-		ownFilter_m = new Rect((int)divideLine[ownPosition]->begin.x, (int)divideLine[ownPosition]->begin.y, WINDOW_WITDTH, BETWEEN_LINE);
+		ownFilter_m = std::make_shared<Rect>(Rect((int)divideLine_m[ownPosition]->begin.x, (int)divideLine_m[ownPosition]->begin.y, WINDOW_WITDTH, BETWEEN_LINE));
 	}
 
-	//closeButton_m = new Button(L"x", (int)window->x + WINDOW_WITDTH - 20, bar->y+BAR_HEIGHT/2, 40, BAR_HEIGHT);
-	closeButton_m = new CloseButton(Rect((int)window->x + WINDOW_WITDTH - 40, bar->y, 40, BAR_HEIGHT), L"x", L"Asset/SoundEffect/button83.mp3");
+	closeButton_m = std::make_shared<CloseButton>(CloseButton(Rect((int)window_m->x + WINDOW_WITDTH - 40, bar_m->y, 40, BAR_HEIGHT), L"x", L"Asset/SoundEffect/button83.mp3"));
 }
 void RankingWindow::draw()const
 {
-	window->draw(Color(Palette::Darkred, 128));
-	bar->draw(Color(Palette::Antiquewhite, 128));
+	window_m->draw(Color(Palette::Darkred, 128));
+	bar_m->draw(Color(Palette::Antiquewhite, 128));
 	for (int i = 0; i < 11; ++i){
-		divideLine[i]->draw();
+		divideLine_m[i]->draw();
 	}
 	drawingTitle_m(title_m).drawCenter(titlePosition_m, Palette::White);
 	for (int i = 0; i < 10; ++i){
@@ -51,10 +50,10 @@ void RankingWindow::draw()const
 
 void RankingWindow::constructRankingWindow()
 {
-	window = new Rect(Window::Center().x - WINDOW_WITDTH / 2, Window::Center().y - WINDOW_HEIGHT / 2, WINDOW_WITDTH, WINDOW_HEIGHT);
-	bar = new Rect((int)window->x, (int)window->y, BAR_WIDTH, BAR_HEIGHT);
+	window_m = std::make_shared<Rect>(Rect(Window::Center().x - WINDOW_WITDTH / 2, Window::Center().y - WINDOW_HEIGHT / 2, WINDOW_WITDTH, WINDOW_HEIGHT));
+	bar_m = std::make_shared<Rect>(Rect((int)window_m->x, (int)window_m->y, BAR_WIDTH, BAR_HEIGHT));
 	for (int i = 0; i < LOWEST+1; ++i){
-		divideLine[i] = new Line(window->x, bar->y + BAR_HEIGHT + i * BETWEEN_LINE, window->x + WINDOW_WITDTH, bar->y + BAR_HEIGHT + i * BETWEEN_LINE);
+		divideLine_m[i] = std::make_shared<Line>(Line(window_m->x, bar_m->y + BAR_HEIGHT + i * BETWEEN_LINE, window_m->x + WINDOW_WITDTH, bar_m->y + BAR_HEIGHT + i * BETWEEN_LINE));
 	}
 }
 

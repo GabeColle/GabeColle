@@ -3,14 +3,14 @@
 using namespace staffroll;
 
 const double MemoryFromRoot::MEMORY_RADIUS = 100.0;
-const double MemoryFromRoot::ROOT_RADIUS = 50.0;
+const double MemoryFromRoot::ROOT_RADIUS = 70.0;
 
-MemoryFromRoot::MemoryFromRoot(int maxMemory,String contentName,Array<String> parties) : memory_m(parties.size()+1),positionList_m()
+MemoryFromRoot::MemoryFromRoot(int maxMemory, String contentName, Array<String> parties) : memory_m(parties.size() + 1), positionList_m()
 {
 	memory_m.root().setCenter(positionList_m.getRootPos());
 	contentName_m = contentName;
 	for (int i = 0; i < parties.size(); ++i){
-		parties_m.push_back(new DescendAndCountStringEffect(parties[i], 30, 30 + i * 10));
+		parties_m.push_back(std::make_shared<DescendAndCountStringEffect>(DescendAndCountStringEffect(parties[i], 30, 30 + i * 10)));
 	}
 }
 
@@ -77,6 +77,6 @@ void MemoryFromRoot::drawArrow()const
 
 void MemoryFromRoot::drawRoot(String content)const
 {
-	const Font font;
+	Font font;
 	font.drawCenter(content, Circle(memory_m.root().getCenter(), ROOT_RADIUS).draw(Palette::Aqua).center);
 }

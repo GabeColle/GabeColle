@@ -3,7 +3,7 @@
 DescendAndCountStringEffect::DescendAndCountStringEffect(String str, int frame, int delayFrame) : NodeEffect(frame, delayFrame), drawingString_m(30)
 {
 	stringCountFrame_m = 2;
-	startPos = 40;
+	startPos_m = 40;
 	descendedString_m = inverseCalculationString(str, 60/stringCountFrame_m);
 	realString_m = str;
 	currentTransparency_m = 0;
@@ -14,11 +14,11 @@ DescendAndCountStringEffect::DescendAndCountStringEffect(String str, int frame, 
 void DescendAndCountStringEffect::update()
 {
 	if (delayFrame_m == 0){
-		if (startPos > 0){
-			startPos -= increaseYRange_m;
+		if (startPos_m > 0){
+			startPos_m -= increaseYRange_m;
 		}
 		else{
-			startPos = 0;
+			startPos_m = 0;
 		}
 		if (currentTransparency_m < 255){
 			currentTransparency_m += increaseTransparencyRange_m;
@@ -51,7 +51,7 @@ void DescendAndCountStringEffect::draw()const
 
 void DescendAndCountStringEffect::draw(Vec2 realPosition)const
 {
-	Vec2 drawingPosition(realPosition.x, realPosition.y - startPos);
+	Vec2 drawingPosition(realPosition.x, realPosition.y - startPos_m);
 	drawingString_m(descendedString_m).drawCenter(drawingPosition, Color(Palette::Bisque, currentTransparency_m));
 }
 

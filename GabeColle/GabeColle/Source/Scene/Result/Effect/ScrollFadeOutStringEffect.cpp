@@ -2,7 +2,7 @@
 
 ScrollFadeOutStringEffect::ScrollFadeOutStringEffect(String defaultString, String fadein, Circle node, Font font, int frame, int delayFrame) : NodeEffect(frame,delayFrame,node.center)
 {
-	unClearRate = 255;
+	unClearRate_m = 255;
 	node_m = node;
 	defaultString_m = defaultString;
 	fadedInString_m = fadein;
@@ -10,8 +10,8 @@ ScrollFadeOutStringEffect::ScrollFadeOutStringEffect(String defaultString, Strin
 	fadedInPos_m.y = node.center.y + 100;
 	drawingText_m = font;
 
-	velocity = 100 / frame_m;
-	unClearRateVelocity = 255 / frame_m;
+	velocity_m = 100 / frame_m;
+	unClearRateVelocity_m = 255 / frame_m;
 }
 
 void ScrollFadeOutStringEffect::update()
@@ -32,30 +32,30 @@ void ScrollFadeOutStringEffect::update()
 
 void ScrollFadeOutStringEffect::fadeout()
 {
-	if (unClearRate > 0){
-		position_m.y -= velocity;
-		fadedInPos_m.y -= velocity;
-		unClearRate -= unClearRateVelocity;
+	if (unClearRate_m > 0){
+		position_m.y -= velocity_m;
+		fadedInPos_m.y -= velocity_m;
+		unClearRate_m -= unClearRateVelocity_m;
 	}
-	if(unClearRate <= 0){
-		unClearRate = 0;
+	if(unClearRate_m <= 0){
+		unClearRate_m = 0;
 	}
 }
 
 void ScrollFadeOutStringEffect::fadein()
 {
-	if (unClearRate < 255){
-		position_m.y += velocity;
-		fadedInPos_m.y += velocity;
-		unClearRate += unClearRateVelocity;
+	if (unClearRate_m < 255){
+		position_m.y += velocity_m;
+		fadedInPos_m.y += velocity_m;
+		unClearRate_m += unClearRateVelocity_m;
 	}
-	if (unClearRate >= 255){
-		unClearRate = 255;
+	if (unClearRate_m >= 255){
+		unClearRate_m = 255;
 	}
 }
 
 void ScrollFadeOutStringEffect::draw()const
 {
-	drawingText_m(defaultString_m).drawCenter(position_m, Color(Palette::Bisque, unClearRate));
-	drawingText_m(fadedInString_m).drawCenter(fadedInPos_m, Color(Palette::Cyan, 255 - unClearRate));
+	drawingText_m(defaultString_m).drawCenter(position_m, Color(Palette::Bisque, unClearRate_m));
+	drawingText_m(fadedInString_m).drawCenter(fadedInPos_m, Color(Palette::Cyan, 255 - unClearRate_m));
 }

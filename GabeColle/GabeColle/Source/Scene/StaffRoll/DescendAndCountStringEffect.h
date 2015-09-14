@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Siv3D.hpp>
-#include "../Result/NodeEffect.h"
+#include "../Result/Effect/NodeEffect.h"
 
 class DescendAndCountStringEffect : public NodeEffect{
 private:
@@ -10,7 +10,7 @@ private:
 	// 降臨させる文字
 	String descendedString_m;
 	// スタート位置
-	int startPos;
+	int startPos_m;
 	// 不透明度
 	int currentTransparency_m;
 	// y方向の上げ幅

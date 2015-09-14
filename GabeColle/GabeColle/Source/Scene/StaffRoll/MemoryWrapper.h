@@ -6,7 +6,6 @@
 #include "../GameData.h"
 #include "CircleObject.h"
 #include "PositionList.h"
-#include "../Result/FadeInAndDescendStringEffect.h"
 
 namespace staffroll{
 	class MemoryWrapper

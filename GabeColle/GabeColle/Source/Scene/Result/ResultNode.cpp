@@ -12,16 +12,16 @@ ResultNode::ResultNode(int id,int variable, String name, int delayFrame, Vec2 po
 	arrowEndPoint.x = position_m.x - circleRadius_m*Cos(arrowAngle);
 	arrowEndPoint.y = position_m.y - circleRadius_m*Sin(arrowAngle);
 
-	node_m = new Circle(position_m, circleRadius_m);
+	node_m = std::make_shared<Circle>(Circle(position_m, circleRadius_m));
 	
-	effects[ARROW] = new ExtendArrowEffect(Line(Window::Center(), arrowEndPoint),30,delayFrame_m);
-	effects[CIRCLE] = new ExpandCircleEffect(*node_m, 30, delayFrame_m+30, Palette::Darkred);
-	effects[COUNTUP] = new CountUpEffect(variable,60,delayFrame_m+30*2,position_m);
-	effects[NAME] = new FadeInAndDescendStringEffect(name, 30, delayFrame_m+30*2+60, Vec2(position_m.x, position_m.y + circleRadius_m));
+	effects[ARROW]	 =	std::make_shared<ExtendArrowEffect>(ExtendArrowEffect(Line(Window::Center(), arrowEndPoint), 30, delayFrame_m));
+	effects[CIRCLE]	 =	std::make_shared<ExpandCircleEffect>(ExpandCircleEffect(*node_m, 30, delayFrame_m + 30, Palette::Darkred));
+	effects[COUNTUP] =	std::make_shared<CountUpEffect>(CountUpEffect(variable,60,delayFrame_m+30*2,position_m));
+	effects[NAME]	 =	std::make_shared<FadeInAndDescendStringEffect>(FadeInAndDescendStringEffect(name, 30, delayFrame_m+30*2+60, Vec2(position_m.x, position_m.y + circleRadius_m)));
 
-	ranking = new RankingWindow(id_m,variable_m);
+	ranking_m = std::make_shared<RankingWindow>(RankingWindow(id_m,variable_m));
 
-	switchRanking = false;
+	switchRanking_m = false;
 	
 }
 
@@ -38,17 +38,17 @@ void ResultNode::draw()const
 	for (int i = 0; i < 4; ++i){
 		effects[i]->draw();
 	}
-	if (switchRanking){
-		ranking->draw();
+	if (switchRanking_m){
+		ranking_m->draw();
 	}
 }
 
 void ResultNode::pushButton()
 {
 	if (node_m->leftPressed){
-		switchRanking = true;
+		switchRanking_m = true;
 	}
-	if (ranking->pushButton()){
-		switchRanking = false;
+	if (ranking_m->pushButton()){
+		switchRanking_m = false;
 	}
 }

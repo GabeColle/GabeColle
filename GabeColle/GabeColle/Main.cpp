@@ -34,15 +34,19 @@ void Main()
 	// フェードイン・アウト時の色
 	manager.setFadeColor(Palette::Black);
 
+	DespiteOfScene::init();
+
 
 	// シーンを設定
+	manager.add<StaffRoll>(L"StaffRoll");
+	manager.add<Start>(L"Start");
+	manager.add<Result>(L"Result");
+	
 	manager.add<Rule>(L"Rule");
 	manager.add<Start>(L"Start");
 	manager.add<GameSelect>(L"GameSelect");
-	manager.add<Result>(L"Result");
-	manager.add<StaffRoll>(L"StaffRoll");
-	manager.add<Result>(L"Result");
-	manager.add<Start>(L"Start");
+	
+	
 	manager.add<Game1>(L"Game1");
 	manager.add<Game1Easy>(L"Game1Easy");
 	manager.add<Game1Hard>(L"Game1Hard");
@@ -53,10 +57,12 @@ void Main()
 	manager.add<Game3Easy>(L"Game3Easy");
 	manager.add<Game3Hard>(L"Game3Hard");
 
-	manager.init(L"Start");
+	//manager.init(L"Start");
 
 	while (System::Update()) {
+		Println(DespiteOfScene::isDrawingState_m);
 		if (!manager.updateAndDraw())
 			break;
+		DespiteOfScene::draw();
 	}
 }

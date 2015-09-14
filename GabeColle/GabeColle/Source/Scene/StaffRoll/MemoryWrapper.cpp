@@ -22,7 +22,7 @@ void MemoryWrapper::alloc()
 {
 	int address = memory_m.alloc();
 	if (address != 0) {
-		memory_m.access(address).setCenter(positionList_m.getRandomPos());
+		memory_m.access(address).setCenter(Vec2(Random(0 + 100, (int)Window::Width() - 100), Random(0 + 100, (int)Window::Height()-100)));
 		randomLink(address);
 	}
 }

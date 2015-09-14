@@ -8,6 +8,7 @@ const int PositionList::POSITION_MARGIN_X = 24;
 const int PositionList::POSITION_MARGIN_Y = 40;
 
 
+
 PositionList::PositionList() : posList_m(0)
 {
 	initPosList();
