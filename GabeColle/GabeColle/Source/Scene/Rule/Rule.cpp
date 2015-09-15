@@ -25,7 +25,6 @@ void Rule::init()
 	for (int i = 0; i < 40; i++){
 		cir[i] = Cir(Random(0,Window::Width()),Random(0,Window::Height()), 30, (2 * (i+1))%5+1);
 	}
-	back = Circle(Window::Width() / 2, Window::Height() / 2-30, 40);
 	font = Font(20);
 	click = Font(10);
 
@@ -57,10 +56,9 @@ void Rule::update()
 			break;
 		}
 		cir[i].update();
-		if(cir[i].getE())click.drawCenter(L"click",{cir[i].getX(),cir[i].getY()},Palette::White);
+		if (cir[i].getE())click.drawCenter(L"click", { cir[i].getX(), cir[i].getY() }, Palette::White);
 	}
-	backbutton = back.mouseOver;
-	if (back.leftClicked){ changeScene(L"Start"); }
+
 	button_m.update();
 	
 	if (button_m.isClicked()){
