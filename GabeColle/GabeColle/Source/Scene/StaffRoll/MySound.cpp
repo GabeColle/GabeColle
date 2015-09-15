@@ -89,8 +89,11 @@ void MySound::update()
 			state_m = states_m.front();
 			states_m.pop();
 			frame_m = 3 * 160;
-			if (state_m == L"Jumpaku"){
-				Graphics::SetBackground(Palette::White);
+			if (state_m == L"Namba"){
+				Graphics::SetBackground(Palette::Darkcyan);
+			}
+			else if (state_m == L"Jumpaku"){
+				Graphics::SetBackground(Palette::Whitesmoke);
 			}
 		}
 		else{

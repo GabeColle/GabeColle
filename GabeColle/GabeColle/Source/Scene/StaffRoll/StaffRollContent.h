@@ -8,7 +8,8 @@
 class StaffRollContent
 {
 private:
-	static const String titleFontHandle;
+	static const String titleJapaneseFontHandle;
+	static const String titleEnglishFontHandle;
 	static const String circleLogoHandle;
 	static const int INIT_OBJECTS;
 	staffroll::MemoryWrapper memory_m;

@@ -1,14 +1,18 @@
 #include "StaffRollContent.h"
 
 const int StaffRollContent::INIT_OBJECTS = 40;
-const String StaffRollContent::titleFontHandle = L"TitleCall";
+const String StaffRollContent::titleJapaneseFontHandle = L"JapaneseTitle";
+const String StaffRollContent::titleEnglishFontHandle = L"EnglishTitle";
 const String StaffRollContent::circleLogoHandle = L"CircleCall";
 
 
 StaffRollContent::StaffRollContent(String contentName, Array<String> parties)
 {
-	if (!FontAsset::IsRegistered(titleFontHandle)){
-		FontAsset::Register(titleFontHandle, 80, Typeface::Medium, FontStyle::Italic);
+	if (!FontAsset::IsRegistered(titleJapaneseFontHandle)){
+		FontAsset::Register(titleJapaneseFontHandle, 60, L"HGPMinchoE");
+	}
+	if (!FontAsset::IsRegistered(titleEnglishFontHandle)){
+		FontAsset::Register(titleEnglishFontHandle, 60,L"Times New Roman");
 	}
 	if (!TextureAsset::IsRegistered(circleLogoHandle)){
 		TextureAsset::Register(circleLogoHandle,L"Asset/Image/mpc_clear.png");
@@ -73,7 +77,8 @@ void StaffRollContent::update()
 void StaffRollContent::draw()const
 {
 	if (state_m == L"firstTitle"){
-		FontAsset(titleFontHandle)(L"Gabage Collection\n	Å`Ç™Ç◊Ç±ÇÍÅ`").drawCenter(Window::Center(), Palette::Blueviolet);
+		FontAsset(titleJapaneseFontHandle)(L"ÉK Éx Ç± ÇÍ").drawCenter(Window::Center(), Palette::Whitesmoke);
+		FontAsset(titleEnglishFontHandle)(L"~ G a b e C o l l e ~").drawCenter(Window::Center().movedBy(0,FontAsset(titleJapaneseFontHandle).size+40), Palette::White);
 	}
 	else if (state_m == L"circleLogo"){
 		TextureAsset(circleLogoHandle).scale(0.8).drawAt(Window::Center());

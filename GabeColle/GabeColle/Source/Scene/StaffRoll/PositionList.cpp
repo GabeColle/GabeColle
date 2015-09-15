@@ -1,7 +1,8 @@
 #include "PositionList.h"
 
 using namespace staffroll;
-const int PositionList::MEMORY_RADIUS = 100;
+const int PositionList::MEMORY_RADIUS = 90;
+const int PositionList::ROOT_RADIUS = 70;
 const int PositionList::POSITION_NUM_X = 1280 / (MEMORY_RADIUS*2);
 const int PositionList::POSITION_NUM_Y = 720 / (MEMORY_RADIUS*2);
 //const int PositionList::POSITION_MARGIN_X = 24;
@@ -30,8 +31,10 @@ Vec2 PositionList::getRandomPos()
 	posList_m.erase(itr);
 	return pos;
 	*/
-	return posList_m.at(Random(0, (int)(posList_m.size() - 1)));
-		
+	int ejectionPos = Random(0, (int)(posList_m.size() - 1));
+	Vec2 randomPosition = posList_m.at(ejectionPos);
+	posList_m.erase(posList_m.begin() + ejectionPos);
+	return randomPosition;		
 }
 
 void PositionList::restoreRandomPos(Vec2 pos)
@@ -61,7 +64,12 @@ void PositionList::initPosList()
 	rootPos_m = { Window::Center().x, Window::Center().y + 32 };
 	for (int i = 0; i < POSITION_NUM_X; ++i){
 		for (int j = 0; j < POSITION_NUM_Y; ++j){
-			posList_m.push_back(Vec2(MEMORY_RADIUS + i*MEMORY_RADIUS * 2, MEMORY_RADIUS + j*MEMORY_RADIUS * 2));
+			int x = MEMORY_RADIUS + i*MEMORY_RADIUS * 2;
+			int y = MEMORY_RADIUS + j*MEMORY_RADIUS * 2;
+			if (Abs(x - rootPos_m.x) > ROOT_RADIUS + MEMORY_RADIUS && Abs(y - rootPos_m.y) > ROOT_RADIUS + MEMORY_RADIUS){
+				posList_m.push_back(Vec2(x,y));
+			}
 		}
 	}
+	Println(posList_m.size());
 }

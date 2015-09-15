@@ -8,6 +8,7 @@ namespace staffroll{
 	{
 	private:
 		static const int MEMORY_RADIUS;
+		static const int ROOT_RADIUS;
 		static const int POSITION_NUM_X;
 		static const int POSITION_NUM_Y;
 		static const int POSITION_MARGIN_X;
