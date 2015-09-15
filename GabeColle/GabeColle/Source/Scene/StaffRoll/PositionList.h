@@ -7,12 +7,13 @@ namespace staffroll{
 	class PositionList
 	{
 	private:
+		static const int MEMORY_RADIUS;
 		static const int POSITION_NUM_X;
 		static const int POSITION_NUM_Y;
 		static const int POSITION_MARGIN_X;
 		static const int POSITION_MARGIN_Y;
 	private:
-		std::list<Vec2> posList_m;
+		Array<Vec2> posList_m;
 		Vec2 rootPos_m;
 	public:
 		PositionList();

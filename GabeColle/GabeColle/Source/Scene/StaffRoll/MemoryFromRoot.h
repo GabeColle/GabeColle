@@ -18,7 +18,7 @@ namespace staffroll{
 		String contentName_m;
 		Array<std::shared_ptr<DescendAndCountStringEffect>> parties_m;
 	public:
-		MemoryFromRoot(int maxMemory,String contentName,Array<String> parties);
+		MemoryFromRoot(String contentName,Array<String> parties);
 		void update();
 		void draw() const;
 		void alloc();

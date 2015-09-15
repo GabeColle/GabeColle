@@ -23,7 +23,6 @@ void DespiteOfScene::sendNotDrawingInstruction()
 void DespiteOfScene::draw()
 {
 	if (isDrawingState_m){
-		//titleLogo.scale(0.4).drawAt(Window::Center().movedBy(0,-120));
 		TextureAsset(titleLogo).scale(0.4).drawAt(Window::Center().movedBy(0, -120));
 	}
 }

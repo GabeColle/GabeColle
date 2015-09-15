@@ -5,7 +5,6 @@
 #include "../../GC/Memory.h"
 #include "../GameData.h"
 #include "CircleObject.h"
-#include "PositionList.h"
 
 namespace staffroll{
 	class MemoryWrapper
@@ -13,11 +12,8 @@ namespace staffroll{
 	private:
 		static const double MEMORY_RADIUS;
 		static const double ROOT_RADIUS;
-		static const int FREE_INTERVAL;
-		int memoryFreeTimer_m;
 	private:
 		gc::Memory<CircleObject> memory_m;
-		PositionList positionList_m;
 	public:
 		MemoryWrapper();
 	public:

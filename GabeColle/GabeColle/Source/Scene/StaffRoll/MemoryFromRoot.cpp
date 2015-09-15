@@ -5,7 +5,7 @@ using namespace staffroll;
 const double MemoryFromRoot::MEMORY_RADIUS = 100.0;
 const double MemoryFromRoot::ROOT_RADIUS = 70.0;
 
-MemoryFromRoot::MemoryFromRoot(int maxMemory, String contentName, Array<String> parties) : memory_m(parties.size() + 1), positionList_m()
+MemoryFromRoot::MemoryFromRoot(String contentName, Array<String> parties) : memory_m(parties.size() + 1), positionList_m()
 {
 	memory_m.root().setCenter(positionList_m.getRootPos());
 	contentName_m = contentName;
@@ -77,6 +77,6 @@ void MemoryFromRoot::drawArrow()const
 
 void MemoryFromRoot::drawRoot(String content)const
 {
-	Font font;
+	static const Font font;
 	font.drawCenter(content, Circle(memory_m.root().getCenter(), ROOT_RADIUS).draw(Palette::Aqua).center);
 }

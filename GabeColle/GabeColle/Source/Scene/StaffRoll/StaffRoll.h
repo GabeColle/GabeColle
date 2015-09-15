@@ -16,7 +16,6 @@ private:
 	int contentNumber_m;
 	Array<std::shared_ptr<StaffRollContent>> contents_m;
 	staffroll::MySound sound_m;
-	int sceneTransitionCounter;
 public:
 	StaffRoll();
 	// クラスの初期化時に一度だけ呼ばれる（省略可）

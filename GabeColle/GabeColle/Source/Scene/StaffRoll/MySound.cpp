@@ -57,6 +57,9 @@ void MySound::drawSpectrum() const
 			RectF(Window::Width() - size, i * 30, size, 29).draw(HSV(240 - i, 0.6, 0.8));
 		}
 	}
+	else if (state_m == L"Jumpaku"){
+
+	}
 	
 	
 }
@@ -69,19 +72,29 @@ bool MySound::isEnded()
 
 void MySound::initialize()
 {
-	frame_m = 4*160;
-	state_m = L"HataG";
+	states_m.push(L"HataG");
+	states_m.push(L"Namba");
+	states_m.push(L"Jumpaku");
+	frame_m = 3*160;
+	state_m = states_m.front();
+	states_m.pop();
 	if(!SoundAsset::IsRegistered(BGM_NAME))  SoundAsset::Register(BGM_NAME, BGM_PATH);
 	SoundAsset::Preload(BGM_NAME);
 }
 
 void MySound::update()
 {
-	if (frame_m == 0){
-		state_m = L"Namba";
-		frame_m = 4*160;
-	}
-	else{
-		frame_m--;
+	if (!states_m.empty()){
+		if (frame_m == 0){
+			state_m = states_m.front();
+			states_m.pop();
+			frame_m = 3 * 160;
+			if (state_m == L"Jumpaku"){
+				Graphics::SetBackground(Palette::White);
+			}
+		}
+		else{
+			frame_m--;
+		}
 	}
 }

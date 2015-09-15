@@ -2,16 +2,20 @@
 
 const int StaffRollContent::INIT_OBJECTS = 40;
 const String StaffRollContent::titleFontHandle = L"TitleCall";
+const String StaffRollContent::circleLogoHandle = L"CircleCall";
 
 
-StaffRollContent::StaffRollContent(String contentName, Array<String> parties) : circleLogo(L"Asset/Image/MPC_clear.png"), titleLogo(L"Asset/Image/GabeColle.png")
+StaffRollContent::StaffRollContent(String contentName, Array<String> parties)
 {
 	if (!FontAsset::IsRegistered(titleFontHandle)){
 		FontAsset::Register(titleFontHandle, 80, Typeface::Medium, FontStyle::Italic);
 	}
+	if (!TextureAsset::IsRegistered(circleLogoHandle)){
+		TextureAsset::Register(circleLogoHandle,L"Asset/Image/mpc_clear.png");
+	}
 	parties_m = parties;
 	
-	memoryR_m = std::make_shared<staffroll::MemoryFromRoot>(staffroll::MemoryFromRoot(parties.size(), contentName, parties));
+	memoryR_m = std::make_shared<staffroll::MemoryFromRoot>(staffroll::MemoryFromRoot(contentName, parties));
 	init();
 	state_m = contentName;
 }
@@ -26,6 +30,9 @@ StaffRollContent::StaffRollContent(String contentName) : StaffRollContent(conten
 	}
 	else if (contentName == L"TitleLogo"){
 		state_m = L"titleLogo";
+	}
+	else if (contentName == L"Finalize"){
+		state_m = L"finalize";
 	}
 }
 
@@ -49,6 +56,9 @@ void StaffRollContent::update()
 	else if (state_m == L"titleLogo"){
 
 	}
+	else if (state_m == L"finalize"){
+
+	}
 	else{
 		// ƒƒ‚ƒŠ‚ÌŠJ•ú
 		if (!memory_m.getExistAddress().empty()){
@@ -66,15 +76,16 @@ void StaffRollContent::draw()const
 		FontAsset(titleFontHandle)(L"Gabage Collection\n	`‚ª‚×‚±‚ê`").drawCenter(Window::Center(), Palette::Blueviolet);
 	}
 	else if (state_m == L"circleLogo"){
-		circleLogo.drawAt(Window::Center());
+		TextureAsset(circleLogoHandle).scale(0.8).drawAt(Window::Center());
 	}
 	else if (state_m == L"titleLogo"){
-		//titleLogo.scale(0.4).drawAt(Window::Center().movedBy(0, -120));
 		DespiteOfScene::sendDrawingInstruction();
+	}
+	else if (state_m == L"finalize"){
+
 	}
 	else{
 		memory_m.draw();
 		memoryR_m->draw();
 	}
-	
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Siv3D.hpp>
+#include <queue>
 
 namespace staffroll{
 	class MySound
@@ -11,6 +12,7 @@ namespace staffroll{
 		const Vec2 rootPos = { Window::Width() / 2.0, Window::Height() / 2.0 };
 		String state_m;
 		int frame_m;
+		std::queue<String> states_m;
 	public:
 		MySound(const FilePath BGMPath, const String BGMName);
 	public:
