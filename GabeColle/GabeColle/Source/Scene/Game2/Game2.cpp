@@ -75,7 +75,7 @@ void Game2::update()
 			m_data->numOfError = garbage_m + segmentFault_m;
 			m_data->time = time_m;
 			m_data->numOfDeletedObject = process_m;
-			m_data->totalScore = Max((unsigned int)0,100000 - time_m *2 - garbage_m * 1000 - segmentFault_m * 5000 + process_m * 100);
+			m_data->totalScore = Max(static_cast<int>(0),  static_cast<int>(9000  - time_m - garbage_m * 300 - segmentFault_m * 1000 + process_m*10 + NUM_OF_MEMORY * 100) );
 			state = State::result;
 		}
 	}
