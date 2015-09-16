@@ -184,5 +184,5 @@ void Game3::saveScore()
 	m_data->numOfDeletedObject = (std::max)(0, deletes_m);
 	m_data->time = (std::max)(0L, frame_m);
 	m_data->totalScore = (std::max)(0L,
-		e.outOfMemory_m * -2500 + e.segmentationFault_m * -3500 + deletes_m*45 + frame_m * 1);
+		e.outOfMemory_m * -2000 + e.segmentationFault_m * -300 + deletes_m*45 + frame_m * 1);
 }
