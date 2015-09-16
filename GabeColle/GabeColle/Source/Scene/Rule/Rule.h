@@ -16,7 +16,6 @@ private:
 	Font text;
 	Rect titleRect;
 	Cir cir[40];
-	Circle back;
 	Texture mainimage;
 
 	Texture game1_m;
@@ -25,7 +24,6 @@ private:
 
 	Font click;
 	Font font;
-	bool backbutton;
 	clickable::Button button_m;
 
 	static String const bgm_m;

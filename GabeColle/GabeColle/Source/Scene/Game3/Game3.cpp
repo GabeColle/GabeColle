@@ -10,13 +10,14 @@ String const Game3::gameOverSound_m = L"Asset/SoundEffect/GameOver.ogg";
 String const Game3::clearSound_m = L"Asset/SoundEffect/clear.ogg";
 String const Game3::bgm_m = L"Asset/BGM/Game3BGM.ogg";
 
-Game3::Game3(int clearLimit, int allocInterval, int objectLinkInterval, int rootLinkInterval, int unlinkInterval)
+Game3::Game3(int clearLimit, int allocInterval, int objectLinkInterval, int rootLinkInterval, int unlinkInterval, String name)
 	: clearLimit_m(clearLimit),
 	allocInterval_m(allocInterval),
 	objectLinkInterval_m(objectLinkInterval),
 	rootLinkInterval_m(rootLinkInterval),
 	unlinkInterval_m(unlinkInterval),
-	memory_m(SIZE_m)
+	memory_m(SIZE_m),
+	name_m(name)
 {
 	if (!SoundAsset::IsRegistered(gameOverSound_m)) {
 		SoundAsset::Register(gameOverSound_m, gameOverSound_m);
@@ -69,6 +70,12 @@ void Game3::updateMemory()
 		auto p = memory_m.alloc();
 		if (p != 0) {
 			memory_m.access(p).initialize(p, objectEffect_m);
+			if (RandomBool(0.5)) {
+				memory_m.link(p, Random<int>(0, SIZE_m - 1));
+			}
+			else {
+				memory_m.link(Random<int>(0, SIZE_m - 1), p);
+			}
 		}
 	}
 	//free
@@ -95,11 +102,13 @@ void Game3::updateMemory()
 		}
 	}
 	if (frame_m%unlinkInterval_m == 0) {
-		int i = Random(0, SIZE_m - 1);
-		int j = Random(0, SIZE_m - 1);
-		if ((i == 0 || (i != 0 && !memory_m.hasExpired(i))) &&
-			(j == 0 || (j != 0 && !memory_m.hasExpired(j)))) {
-			memory_m.unlink(i, j);
+		for (int n(0); n < 10; ++n) {
+			int i = Random(0, SIZE_m - 1);
+			int j = Random(0, SIZE_m - 1);
+			if ((i == 0 || (i != 0 && !memory_m.hasExpired(i))) &&
+				(j == 0 || (j != 0 && !memory_m.hasExpired(j)))) {
+				memory_m.unlink(i, j);
+			}
 		}
 	}
 	//update object
@@ -170,10 +179,10 @@ void Game3::checkState()
 void Game3::saveScore()
 {
 	auto const &e = memory_m.error();
-	m_data->numOfError = e.addressOutOfBounds_m + e.nullptrAccess_m + e.outOfMemory_m + e.segmentationFault_m;
+	m_data->numOfError =  (std::max)(0, e.addressOutOfBounds_m + e.nullptrAccess_m + e.outOfMemory_m + e.segmentationFault_m);
 	m_data->stageName = L"Game3";
-	m_data->numOfDeletedObject = deletes_m;
-	m_data->time = frame_m;
-	m_data->totalScore = 
-		e.outOfMemory_m * -2000 + e.segmentationFault_m * -3000 + deletes_m*30 + frame_m * 1;
+	m_data->numOfDeletedObject = (std::max)(0, deletes_m);
+	m_data->time = (std::max)(0L, frame_m);
+	m_data->totalScore = (std::max)(0L,
+		e.outOfMemory_m * -2500 + e.segmentationFault_m * -3500 + deletes_m*45 + frame_m * 1);
 }
