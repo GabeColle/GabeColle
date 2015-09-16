@@ -8,6 +8,11 @@ const String StaffRollContent::circleLogoHandle = L"CircleCall";
 
 StaffRollContent::StaffRollContent(String contentName, Array<String> parties)
 {
+	// フォントファイルを、システムに一時的に登録する
+	if (!FontManager::Register(L"Asset/Font/ipamp.ttf"))
+	{
+		return; // 失敗したら終了
+	}
 	if (!FontAsset::IsRegistered(titleJapaneseFontHandle)){
 		FontAsset::Register(titleJapaneseFontHandle, 30, L"IPA P明朝");
 	}
