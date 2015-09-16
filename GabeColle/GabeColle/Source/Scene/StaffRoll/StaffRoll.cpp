@@ -1,6 +1,6 @@
 #include "StaffRoll.h"
 
-StaffRoll::StaffRoll() : sound_m(L"./Asset/BGM/bgm_maoudamashii_acoustic07.ogg", L"Game1BGM")
+StaffRoll::StaffRoll() : sound_m(L"./Asset/BGM/bgm_maoudamashii_acoustic07.ogg", L"StaffRollBGM")
 {
 }
 
@@ -15,7 +15,7 @@ void StaffRoll::init()
 	contents_m.push_back(define_credit(StaffRollContent(L"BGM", { L"魔王魂様", L"フリーBGM・音楽素材 \n	H/MIX GALLERY様", L"Free BGM DOVA SYNDROME \n\t\t かずち様" })));
 	contents_m.push_back(define_credit(StaffRollContent(L"SE", { L"くらげ工匠様" })));
 	contents_m.push_back(define_credit(StaffRollContent(L"Idea", { L"Jumpaku" })));
-	contents_m.push_back(define_credit(StaffRollContent(L"Graphic", { L"イラスト愛様", L"/\\lex様",L"Design Deck様",L"HataG", L"Jumpaku" })));
+	contents_m.push_back(define_credit(StaffRollContent(L"Graphic", { L"イラスト愛様", L"/\\lex様",L"HataG", L"Jumpaku" })));
 	contents_m.push_back(define_credit(StaffRollContent(L"Library", { L"Siv3D" })));
 	contents_m.push_back(define_credit(StaffRollContent(L"Circle")));
 	contents_m.push_back(define_credit(StaffRollContent(L"TitleLogo")));
