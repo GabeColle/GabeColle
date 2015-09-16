@@ -31,6 +31,10 @@ Clear::Clear()
 
 void Clear::update(Game3 &parent)
 {
+	auto e = parent.memory_m.error();
+	e.outOfMemory_m = Clamp(e.outOfMemory_m, 0, 1);
+	e.segmentationFault_m = Clamp(e.segmentationFault_m, 0, 1);
+	parent.memory_m.error(e);
 	buttons_m.at(L"Result")->update();
 
 	if (buttons_m.at(L"Result")->isClicked()) {

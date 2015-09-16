@@ -159,7 +159,7 @@ void Game3::drawMemory()const
 void Game3::checkState()
 {
 	auto e = memory_m.error();
-	if (typeid(*sceneState_m.get()) != typeid(GameOver) &&
+	if (typeid(*sceneState_m.get()) == typeid(Playing) &&
 		(e.outOfMemory_m > 0 || e.segmentationFault_m > 0)) {
 		sceneState_m = std::make_shared<GameOver>(
 			e.outOfMemory_m > 0 ? L"Out of Memory" : L"Segmentation Fault");
@@ -167,7 +167,7 @@ void Game3::checkState()
 		SoundAsset(gameOverSound_m).play();
 		saveScore();
 	}
-	else if (typeid(*sceneState_m.get()) != typeid(Clear) &&
+	else if (typeid(*sceneState_m.get()) == typeid(Playing) &&
 		frame_m > clearLimit_m) {
 		sceneState_m = std::make_shared<Clear>();
 		SoundAsset(bgm_m).stop();

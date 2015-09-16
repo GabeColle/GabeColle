@@ -199,6 +199,10 @@ public:
 	{
 		return memory_m[0];
 	}
+	void error(Error const &e)const
+	{
+		error_m = e;
+	}
 };
 
 }
