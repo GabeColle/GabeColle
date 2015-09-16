@@ -35,7 +35,6 @@ void TwitterButton::drawLeft(RoundRect shape, String const &text, int frame)cons
 
 void TwitterButton::drawClicked(RoundRect shape, String const &text, int frame)const
 {
-	double t = static_cast<double>(frame);
 	static Point clickPoint;
 	if (frame <= 1) {
 		clickPoint = Mouse::Pos();
