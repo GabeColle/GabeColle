@@ -9,10 +9,10 @@ const String StaffRollContent::circleLogoHandle = L"CircleCall";
 StaffRollContent::StaffRollContent(String contentName, Array<String> parties)
 {
 	if (!FontAsset::IsRegistered(titleJapaneseFontHandle)){
-		FontAsset::Register(titleJapaneseFontHandle, 60, L"HGPMinchoE");
+		FontAsset::Register(titleJapaneseFontHandle, 30, L"HGPMinchoE");
 	}
 	if (!FontAsset::IsRegistered(titleEnglishFontHandle)){
-		FontAsset::Register(titleEnglishFontHandle, 60,L"Times New Roman");
+		FontAsset::Register(titleEnglishFontHandle, 30,L"Times New Roman");
 	}
 	if (!TextureAsset::IsRegistered(circleLogoHandle)){
 		TextureAsset::Register(circleLogoHandle,L"Asset/Image/mpc_clear.png");
@@ -78,7 +78,7 @@ void StaffRollContent::draw()const
 {
 	if (state_m == L"firstTitle"){
 		FontAsset(titleJapaneseFontHandle)(L"ÉK Éx Ç± ÇÍ").drawCenter(Window::Center(), Palette::Whitesmoke);
-		FontAsset(titleEnglishFontHandle)(L"~ G a b e C o l l e ~").drawCenter(Window::Center().movedBy(0,FontAsset(titleJapaneseFontHandle).size+40), Palette::White);
+		FontAsset(titleEnglishFontHandle)(L"~ G a b e C o l l e ~").drawCenter(Window::Center().movedBy(0,FontAsset(titleJapaneseFontHandle).size+40), Palette::Whitesmoke);
 	}
 	else if (state_m == L"circleLogo"){
 		TextureAsset(circleLogoHandle).scale(0.8).drawAt(Window::Center());

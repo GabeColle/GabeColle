@@ -38,9 +38,10 @@ void Main()
 
 
 	// シーンを設定
+	manager.add<Result>(L"Result");
 	manager.add<StaffRoll>(L"StaffRoll");
 	manager.add<Start>(L"Start");
-	manager.add<Result>(L"Result");
+	
 	
 	manager.add<Rule>(L"Rule");
 	manager.add<Start>(L"Start");
@@ -57,7 +58,7 @@ void Main()
 	manager.add<Game3Easy>(L"Game3Easy");
 	manager.add<Game3Hard>(L"Game3Hard");
 
-	//manager.init(L"Start");
+	manager.init(L"Start");
 
 	while (System::Update()) {
 		Println(DespiteOfScene::isDrawingState_m);

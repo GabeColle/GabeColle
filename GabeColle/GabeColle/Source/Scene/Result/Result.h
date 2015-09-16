@@ -13,6 +13,8 @@
 #include "RankingWindow.h"
 #include "Record.h"
 #include "BackGroundAnimation.h"
+#include "TwitterButton.h"
+#include "EndingButton.h"
 
 class Result :
 	public SceneManager<String, GameData>::Scene
@@ -30,6 +32,9 @@ private:
 	std::shared_ptr<StageNameNode> stageNode_m;
 
 	Circle returnButton_m;
+
+	TwitterButton tweet_m;
+	EndingButton ending_m;
 
 	
 
