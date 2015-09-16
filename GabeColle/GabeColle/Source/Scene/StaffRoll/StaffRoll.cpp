@@ -34,7 +34,7 @@ void StaffRoll::update()
 		if (sound_m.isEnded()){
 			this->changeScene(L"Start", 2000, false);
 		}
-		if (contentNumber_m == contents_m.size() - 2){
+		if ((unsigned)contentNumber_m == contents_m.size() - 2){
 			return;
 		}
 		contentNumber_m = (contentNumber_m + 1) % (contents_m.size());
