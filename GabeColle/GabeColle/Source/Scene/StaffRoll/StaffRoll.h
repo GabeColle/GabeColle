@@ -4,6 +4,7 @@
 #include <HamFramework.hpp>
 #include "MemoryWrapper.h"
 #include "StaffRollContent.h"
+#include "MySound.h"
 
 #include"../GameData.h"
 
@@ -13,7 +14,8 @@ class StaffRoll
 private:
 	int changeFrame_m;
 	int contentNumber_m;
-	StaffRollContent* contents[4];
+	Array<std::shared_ptr<StaffRollContent>> contents_m;
+	staffroll::MySound sound_m;
 public:
 	StaffRoll();
 	// クラスの初期化時に一度だけ呼ばれる（省略可）

@@ -37,7 +37,7 @@ class Game1Easy : public Game1
 {
 public:
 	Game1Easy()
-		: Game1(L"./Asset/BGM/アップリフト4.ogg", L"Game1EasyBGM", 136, 1, L"Game1Easy")
+		: Game1(L"./Asset/BGM/アップリフト4.ogg", L"Game1EasyBGM", 136, 1, L"Game1(Easy)")
 	{
 	}
 };
@@ -47,7 +47,7 @@ class Game1Hard : public Game1
 {
 public:
 	Game1Hard()
-		: Game1(L"./Asset/BGM/Cyber_transformer.ogg", L"Game1HardBGM", 134, 4, L"Game1Hard")
+		: Game1(L"./Asset/BGM/Cyber_transformer.ogg", L"Game1HardBGM", 134, 4, L"Game1(Hard)")
 	{
 	}
 };

@@ -36,7 +36,4 @@ void CloseButton::drawClicked(RoundRect shape, String const &text, int frame)con
 	}
 	shape.draw(HSV(0, 1.0, 0.95));
 	FontAsset(FONT_ASSET_NAME).drawCenter(text, shape.rect.center,Palette::Black);
-	/*Circle(clickPoint, t * 5.0).drawFrame(0.0, 2.0,
-		HSV(0.0, 0.8, 1.0).toColor().setAlpha(255 - static_cast<int>(t / 31.0 * 255.0)));*/
-
 }
