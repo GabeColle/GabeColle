@@ -1,11 +1,11 @@
 #pragma once
 
 #include <Siv3D.hpp>
-#include "NodeEffect.h"
-#include "CountUpEffect.h"
-#include "ExpandCircleEffect.h"
-#include "ExtendArrowEffect.h"
-#include "FadeInAndDescendStringEffect.h"
+#include "Effect/NodeEffect.h"
+#include "Effect/CountUpEffect.h"
+#include "Effect/ExpandCircleEffect.h"
+#include "Effect/ExtendArrowEffect.h"
+#include "Effect/FadeInAndDescendStringEffect.h"
 #include "RankingWindow.h"
 #include "Record.h"
 
@@ -24,10 +24,10 @@ private:
 	String name_m;
 	int delayFrame_m;
 	Vec2 position_m;
-	Circle* node_m;
-	NodeEffect* effects[4];
-	RankingWindow* ranking;
-	bool switchRanking;
+	std::shared_ptr<Circle> node_m;
+	std::shared_ptr<NodeEffect> effects[4];
+	std::shared_ptr<RankingWindow> ranking_m;
+	bool switchRanking_m;
 
 	void pushButton();
 public:

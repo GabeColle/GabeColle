@@ -23,7 +23,7 @@ void GameSelect::init(){
 	tag_m.push_back({ L"Game3 Hard"		, L"Game3Hard"	, L"Game3", Difficulty::hard	});
 	
 	int hs[9] = { 20, 10, 0, 90, 100, 110, 180, 190, 200 };
-	String ok = L"Asset/SoundEffect/Decision.mp3";
+	String ok = L"Asset/SoundEffect/Decision.ogg";
 
 	for (unsigned i = 0; i < tag_m.size(); ++i){
 		Point pos = { (Window::Width()/4 * ( i/3 +1 ))  + (i%3)*40 -40, 70 * i + 100 };

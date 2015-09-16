@@ -8,6 +8,7 @@
 #include"../GameData.h"
 #include"../../Clickable/Button.h"
 #include"SakuraTexture.h"
+#include"../StaffRoll/DespiteOfScene.h"
 
 class Start :
 	public SceneManager<String, GameData>::Scene
