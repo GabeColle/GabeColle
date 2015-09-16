@@ -60,10 +60,10 @@ void Start::draw() const
 	back_m.draw();
 	std::for_each(sakuras_m.begin(), sakuras_m.end(),
 		[] (SakuraTexture const &s) { s.draw(); });
-	rightGirl_m.scale(0.9).drawAt(Window::Center().movedBy(550, 170));
-	leftGirl_m.drawAt(Window::Center().movedBy(-500, 180));
-	rightBoy_m.scale(0.9).drawAt(Window::Center().movedBy(350, -40));
-	leftBoy_m.scale(0.9).drawAt(Window::Center().movedBy(-350, -40));
+	rightGirl_m.drawAt(Window::Center().movedBy(550, 171));
+	leftGirl_m.drawAt(Window::Center().movedBy(-500, 181));
+	rightBoy_m.drawAt(Window::Center().movedBy(350, -40));
+	leftBoy_m.drawAt(Window::Center().movedBy(-350, -40));
 
 	logo_m.scale(0.4).drawAt(Window::Center().movedBy(0, -120));
 	buttons_m.at(L"Start")->draw();
