@@ -32,6 +32,7 @@ void Start::init()
 // –ˆƒtƒŒ[ƒ€ updateAndDraw() ‚ÅŒÄ‚Î‚ê‚é
 void Start::update()
 {
+	DespiteOfScene::sendNotDrawingInstruction();
 	buttons_m.at(L"Start")->update();
 	buttons_m.at(L"Quit")->update();
 	buttons_m.at(L"Rule")->update();

@@ -2,7 +2,6 @@
 
 #include <Siv3D.hpp>
 #include <algorithm>
-//#include "../../Utility/Button/Button.h"
 #include "CloseButton.h"
 #include "Record.h"
 
@@ -17,23 +16,29 @@ private:
 
 	static String titles_m[4];
 
+private:
+	std::shared_ptr<Rect> window_m;
+	std::shared_ptr<Rect> bar_m;
+	std::shared_ptr<Rect> ownFilter_m;
+	std::shared_ptr<Line> divideLine_m[LOWEST+1];
+	std::shared_ptr<CloseButton> closeButton_m;
+	
 	String title_m;
-	Rect* window;
-	Rect* bar;
-	Line* divideLine[LOWEST+1];
+	
 	
 	Font drawingRankings_m[LOWEST];
 	Font drawingTitle_m;
+
 	Vec2 titlePosition_m;
 	Vec2 scorePosition_m[LOWEST];
+
 	Array<int> ranking_m;
-	Rect* ownFilter_m;
 
-	CloseButton* closeButton_m;
-
+private:
 	void constructRankingWindow();
 	void createRanking(int id,int value);
 	int searchPosition(int value);
+
 public:
 	RankingWindow(int id,int value);
 	void init(int id,int value);

@@ -1,8 +1,8 @@
 #pragma once
 
 #include <Siv3D.hpp>
-#include "ExtendArrowEffect.h"
-#include "ExpandCircleEffect.h"
+#include "Effect/ExtendArrowEffect.h"
+#include "Effect/ExpandCircleEffect.h"
 
 class BackGroundAnimation{
 private:
@@ -12,9 +12,6 @@ private:
 	int bg_x_m;
 	int bg_x2_m;
 
-	//ExtendArrowEffect* arrows[10];
-	//ExpandCircleEffect* circles[10];
-	//Array<ExpandCircleEffect>* tree[3];
 public:
 	BackGroundAnimation();
 	void update();
