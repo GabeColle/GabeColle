@@ -6,7 +6,7 @@ Game1::Game1()
 	, sound_m(L"./Asset/BGM/歌舞伎ダンシング_2.ogg", L"Game1BGM")
 	, beat_m(L"Game1BGM", 160)
 	, BEAT(2)
-	, STAGE_NAME(L"Game1Normal")
+	, STAGE_NAME(L"Game1(Normal)")
 {
 }
 
