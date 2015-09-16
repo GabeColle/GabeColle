@@ -30,6 +30,10 @@ GameOver::GameOver(String const &message)
 
 void GameOver::update(Game3 &parent)
 {
+	auto e = parent.memory_m.error();
+	e.outOfMemory_m = Clamp(e.outOfMemory_m, 0, 1);
+	e.segmentationFault_m = Clamp(e.segmentationFault_m, 0, 1);
+	parent.memory_m.error(e);
 	buttons_m.at(L"Garbage Collection")->update();
 	buttons_m.at(L"Result")->update();
 
