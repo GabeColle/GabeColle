@@ -50,6 +50,7 @@ private:
 	static String const clearSound_m;
 	static String const bgm_m;
 protected:
+	String name_m;
 	long clearLimit_m;
 	int allocInterval_m;
 	int objectLinkInterval_m;
@@ -72,8 +73,7 @@ public:
 	// –ˆƒtƒŒ[ƒ€ update() ‚ÌŸ‚ÉŒÄ‚Î‚ê‚é
 	void draw() const override;
 
-	//Game3();
-	Game3(int clearLimit = 10800, int allocInterval = 31, int objectLinkInterval = 11, int rootLinkInterval = 61, int unlinkInterval = 2);
+	Game3(int clearLimit = 4500, int allocInterval = 43, int objectLinkInterval = 17, int rootLinkInterval = 61, int unlinkInterval = 4, String name = L"Game3(Nomal)");
 	virtual~Game3() = default;
 };
 
@@ -81,13 +81,14 @@ class Game3Easy :public Game3
 {
 public:
 	Game3Easy()
-		:Game3(7200, 61, 23, 91, 1) {}
+		:Game3(3600, 61, 31, 91, 2, L"Game3(Easy)")
+	{}
 };
 
 class Game3Hard :public Game3
 {
 public:
 	Game3Hard()
-		:Game3(14400, 23, 7, 43, 3)
+		:Game3(5400, 23, 11, 43, 6, L"Game3(Hard)")
 	{}
 };
