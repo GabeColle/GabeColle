@@ -41,9 +41,9 @@ protected:
 public:
 	//コンストラクタ
 	Game2() : memory_m(19),
-		titleButton_m(Rect(300, 48).setCenter({ Window::Width() * 1 / 7, 80 }), L"Give up", L"Asset/SoundEffect/Decision.mp3"),
-		completionButton_m(Rect(300, 48).setCenter({ Window::Width() * 1 / 7, 200 }), L"Complete", L"Asset/SoundEffect/Decision.mp3"),
-		resultButton_m(Rect(300, 48).setCenter({ Window::Width() * 1 / 7, 200 }), L"Result", L"Asset/SoundEffect/Decision.mp3"),		
+		titleButton_m(Rect(300, 48).setCenter({ Window::Width() * 1 / 7, 80 }), L"Give up", L"Asset/SoundEffect/Decision.ogg"),
+		completionButton_m(Rect(300, 48).setCenter({ Window::Width() * 1 / 7, 200 }), L"Complete", L"Asset/SoundEffect/Decision.ogg"),
+		resultButton_m(Rect(300, 48).setCenter({ Window::Width() * 1 / 7, 200 }), L"Result", L"Asset/SoundEffect/Decision.ogg"),		
 		textField_m(30),
 		reference_m(18)
 	{};
