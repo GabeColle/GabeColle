@@ -52,7 +52,7 @@ void Result::update()
 		this->changeScene(L"StaffRoll", 2000, false);
 	}
 	if (tweet_m.isClicked()){
-		Twitter::OpenTweetWindow(L"ガベこれの" + this->m_data->stageName + L"で" + Format(this->m_data->totalScore) + L"点とったぜいえーい(テスト)\n#GabeColle #Siv3D");
+		Twitter::OpenTweetWindow(L"ガベこれの" + this->m_data->stageName + L"で" + Format(this->m_data->totalScore) + L"点とりました！\n#GabeColle #Siv3D");
 	}
 	/*if (ending_m.isClicked()){
 		this->changeScene(L"StaffRoll");

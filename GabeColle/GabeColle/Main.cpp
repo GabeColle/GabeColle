@@ -60,7 +60,7 @@ void Main()
 	manager.add<Game3Easy>(L"Game3Easy");
 	manager.add<Game3Hard>(L"Game3Hard");
 
-	manager.init(L"Result");
+	manager.init(L"Start");
 
 	while (System::Update()) {
 		if (!manager.updateAndDraw())
