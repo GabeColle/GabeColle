@@ -101,3 +101,8 @@ void MySound::update()
 		}
 	}
 }
+
+void MySound::stopMusic()
+{
+	SoundAsset(BGM_NAME).stop();
+}

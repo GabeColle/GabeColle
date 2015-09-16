@@ -9,6 +9,7 @@ MemoryFromRoot::MemoryFromRoot(String contentName, Array<String> parties) : memo
 {
 	memory_m.root().setCenter(positionList_m.getRootPos());
 	contentName_m = contentName;
+	partiesString_m = parties;
 	for (int i = 0; i < parties.size(); ++i){
 		parties_m.push_back(std::make_shared<DescendAndCountStringEffect>(DescendAndCountStringEffect(parties[i], 30, 30 + i * 10)));
 	}
@@ -31,7 +32,7 @@ void MemoryFromRoot::alloc()
 {
 	int address = memory_m.alloc();
 	if (address != 0) {
-		memory_m.access(address).setCenter(positionList_m.getRandomPos());
+		memory_m.access(address).setCenter(positionList_m.getRandomPos(partiesString_m[address-1]));
 		intentLink(address);
 	}
 }

@@ -16,6 +16,7 @@ namespace staffroll{
 		gc::Memory<CircleObject> memory_m;
 		PositionList positionList_m;
 		String contentName_m;
+		Array<String> partiesString_m;
 		Array<std::shared_ptr<DescendAndCountStringEffect>> parties_m;
 	public:
 		MemoryFromRoot(String contentName,Array<String> parties);

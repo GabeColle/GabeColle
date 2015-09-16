@@ -18,13 +18,13 @@ private:
 	// 不透明度の上げ幅
 	int increaseTransparencyRange_m;
 	// 描画用フォント
-	const Font drawingString_m;
+	Font drawingString_m;
 	int stringCountFrame_m;
 public:
 	DescendAndCountStringEffect(String str, int frame, int delayFrame);
 	void update();
 	void draw()const;
-	void draw(Vec2 drawPosition)const;
+	void draw(Vec2 realPosition)const;
 	void setPosition(Vec2 position);
 	String inverseCalculationString(String str,int frame);
 	String incrementString(String str);

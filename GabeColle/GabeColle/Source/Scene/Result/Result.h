@@ -34,7 +34,7 @@ private:
 	Circle returnButton_m;
 
 	TwitterButton tweet_m;
-	EndingButton ending_m;
+	//EndingButton ending_m;
 
 	
 

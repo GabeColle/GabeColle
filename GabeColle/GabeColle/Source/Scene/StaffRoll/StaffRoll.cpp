@@ -26,6 +26,10 @@ void StaffRoll::init()
 
 void StaffRoll::update()
 {
+	if (Mouse::LeftClicked()){
+		sound_m.stopMusic();
+		this->changeScene(L"Start", 2000, false);
+	}
 	if (changeFrame_m == 0){
 		if (sound_m.isEnded()){
 			this->changeScene(L"Start", 2000, false);

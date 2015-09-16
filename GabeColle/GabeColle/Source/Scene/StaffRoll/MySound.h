@@ -32,6 +32,8 @@ namespace staffroll{
 		*/
 		bool isEnded();
 
+		void stopMusic();
+
 		void update();
 	private:
 		void initialize();

@@ -30,7 +30,7 @@ namespace staffroll{
 		* メモリを生成した時に呼び出す
 		* @return 位置
 		*/
-		Vec2 getRandomPos();
+		Vec2 getRandomPos(String measuredString);
 		/**
 		* 位置リストに値を戻す
 		* メモリをfreeした時に必ず呼ぶ
