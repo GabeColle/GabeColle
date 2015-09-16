@@ -18,7 +18,7 @@ void Main()
 	Window::Resize(1280, 720);
 	Window::Centering();
 	Window::SetStyle(WindowStyle::NonFrame);
-	Window::SetFullscreen(true, {1280, 720});
+	//Window::SetFullscreen(true, {1280, 720});
 	Window::SetTitle(L"GarbageCollection -ガベこれ-");
 
 	SceneManager<String, GameData> manager(SceneManagerOption::None);
