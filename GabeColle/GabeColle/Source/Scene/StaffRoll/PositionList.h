@@ -7,12 +7,14 @@ namespace staffroll{
 	class PositionList
 	{
 	private:
+		static const int MEMORY_RADIUS;
+		static const int ROOT_RADIUS;
 		static const int POSITION_NUM_X;
 		static const int POSITION_NUM_Y;
 		static const int POSITION_MARGIN_X;
 		static const int POSITION_MARGIN_Y;
 	private:
-		std::list<Vec2> posList_m;
+		Array<Vec2> posList_m;
 		Vec2 rootPos_m;
 	public:
 		PositionList();
@@ -28,7 +30,7 @@ namespace staffroll{
 		* メモリを生成した時に呼び出す
 		* @return 位置
 		*/
-		Vec2 getRandomPos();
+		Vec2 getRandomPos(String measuredString);
 		/**
 		* 位置リストに値を戻す
 		* メモリをfreeした時に必ず呼ぶ

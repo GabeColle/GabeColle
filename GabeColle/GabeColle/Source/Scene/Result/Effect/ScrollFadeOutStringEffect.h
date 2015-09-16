@@ -5,14 +5,14 @@
 
 class ScrollFadeOutStringEffect : NodeEffect{
 private:
-	int velocity;
+	int velocity_m;
 	Font drawingText_m;
 	String defaultString_m;
 	String fadedInString_m;
 	Vec2 fadedInPos_m;
 	Circle node_m;
-	int unClearRate;
-	int unClearRateVelocity;
+	int unClearRate_m;
+	int unClearRateVelocity_m;
 
 
 	void fadeout();
