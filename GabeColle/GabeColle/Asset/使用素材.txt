@@ -31,6 +31,7 @@ Yamada.png Jumpaku
 Heroine.png Jumpaku
 Okama.png Jumpaku
 resultBG2.pngÅ@/\\lex
+bird_icon.png Design Deck
 
 ********************************************************************************************
 

@@ -71,5 +71,4 @@ void PositionList::initPosList()
 			}
 		}
 	}
-	Println(posList_m.size());
 }

@@ -75,7 +75,7 @@ void MySound::initialize()
 	states_m.push(L"HataG");
 	states_m.push(L"Namba");
 	states_m.push(L"Jumpaku");
-	frame_m = 3*160;
+	frame_m = 3*200;
 	state_m = states_m.front();
 	states_m.pop();
 	if(!SoundAsset::IsRegistered(BGM_NAME))  SoundAsset::Register(BGM_NAME, BGM_PATH);
@@ -88,7 +88,7 @@ void MySound::update()
 		if (frame_m == 0){
 			state_m = states_m.front();
 			states_m.pop();
-			frame_m = 3 * 160;
+			frame_m = 3 * 200;
 			if (state_m == L"Namba"){
 				Graphics::SetBackground(Palette::Darkcyan);
 			}

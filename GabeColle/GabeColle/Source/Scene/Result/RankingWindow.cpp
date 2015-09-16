@@ -29,7 +29,7 @@ void RankingWindow::init(int id,int value)
 		ownFilter_m = std::make_shared<Rect>(Rect((int)divideLine_m[ownPosition]->begin.x, (int)divideLine_m[ownPosition]->begin.y, WINDOW_WITDTH, BETWEEN_LINE));
 	}
 
-	closeButton_m = std::make_shared<CloseButton>(CloseButton(Rect((int)window_m->x + WINDOW_WITDTH - 40, bar_m->y, 40, BAR_HEIGHT), L"x", L"Asset/SoundEffect/button83.mp3"));
+	closeButton_m = std::make_shared<CloseButton>(CloseButton(Rect((int)window_m->x + WINDOW_WITDTH - 40, bar_m->y, 40, BAR_HEIGHT), L"x", L"Asset/SoundEffect/button83.ogg"));
 }
 void RankingWindow::draw()const
 {

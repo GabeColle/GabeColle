@@ -6,8 +6,8 @@ Result::Result() :
 fontSize(30),
 resultText(fontSize),
 circleRadius(100),
-tweet_m(Rect(20, 40, 40, 50), L"Tweet!", L"Asset/SoundEffect/button83.mp3"),
-ending_m(Rect(20, 90, 40, 50), L"Ending!", L"Asset/SoundEffect/button83.mp3")
+tweet_m(Rect(20, 40, 40,40), L"Asset/SoundEffect/button83.ogg"),
+ending_m(Rect(20, 90, 40, 50), L"Ending!", L"Asset/SoundEffect/button83.ogg")
 {
 	
 }

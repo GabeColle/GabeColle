@@ -11,6 +11,6 @@ private:
 	void drawLeft(RoundRect shape, String const &text, int frame)const;
 	void drawClicked(RoundRect rect, String const &text, int frame)const;
 public:
-	TwitterButton(Rect const &rect, String text, String soundName);
+	TwitterButton(Rect const &rect, String soundName);
 	void update()override;
 };

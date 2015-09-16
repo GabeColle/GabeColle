@@ -58,10 +58,9 @@ void Main()
 	manager.add<Game3Easy>(L"Game3Easy");
 	manager.add<Game3Hard>(L"Game3Hard");
 
-	manager.init(L"Start");
+	manager.init(L"Result");
 
 	while (System::Update()) {
-		Println(DespiteOfScene::isDrawingState_m);
 		if (!manager.updateAndDraw())
 			break;
 		DespiteOfScene::draw();
