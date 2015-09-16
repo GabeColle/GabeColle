@@ -180,7 +180,7 @@ void Game3::saveScore()
 {
 	auto const &e = memory_m.error();
 	m_data->numOfError =  (std::max)(0, e.addressOutOfBounds_m + e.nullptrAccess_m + e.outOfMemory_m + e.segmentationFault_m);
-	m_data->stageName = L"Game3";
+	m_data->stageName = name_m;
 	m_data->numOfDeletedObject = (std::max)(0, deletes_m);
 	m_data->time = (std::max)(0L, frame_m);
 	m_data->totalScore = (std::max)(0L,
