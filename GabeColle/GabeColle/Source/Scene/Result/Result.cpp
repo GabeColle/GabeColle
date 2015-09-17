@@ -6,7 +6,8 @@ Result::Result() :
 fontSize(30),
 resultText(fontSize),
 circleRadius(100),
-tweet_m(Rect(40, 40, 128,128), L"Asset/SoundEffect/button83.ogg")
+tweet_m(Rect(40, 40, 128,128), L"Asset/SoundEffect/button83.ogg"),
+BGM_m(L"Asset/BGM/bgm_maoudamashii_cyber08.ogg")
 {
 	
 }
@@ -57,11 +58,23 @@ void Result::update()
 	/*if (ending_m.isClicked()){
 		this->changeScene(L"StaffRoll");
 	}*/
+
+	static int frameCounter = 0;
+	if(frameCounter >= 60 * 90) {
+		frameCounter = 0;
+		BGM_m.pause(1000);
+		changeScene(L"Start", 1000);
+		return;
+	} else {
+		++frameCounter;
+	}
+
 }
 
 // –ˆƒtƒŒ[ƒ€ update() ‚ÌŸ‚ÉŒÄ‚Î‚ê‚é
 void Result::draw() const
 {
+	BGM_m.play();
 	bg.draw();
 	tweet_m.draw();
 

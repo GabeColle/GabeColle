@@ -1,8 +1,8 @@
 #include "BackGroundAnimation.h"
 
-BackGroundAnimation::BackGroundAnimation() : BGM_m(L"Asset/BGM/bgm_maoudamashii_cyber08.ogg"), texture_m(L"Asset/Image/resultBG2.png")
+BackGroundAnimation::BackGroundAnimation() : texture_m(L"Asset/Image/resultBG2.png")
 {
-	if (!BGM_m || !texture_m)
+	if (!texture_m)
 	{
 		return;	// ÉçÅ[ÉhÇ…é∏îsÇµÇΩÇÁèIóπ
 	}
@@ -20,7 +20,6 @@ void BackGroundAnimation::update()
 
 void BackGroundAnimation::draw()const
 {
-	BGM_m.play();
 	texture_m.draw(bg_x_m, 0);
 	texture_m.mirror().draw(bg_x2_m, 0);
 }

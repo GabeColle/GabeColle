@@ -44,6 +44,15 @@ void GameOver::update(Game3 &parent)
 	if (buttons_m.at(L"Result")->isClicked()) {
 		parent.changeScene(nextScene_m);
 	}
+
+	static int frameCounter = 0;
+	if(frameCounter >= 60 * 90) {
+		frameCounter = 0;
+		parent.changeScene(L"Result", 1000);
+		return;
+	} else {
+		++frameCounter;
+	}
 }
 
 void GameOver::draw()const

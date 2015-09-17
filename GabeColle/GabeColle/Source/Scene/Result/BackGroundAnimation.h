@@ -6,7 +6,6 @@
 
 class BackGroundAnimation{
 private:
-	Sound BGM_m;
 	Texture texture_m; // resultBG2 ’˜ŽÒ:/\lex
 	int BGVelocity_m;
 	int bg_x_m;

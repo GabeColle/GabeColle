@@ -38,6 +38,17 @@ void GameSelect::init(){
 
 void GameSelect::update(){
 
+	static int frameCounter = 0;
+	if(frameCounter >= 60 * 90) {
+		frameCounter = 0;
+		SoundAsset(L"GameSelect_BGM").pause(1000);
+		changeScene(L"Start", 1000);
+		return;
+	}
+	else {
+		++frameCounter;
+	}
+
 	SoundAsset(L"GameSelect_BGM").play();
 
 	for (auto& b : buttons_m){

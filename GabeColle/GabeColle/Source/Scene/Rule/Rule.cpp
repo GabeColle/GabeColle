@@ -65,6 +65,16 @@ void Rule::update()
 		SoundAsset(bgm_m).stop();
 		changeScene(L"Start");
 	}
+
+	static int frameCounter = 0;
+	if(frameCounter >= 60 * 90) {
+		frameCounter = 0;
+		SoundAsset(bgm_m).pause(1000);
+		changeScene(L"Start", 1000);
+		return;
+	} else {
+		++frameCounter;
+	}
 }
 
 // –ˆƒtƒŒ[ƒ€ update() ‚ÌŸ‚ÉŒÄ‚Î‚ê‚é

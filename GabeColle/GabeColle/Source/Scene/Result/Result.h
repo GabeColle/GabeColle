@@ -20,6 +20,8 @@ class Result :
 	public SceneManager<String, GameData>::Scene
 {
 private:
+	Sound BGM_m;
+
 	const int fontSize;
 	const double circleRadius;
 	const Texture backGround;
