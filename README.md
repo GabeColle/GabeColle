@@ -1,4 +1,4 @@
 #Get GabeColle
- 1. "Download ZIP"
- 2. Extract Game.zip
- 3. Execute "GabeColle/GabeColle.exe"
+左下の"Download ZIP"でDownload, "Game.zip"を展開すると  
+"GabeColle"フォルダができるので  
+"GabeColle/GabeColle.exe"を実行する.
