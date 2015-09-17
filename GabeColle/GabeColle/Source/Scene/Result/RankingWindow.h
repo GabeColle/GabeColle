@@ -5,7 +5,8 @@
 #include "CloseButton.h"
 #include "Record.h"
 
-class RankingWindow{
+class RankingWindow : public Visibility
+{
 private:
 	static const int WINDOW_WITDTH = 500;
 	static const int WINDOW_HEIGHT = 600;
@@ -44,4 +45,14 @@ public:
 	void init(int id,int value);
 	void draw()const;
 	bool pushButton();
+	void show()override
+	{
+		Visibility::show();
+		closeButton_m->show();
+	}
+	void hide()override
+	{
+		Visibility::hide();
+		closeButton_m->hide();
+	}
 };

@@ -42,14 +42,9 @@ void Main()
 	// シーンを設定
 	manager.add<Result>(L"Result");
 	manager.add<StaffRoll>(L"StaffRoll");
-	manager.add<Start>(L"Start");
-	
-	
 	manager.add<Rule>(L"Rule");
 	manager.add<Start>(L"Start");
 	manager.add<GameSelect>(L"GameSelect");
-	
-	
 	manager.add<Game1>(L"Game1");
 	manager.add<Game1Easy>(L"Game1Easy");
 	manager.add<Game1Hard>(L"Game1Hard");

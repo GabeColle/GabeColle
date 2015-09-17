@@ -5,6 +5,7 @@ TwitterButton::TwitterButton(Rect const &rect, String soundName) : Button(rect, 
 	if (!TextureAsset::IsRegistered(L"twitterIcon")){
 		TextureAsset::Register(L"twitterIcon", L"Asset/Image/TwitterLogo_#55acee.png");
 	}
+	show();
 }
 
 void TwitterButton::update()
