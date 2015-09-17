@@ -9,6 +9,13 @@ namespace gc {
 class Error
 {
 public:
+	Error() = default;
+	Error(int s, int n, int o, int a)
+		:segmentationFault_m(s),
+		nullptrAccess_m(n),
+		outOfMemory_m(o),
+		addressOutOfBounds_m(a)
+	{}
 	/**生成してないオブジェクトへのアクセス*/
 	int segmentationFault_m = 0;
 	/**ヌルポインタへのアクセス*/

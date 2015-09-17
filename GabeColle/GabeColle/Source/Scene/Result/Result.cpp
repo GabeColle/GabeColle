@@ -6,7 +6,8 @@ Result::Result() :
 fontSize(30),
 resultText(fontSize),
 circleRadius(100),
-tweet_m(Rect(40, 40, 128,128), L"Asset/SoundEffect/button83.ogg")
+tweet_m(Rect(40, 40, 128,128), L"Asset/SoundEffect/button83.ogg"),
+BGM_m(L"Asset/BGM/bgm_maoudamashii_cyber08.ogg")
 {
 	
 }
@@ -51,19 +52,31 @@ void Result::update()
 	if (returnButton_m.leftClicked){
 		this->changeScene(L"StaffRoll", 2000, false);
 	}
-	if (tweet_m.isClicked()){
+	/*if (tweet_m.isClicked()){
 		Twitter::OpenTweetWindow(L"ガベこれの" + this->m_data->stageName + L"で" + Format(this->m_data->totalScore) + L"点とりました！\n#GabeColle #Siv3D");
-	}
+	}*/
 	/*if (ending_m.isClicked()){
 		this->changeScene(L"StaffRoll");
 	}*/
+
+	static int frameCounter = 0;
+	if(frameCounter >= 60 * 90) {
+		frameCounter = 0;
+		BGM_m.pause(1000);
+		changeScene(L"Start", 1000);
+		return;
+	} else {
+		++frameCounter;
+	}
+
 }
 
 // 毎フレーム update() の次に呼ばれる
 void Result::draw() const
 {
+	BGM_m.play();
 	bg.draw();
-	tweet_m.draw();
+	//tweet_m.draw();
 
 	stageNode_m->draw();
 	for (int i = 0; i < 4; ++i){

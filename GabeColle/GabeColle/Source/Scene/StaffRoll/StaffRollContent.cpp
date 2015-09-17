@@ -83,7 +83,7 @@ void StaffRollContent::draw()const
 {
 	if (state_m == L"firstTitle"){
 		FontAsset(titleEnglishFontHandle)(L"G a r b a g e C o l l e c t i o n").drawCenter(Window::Center(), Palette::Whitesmoke);
-		FontAsset(titleJapaneseFontHandle)(L"~ ÉK Éx Ç± ÇÍ ~").drawCenter(Window::Center().movedBy(0,FontAsset(titleJapaneseFontHandle).size+40), Palette::Whitesmoke);
+		FontAsset(titleJapaneseFontHandle)(L"Å` ÉK Éx Ç± ÇÍ Å`").drawCenter(Window::Center().movedBy(0,FontAsset(titleJapaneseFontHandle).size+40), Palette::Whitesmoke);
 	}
 	else if (state_m == L"circleLogo"){
 		TextureAsset(circleLogoHandle).scale(0.8).drawAt(Window::Center());

@@ -5,6 +5,7 @@ TwitterButton::TwitterButton(Rect const &rect, String soundName) : Button(rect, 
 	if (!TextureAsset::IsRegistered(L"twitterIcon")){
 		TextureAsset::Register(L"twitterIcon", L"Asset/Image/TwitterLogo_#55acee.png");
 	}
+	show();
 }
 
 void TwitterButton::update()
@@ -35,7 +36,6 @@ void TwitterButton::drawLeft(RoundRect shape, String const &text, int frame)cons
 
 void TwitterButton::drawClicked(RoundRect shape, String const &text, int frame)const
 {
-	double t = static_cast<double>(frame);
 	static Point clickPoint;
 	if (frame <= 1) {
 		clickPoint = Mouse::Pos();

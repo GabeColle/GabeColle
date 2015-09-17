@@ -71,3 +71,12 @@ public:
 	virtual ~FontSharedText() = default;
 };
 
+class OutlineText : public AbstractText
+{
+	Font font_m;
+public:
+	void font(Font const &font);
+	Font font()const; 
+	void style(TextOutlineStyle const &style);
+	void draw()const override;
+};

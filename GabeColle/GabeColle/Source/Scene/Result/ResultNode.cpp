@@ -38,7 +38,8 @@ void ResultNode::draw()const
 	for (int i = 0; i < 4; ++i){
 		effects[i]->draw();
 	}
-	if (switchRanking_m){
+	//if (switchRanking_m){
+	if(ranking_m->isVisible()){
 		ranking_m->draw();
 	}
 }
@@ -46,9 +47,11 @@ void ResultNode::draw()const
 void ResultNode::pushButton()
 {
 	if (node_m->leftPressed){
-		switchRanking_m = true;
+		//switchRanking_m = true;
+		ranking_m->show();
 	}
 	if (ranking_m->pushButton()){
-		switchRanking_m = false;
+		//switchRanking_m = false;
+		ranking_m->hide();
 	}
 }

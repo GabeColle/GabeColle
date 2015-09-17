@@ -30,8 +30,8 @@ public:
 	protected:
 		using Buttons_t = std::map<String, std::shared_ptr<clickable::Button>>;
 		Buttons_t buttons_m;
-		Text title_m;
-		Text message_m;
+		OutlineText title_m;
+		OutlineText message_m;
 		Color back_m;
 		static String const nextScene_m;
 	public:

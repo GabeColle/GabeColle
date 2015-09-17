@@ -29,7 +29,11 @@ void RankingWindow::init(int id,int value)
 		ownFilter_m = std::make_shared<Rect>(Rect((int)divideLine_m[ownPosition]->begin.x, (int)divideLine_m[ownPosition]->begin.y, WINDOW_WITDTH, BETWEEN_LINE));
 	}
 
-	closeButton_m = std::make_shared<CloseButton>(CloseButton(Rect((int)window_m->x + WINDOW_WITDTH - 40, bar_m->y, 40, BAR_HEIGHT), L"x", L"Asset/SoundEffect/button83.ogg"));
+	closeButton_m = std::make_shared<CloseButton>(
+		CloseButton(Rect((int)window_m->x + WINDOW_WITDTH - 40, bar_m->y, 40, BAR_HEIGHT), L"x", L"Asset/SoundEffect/button83.ogg"));
+
+
+	hide();
 }
 void RankingWindow::draw()const
 {
@@ -42,7 +46,7 @@ void RankingWindow::draw()const
 	for (int i = 0; i < 10; ++i){
 		drawingRankings_m[i](Format(ranking_m[i])).drawCenter(scorePosition_m[i],Palette::White);
 	}
-	if (ownFilter_m != NULL){
+	if (ownFilter_m != nullptr){
 		ownFilter_m->draw(Color(Palette::Aquamarine, 200));
 	}
 	closeButton_m->draw();

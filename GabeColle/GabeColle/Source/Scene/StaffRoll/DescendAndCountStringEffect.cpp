@@ -62,9 +62,9 @@ void DescendAndCountStringEffect::setPosition(Vec2 position)
 
 String DescendAndCountStringEffect::inverseCalculationString(String str,int frame)
 {
-	for (int i = 0; i < str.length; ++i){
+	for (unsigned int i = 0; i < str.length; ++i){
 		if (str.at(i) != '\n' || str.at(i) != '\t'){
-			str.at(i) = (int)str.at(i) - frame;
+			str.at(i) = (wchar)(str.at(i) - frame);
 		}	
 	}
 	
@@ -73,7 +73,7 @@ String DescendAndCountStringEffect::inverseCalculationString(String str,int fram
 
 String DescendAndCountStringEffect::incrementString(String str)
 {
-	for (int i = 0; i < str.length; ++i){
+	for (unsigned int i = 0; i < str.length; ++i){
 		if (str.at(i) != '\n' || str.at(i) != '\t'){
 			str.at(i) = (int)str.at(i) + 2;
 		}

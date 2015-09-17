@@ -15,6 +15,7 @@ void Game2::init()
 	// ƒ‹[ƒg‚ğ‰æ–Ê’†‰›‚É
 	memory_m.root().center(rootPos);
 
+	giveupButton_m.show();
 	completionButton_m.hide();
 	resultButton_m.hide();
 
@@ -31,8 +32,8 @@ void Game2::update()
 {
 	SoundAsset(L"Game2_BGM").play();
 	
-	titleButton_m.update();
-	if (titleButton_m.isClicked()){
+	giveupButton_m.update();
+	if (giveupButton_m.isClicked()){
 		SoundAsset(L"Game2_BGM").pause(500);
 		changeScene(L"Start", 500);
 	}
@@ -116,7 +117,7 @@ void Game2::draw() const
 	drawStates();
 	completionButton_m.draw();
 	resultButton_m.draw();
-	titleButton_m.draw();
+	giveupButton_m.draw();
 	effect_m.update();
 	clickable::Button::drawEffect();
 }
