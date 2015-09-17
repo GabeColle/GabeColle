@@ -2,7 +2,7 @@
 class Visibility
 {
 protected:
-	bool isVisible_m;
+	bool isVisible_m = false;
 public:
 	virtual bool isVisible()const
 	{

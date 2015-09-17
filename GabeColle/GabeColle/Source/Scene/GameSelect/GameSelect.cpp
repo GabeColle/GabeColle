@@ -28,7 +28,10 @@ void GameSelect::init(){
 	for (unsigned i = 0; i < tag_m.size(); ++i){
 		Point pos = { (Window::Width()/4 * ( i/3 +1 ))  + (i%3)*40 -40, 70 * i + 100 };
 		Size size = { 350, 48 };
-		buttons_m.push_back(GameSelectButton(Rect(size).setCenter(pos), tag_m[i].buttonName, /*(90)*(i/3)-(10*i)+20*/hs[i], ok));
+		auto btn = GameSelectButton(
+			Rect(size).setCenter(pos), tag_m[i].buttonName, /*(90)*(i/3)-(10*i)+20*/hs[i], ok);
+		btn.show();
+		buttons_m.push_back(btn);
 	}
 
 	tag_m.push_back({ L"BackToTitle", L"Start", L"Title", Difficulty::normal });
@@ -55,7 +58,7 @@ void GameSelect::update(){
 		b.update();
 	}
 	for (unsigned i = 0; i < buttons_m.size(); ++i){
-		if (buttons_m[i].isMouceOver()){
+		if(buttons_m[i].isMouceOver()) {
 			pictureName_m = Format(tag_m[i].gameName, L"_SS");
 			alpha_m = 96;
 		}
@@ -89,7 +92,7 @@ void GameSelect::draw()const{
 	lingEffect_m.update();
 
 	for (auto& b : buttons_m){
-		b.drawShadow();
+		//b.drawShadow();
 		b.draw();
 	}
 	

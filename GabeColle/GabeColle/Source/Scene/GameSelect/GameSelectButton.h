@@ -4,14 +4,22 @@
 class GameSelectButton
 	: public clickable::Button
 {
+	void drawShadow()const
+	{
+		shape_m.drawShadow({0, 3}, 3);
+	}
 public:
 	GameSelectButton(Rect const &rect, String text, String soundName)
 		: Button(rect,  text,  soundName)
-	{};
+	{
+		show();
+	}
 	GameSelectButton(Rect const &rect, String text, int h, String soundName)
 		: Button(rect, text, h, soundName)
-	{};
-	~GameSelectButton(){};
+	{
+		show();
+	}
+	~GameSelectButton(){}
 	
 
 	bool isMouceOver()const
@@ -19,9 +27,10 @@ public:
 		return shape_m.mouseOver;
 	}
 	
-	void drawShadow()const
+	void draw()const override
 	{
-		shape_m.drawShadow({ 0, 3 }, 3);
+		drawShadow();
+		Button::draw();
 	}
 private:
 	
