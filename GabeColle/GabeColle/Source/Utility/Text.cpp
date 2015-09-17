@@ -85,3 +85,24 @@ void FontSharedText::draw()const
 {
 	FontAsset(fontName_m).drawCenter(string_m, center_m, color_m);
 }
+
+
+void OutlineText::style(TextOutlineStyle const &style)
+{
+	font_m.changeOutlineStyle(style);
+}
+
+void OutlineText::draw()const
+{
+	font_m(string_m).drawCenter(center_m);
+}
+
+void OutlineText::font(Font const &font)
+{
+	font_m = font;
+}
+
+Font OutlineText::font()const
+{
+	return font_m;
+}

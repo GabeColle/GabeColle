@@ -15,15 +15,17 @@ Clear::Clear()
 	static Font font;
 	Color outline = Palette::Black;
 	Color charColor = Palette::Yellow;
+	
 	font = Font(100, Typeface::Black, FontStyle::Outline);
-	font.changeOutlineStyle(TextOutlineStyle(outline, charColor.setAlpha(200), 3.0));
 	title_m.string(L"CLEAR");
 	title_m.font(font);
+	title_m.style(TextOutlineStyle(outline, charColor.setAlpha(200), 3.0));
 	title_m.center(Window::Center().movedBy(0, -100));
+	
 	font = Font(30, Typeface::Medium, FontStyle::Outline);
-	font.changeOutlineStyle(TextOutlineStyle(outline, charColor, 1.0));
 	message_m.string(L"Success");
 	message_m.font(font);
+	message_m.style(TextOutlineStyle(outline, charColor, 1.0));
 	message_m.center(Window::Center().movedBy(0, 60));
 
 	back_m = HSV(240.0, 0.9, 0.9).toColor(127);
