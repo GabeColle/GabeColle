@@ -65,7 +65,7 @@ void Game2::update()
 	}
 	else if (state == State::input )
 	{
-		time_m = Min(time_m +1, static_cast<unsigned int>(999999));
+		time_m++;
 		freeByInput();
 		seekSegmentFault();
 		completionButton_m.show();
