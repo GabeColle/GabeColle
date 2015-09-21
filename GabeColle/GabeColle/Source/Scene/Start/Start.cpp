@@ -42,7 +42,7 @@ void Start::update()
 		changeScene(L"GameSelect");
 	}
 	if (buttons_m.at(L"Quit")->isClicked()) {
-		//System::Exit();
+		System::Exit();
 	}
 	if (buttons_m.at(L"Rule")->isClicked()) {
 		SoundAsset(bgm_m).stop();
