@@ -52,9 +52,9 @@ void Result::update()
 	if (returnButton_m.leftClicked){
 		this->changeScene(L"StaffRoll", 2000, false);
 	}
-	/*if (tweet_m.isClicked()){
+	if (tweet_m.isClicked()){
 		Twitter::OpenTweetWindow(L"ƒKƒx‚±‚ê‚Ì" + this->m_data->stageName + L"‚Å" + Format(this->m_data->totalScore) + L"“_‚Æ‚è‚Ü‚µ‚½I\n#GabeColle #Siv3D");
-	}*/
+	}
 	/*if (ending_m.isClicked()){
 		this->changeScene(L"StaffRoll");
 	}*/
@@ -76,7 +76,7 @@ void Result::draw() const
 {
 	BGM_m.play();
 	bg.draw();
-	//tweet_m.draw();
+	tweet_m.draw();
 
 	stageNode_m->draw();
 	for (int i = 0; i < 4; ++i){
